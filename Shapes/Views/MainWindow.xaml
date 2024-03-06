@@ -20,8 +20,8 @@
         <Label>DCT.TraineeTasks.Shapes</Label>
         <ListBox Grid.Row="1" Grid.Column="0" 
                  x:Name="ShapesListBox"/>
-        <Canvas Grid.Row="1" Grid.Column="1">
-            <Label x:Name="TestLabel">TEST</Label>
+        <Canvas Grid.Row="1" Grid.Column="1"
+                x:Name="ShapesCanvas">
         </Canvas>
         <StackPanel Grid.Row="0" Grid.Column="1" 
                     Orientation="Horizontal"
