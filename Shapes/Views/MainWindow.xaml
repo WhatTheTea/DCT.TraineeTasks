@@ -14,11 +14,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.12*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label>DCT.TraineeTasks.Shapes</Label>
+        
+        <StackPanel>
+            <Label>DCT.TraineeTasks.Shapes</Label>
+            <Button
+                Click="PlayButton_OnClick"
+                x:Name="PlayButton">Play or Pause</Button>
+        </StackPanel>
         <ListBox Grid.Row="1" Grid.Column="0" 
+                 SelectionChanged="ShapesListBox_OnSelectionChanged"
                  x:Name="ShapesListBox"/>
         <Canvas Grid.Row="1" Grid.Column="1"
                 x:Name="ShapesCanvas">

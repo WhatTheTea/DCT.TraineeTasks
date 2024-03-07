@@ -66,4 +66,34 @@ public partial class MainWindow
         Canvas.SetLeft(shape, 10);
     }
 
+    private void PlayButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
+        var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
+        if (found == null)
+        {
+            return;
+        }
+
+        if (found.isPaused)
+        {
+            found.UnPause();
+        }
+        else
+        {
+            found.Pause();
+        }
+
+        this.PlayButton.Content = found.isPaused ? "Play" : "Pause";
+    }
+
+    private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
+        var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
+        if (found != null)
+        {
+            this.PlayButton.Content = found.isPaused ? "Play" : "Pause";
+        }
+    }
 }

@@ -16,7 +16,9 @@ public abstract class MovingShape : Shape
 
     public Action Move { get; private set; }
 
-    public void Pause() => this.Move = () => { };
+    public bool isPaused => this.Move == this.OnPause;
+
+    public void Pause() => this.Move = this.OnPause;
 
     public void UnPause() => this.Move = this.Movement;
 
@@ -26,6 +28,10 @@ public abstract class MovingShape : Shape
         this.Move = this.Movement;
         var random = new Random();
         this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
+    }
+
+    private void OnPause()
+    {
     }
 
     protected double OffsetX { get; set; }
