@@ -17,6 +17,8 @@ public partial class MainWindow
 {
     private List<MovingShape> movingShapes = new();
 
+    private Point Boundary => new (this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight); 
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
@@ -38,16 +40,14 @@ public partial class MainWindow
 
     private void SquareButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var shape = new MovingRectangle(
-            new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
-        AddShape(shape);
+        var shape = new MovingRectangle(this.Boundary);
+        this.AddShape(shape);
     }
 
     private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var shape = new MovingTriangle(
-            new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
-        AddShape(shape);
+        var shape = new MovingTriangle(this.Boundary);
+        this.AddShape(shape);
     }
 
     private void AddShape(MovingShape shape)
@@ -56,5 +56,11 @@ public partial class MainWindow
         this.ShapesCanvas.Children.Add(shape);
         Canvas.SetTop(shape, 10);
         Canvas.SetLeft(shape, 10);
+    }
+
+    private void CircleButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var shape = new MovingCircle(this.Boundary);
+        this.AddShape(shape);
     }
 }

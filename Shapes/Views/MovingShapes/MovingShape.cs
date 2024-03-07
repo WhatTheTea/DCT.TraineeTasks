@@ -10,16 +10,18 @@ using System.Windows.Shapes;
 
 public abstract class MovingShape : Shape
 {
-    public double OffsetX { get; set; }
-
-    public double OffsetY { get; set; }
-
-    protected Point boundary;
+    private Point boundary;
 
     protected MovingShape(Point boundary)
     {
         this.boundary = boundary;
+        var random = new Random();
+        this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
     }
+
+    protected double OffsetX { get; set; }
+
+    protected double OffsetY { get; set; }
 
     public void Move()
     {

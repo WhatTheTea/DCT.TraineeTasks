@@ -36,6 +36,7 @@
             x:Name="SquareButton">Square</Button>
             <Button Margin="5" 
             Padding="5" 
+            Click="CircleButton_OnClick"
             x:Name="CircleButton">Circle</Button>
         </StackPanel>
     </Grid>
