@@ -2,16 +2,16 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
-
 using System.Windows;
 using System.Windows.Media;
+
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 public class MovingRectangle : MovingShape
 {
     private static int RectangleCount;
 
-    public override string ToString() => locale.Square + this.Id;
+    public override string ToString() => this.locale.Square + this.Id;
     
 
     public MovingRectangle(Point boundaries)

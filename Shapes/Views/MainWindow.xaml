@@ -6,8 +6,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:rx="http://reactiveui.net"
         xmlns:vm="clr-namespace:DCT.TraineeTasks.Shapes.ViewModels"
+                   xmlns:local="clr-namespace:DCT.TraineeTasks.Shapes.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Menu>
+            <MenuItem Header="Language">
+                <MenuItem
+                    Click="UkrainianMenuItem_OnClick"
+                    Header="Ukrainian"/>
+                <MenuItem Header="English"/>
+            </MenuItem>
+        </Menu>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*"/>
@@ -17,7 +27,6 @@
             <RowDefinition Height="0.12*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
         <StackPanel>
             <Label>DCT.TraineeTasks.Shapes</Label>
             <Button
@@ -47,4 +56,5 @@
             x:Name="CircleButton">Circle</Button>
         </StackPanel>
     </Grid>
+    </DockPanel>
 </rx:ReactiveWindow>

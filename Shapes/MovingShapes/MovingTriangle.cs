@@ -1,16 +1,17 @@
 ﻿// <copyright file="MovingTriangle.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
-namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
 
 using System.Windows;
 using System.Windows.Media;
+
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 public class MovingTriangle : MovingShape
 {
     private static int TriangleCount;
 
-    public override string ToString() => locale.Triangle + this.Id;
+    public override string ToString() => this.locale.Triangle + this.Id;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MovingTriangle"/> class.

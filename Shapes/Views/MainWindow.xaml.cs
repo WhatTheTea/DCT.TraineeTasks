@@ -2,12 +2,14 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Globalization;
+using DCT.TraineeTasks.Shapes.MovingShapes;
+
 namespace DCT.TraineeTasks.Shapes.Views;
 
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using MovingShapes;
 using ViewModels;
 
 /// <summary>
@@ -83,7 +85,7 @@ public partial class MainWindow
             return;
         }
 
-        if (this.SelectedShape.isPaused)
+        if (this.SelectedShape.IsPaused)
         {
             this.SelectedShape.UnPause();
         }
@@ -92,14 +94,20 @@ public partial class MainWindow
             this.SelectedShape.Pause();
         }
 
-        this.PlayButton.Content = this.SelectedShape.isPaused ? "Play" : "Pause";
+        this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
     }
 
     private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (this.SelectedShape != null)
         {
-            this.PlayButton.Content = this.SelectedShape.isPaused ? "Play" : "Pause";
+            this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
         }
+    }
+
+    private void UkrainianMenuItem_OnClick(object sender, RoutedEventArgs e)
+    {
+        CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("uk");
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("uk");
     }
 }

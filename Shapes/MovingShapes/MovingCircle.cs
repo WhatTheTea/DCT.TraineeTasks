@@ -2,14 +2,15 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
 using System.Windows;
 using System.Windows.Media;
+
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 public class MovingCircle : MovingShape
 {
     private static int CircleCount;
-    public override string ToString() => locale.Circle + this.Id;
+    public override string ToString() => this.locale.Circle + this.Id;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MovingCircle"/> class.

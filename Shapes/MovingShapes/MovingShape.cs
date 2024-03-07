@@ -1,14 +1,12 @@
 ﻿// <copyright file="MovingShape.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
-
-using Splat;
-
-namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Splat;
 
 public abstract class MovingShape : Shape
 {
@@ -18,7 +16,7 @@ public abstract class MovingShape : Shape
 
     public Action Move { get; private set; }
 
-    public bool isPaused => this.Move == this.OnPause;
+    public bool IsPaused => this.Move == this.OnPause;
 
     public void Pause() => this.Move = this.OnPause;
 
