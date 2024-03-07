@@ -17,7 +17,17 @@ public partial class MainWindow
 {
     private List<MovingShape> movingShapes = new();
 
-    private Point Boundary => new (this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight); 
+    private MovingShape? SelectedShape
+    {
+        get
+        {
+            var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
+            var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
+            return found;
+        }
+    }
+
+    private Point Boundary => new(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -39,6 +49,15 @@ public partial class MainWindow
         timer.Start();
     }
 
+    private void AddShape(MovingShape shape)
+    {
+        this.movingShapes.Add(shape);
+        this.ShapesListBox.Items.Add(shape.ToString());
+        this.ShapesCanvas.Children.Add(shape);
+        Canvas.SetTop(shape, 10);
+        Canvas.SetLeft(shape, 10);
+    }
+
     private void SquareButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingRectangle(this.Boundary);
@@ -57,43 +76,30 @@ public partial class MainWindow
         this.AddShape(shape);
     }
 
-    private void AddShape(MovingShape shape)
-    {
-        this.movingShapes.Add(shape);
-        this.ShapesListBox.Items.Add(shape.ToString());
-        this.ShapesCanvas.Children.Add(shape);
-        Canvas.SetTop(shape, 10);
-        Canvas.SetLeft(shape, 10);
-    }
-
     private void PlayButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
-        var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
-        if (found == null)
+        if (this.SelectedShape == null)
         {
             return;
         }
 
-        if (found.isPaused)
+        if (this.SelectedShape.isPaused)
         {
-            found.UnPause();
+            this.SelectedShape.UnPause();
         }
         else
         {
-            found.Pause();
+            this.SelectedShape.Pause();
         }
 
-        this.PlayButton.Content = found.isPaused ? "Play" : "Pause";
+        this.PlayButton.Content = this.SelectedShape.isPaused ? "Play" : "Pause";
     }
 
     private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
-        var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
-        if (found != null)
+        if (this.SelectedShape != null)
         {
-            this.PlayButton.Content = found.isPaused ? "Play" : "Pause";
+            this.PlayButton.Content = this.SelectedShape.isPaused ? "Play" : "Pause";
         }
     }
 }

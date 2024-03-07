@@ -6,8 +6,12 @@
 namespace DCT.TraineeTasks.Shapes;
 
 using ReactiveUI;
-using System.Reflection;
+
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
 using Splat;
+using Splat.Microsoft.Extensions.DependencyInjection;
 
 
 /// <summary>
@@ -17,6 +21,30 @@ public partial class App
 {
     public App()
     {
-        Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+        this.InitIoC();
+    }
+
+    private IServiceProvider Container { get; set; }
+
+    private void InitIoC()
+    {
+        var host = Host
+            .CreateDefaultBuilder()
+            .ConfigureServices(services =>
+            {
+                services.UseMicrosoftDependencyResolver();
+                var resolver = Locator.CurrentMutable;
+                resolver.InitializeSplat();
+                resolver.InitializeReactiveUI();
+
+                services.AddLogging()
+                    .AddLocalization(
+                        options => options.ResourcesPath = "Resources")
+                    ;
+            })
+            .UseEnvironment(Environments.Development)
+            .Build();
+        this.Container = host.Services;
+        this.Container.UseMicrosoftDependencyResolver();
     }
 }
