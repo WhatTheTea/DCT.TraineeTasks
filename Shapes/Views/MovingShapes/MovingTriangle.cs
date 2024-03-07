@@ -8,6 +8,8 @@ using System.Windows.Media;
 
 public class MovingTriangle : MovingShape
 {
+    private static int TriangleCount = 0;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MovingTriangle"/> class.
     /// </summary>
@@ -26,13 +28,15 @@ public class MovingTriangle : MovingShape
                 }.AsReadOnly(),
                 true),
         ]);
-
+        TriangleCount++;
         this.Stroke = new SolidColorBrush(Colors.Gold);
         this.Height = 50;
         this.Width = 50;
         this.OffsetX = 9;
         this.OffsetY = 9;
+        this.Id = TriangleCount;
     }
 
+    /// <inheritdoc/>
     protected override Geometry DefiningGeometry { get; }
 }

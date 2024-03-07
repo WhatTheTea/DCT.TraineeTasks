@@ -12,9 +12,18 @@ public abstract class MovingShape : Shape
 {
     public Point Boundary { get; set; }
 
+    public int Id { get; protected set; }
+
+    public Action Move { get; private set; }
+
+    public void Pause() => this.Move = () => { };
+
+    public void UnPause() => this.Move = this.Movement;
+
     protected MovingShape(Point boundary)
     {
         this.Boundary = boundary;
+        this.Move = this.Movement;
         var random = new Random();
         this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
     }
@@ -23,7 +32,7 @@ public abstract class MovingShape : Shape
 
     protected double OffsetY { get; set; }
 
-    public void Move()
+    private void Movement()
     {
         var transform = this.RenderTransform.Transform(default);
         this.CheckOffsets(transform);

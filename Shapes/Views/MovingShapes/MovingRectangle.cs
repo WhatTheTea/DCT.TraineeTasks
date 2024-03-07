@@ -9,6 +9,7 @@ using System.Windows.Media;
 
 public class MovingRectangle : MovingShape
 {
+    private static int RectangleCount = 0;
     public MovingRectangle(Point boundaries)
         : base(boundaries)
     {
@@ -16,13 +17,16 @@ public class MovingRectangle : MovingShape
         {
             Rect = new Rect(0, 0, 20, 20),
         };
-
+        RectangleCount++;
         this.Stroke = new SolidColorBrush(Colors.RoyalBlue);
         this.Height = 40;
         this.Width = 40;
         this.OffsetX = 6;
         this.OffsetY = 6;
+        this.Id = RectangleCount;
     }
+
+    ~MovingRectangle() => RectangleCount--;
 
     /// <inheritdoc/>
     protected override Geometry DefiningGeometry { get; }
