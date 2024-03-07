@@ -42,27 +42,25 @@ public partial class MainWindow
     private void SquareButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingRectangle(this.Boundary);
-        this.ShapesListBox.Items.Add("Square " + shape.Id);
         this.AddShape(shape);
     }
 
     private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingTriangle(this.Boundary);
-        this.ShapesListBox.Items.Add("Triangle " + shape.Id);
         this.AddShape(shape);
     }
 
     private void CircleButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingCircle(this.Boundary);
-        this.ShapesListBox.Items.Add("Circle " + shape.Id);
         this.AddShape(shape);
     }
 
     private void AddShape(MovingShape shape)
     {
         this.movingShapes.Add(shape);
+        this.ShapesListBox.Items.Add(shape.ToString());
         this.ShapesCanvas.Children.Add(shape);
         Canvas.SetTop(shape, 10);
         Canvas.SetLeft(shape, 10);
