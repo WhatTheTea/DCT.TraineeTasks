@@ -10,7 +10,7 @@ using Microsoft.Extensions.Localization;
 
 public class LocalizedText(IStringLocalizer<LocalizedText> localizer)
 {
-    public string Circle => localizer.GetString("Circle");
+    public string Circle => localizer["Circle"];
 
     public string Square => localizer["Square"];
 

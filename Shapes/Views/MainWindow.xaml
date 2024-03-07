@@ -10,10 +10,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
-        <Menu>
+        <Menu DockPanel.Dock="Top">
             <MenuItem Header="Language">
                 <MenuItem
-                    Click="UkrainianMenuItem_OnClick"
+                    x:Name="UkrainianLanguageMenuItem"
                     Header="Ukrainian"/>
                 <MenuItem Header="English"/>
             </MenuItem>
@@ -34,25 +34,35 @@
                 x:Name="PlayButton">Play or Pause</Button>
         </StackPanel>
         <ListBox Grid.Row="1" Grid.Column="0" 
-                 SelectionChanged="ShapesListBox_OnSelectionChanged"
-                 x:Name="ShapesListBox"/>
-        <Canvas Grid.Row="1" Grid.Column="1"
-                x:Name="ShapesCanvas">
-        </Canvas>
+                 x:Name="ShapesListBox">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ItemsControl Grid.Row="1" Grid.Column="1" 
+                      x:Name="ShapesCanvasItemsControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        
         <StackPanel Grid.Row="0" Grid.Column="1" 
                     Orientation="Horizontal"
                     x:Name="ShapesStackPanel">
             <Button Margin="5" 
             Padding="5" 
-            Click="TriangleButton_OnClick"
             x:Name="TriangleButton">Triangle</Button>
             <Button Margin="5" 
             Padding="5"
-            Click="SquareButton_OnClick"
             x:Name="SquareButton">Square</Button>
             <Button Margin="5" 
             Padding="5" 
-            Click="CircleButton_OnClick"
+            
             x:Name="CircleButton">Circle</Button>
         </StackPanel>
     </Grid>

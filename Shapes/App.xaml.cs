@@ -2,6 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Views;
+
 namespace DCT.TraineeTasks.Shapes;
 
 using ReactiveUI;
@@ -41,6 +44,8 @@ public partial class App
                     .AddLocalization(
                         options => options.ResourcesPath = "Resources")
                     .AddSingleton<LocalizedText>()
+                    .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
+                    .AddSingleton<MainWindowViewModel>()
                     ;
             })
             .UseEnvironment(Environments.Development)

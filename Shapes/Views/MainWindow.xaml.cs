@@ -2,34 +2,32 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Globalization;
-using DCT.TraineeTasks.Shapes.MovingShapes;
+using System.Reactive.Disposables;
+using System.Windows.Controls.Primitives;
+using ReactiveUI;
+using Splat;
 
 namespace DCT.TraineeTasks.Shapes.Views;
 
 using System.Windows;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using ViewModels;
+using MovingShapes;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml.
 /// </summary>
 public partial class MainWindow
 {
-    private List<MovingShape> movingShapes = new();
+    public DispatcherTimer Timer { get; set; }
 
-    private MovingShape? SelectedShape
+    private Point Boundary
     {
-        get
-        {
-            var selected = this.ShapesListBox.SelectedItem as string ?? string.Empty;
-            var found = this.movingShapes.FirstOrDefault(x => x.ToString() == selected);
-            return found;
-        }
+        get => new(this.ShapesCanvasItemsControl.ActualWidth, this.ShapesCanvasItemsControl.ActualHeight);
+        set => _ = value;
     }
-
-    private Point Boundary => new(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -37,77 +35,72 @@ public partial class MainWindow
     public MainWindow()
     {
         this.InitializeComponent();
-        this.ViewModel = new MainWindowViewModel();
-        var timer = new DispatcherTimer();
-        timer.Tick += (_, _) =>
-        {
-            foreach (var shape in this.movingShapes)
+        this.ViewModel = Locator.Current.GetService<MainWindowViewModel>();
+        this.Timer = new DispatcherTimer();
+        this.Timer.Interval = TimeSpan.FromMilliseconds(21);
+        this.WhenActivated(
+            d =>
             {
-                shape.Boundary = this.Boundary;
-                shape.Move();
-            }
-        };
-        timer.Interval = TimeSpan.FromMilliseconds(21);
-        timer.Start();
+                this.ViewModel.Boundary = Boundary;
+                this.OneWayBind(
+                    this.ViewModel,
+                    vm => vm.MovingShapesNames,
+                    v => v.ShapesListBox.ItemsSource)
+                    .DisposeWith(d);
+                this.OneWayBind(
+                    this.ViewModel,
+                    vm => vm.MovingShapes,
+                    v => v.ShapesCanvasItemsControl.ItemsSource)
+                    .DisposeWith(d);
+                this.Bind(
+                    this.ViewModel,
+                    vm => vm.Boundary,
+                    v => v.Boundary,
+                    this.ShapesCanvasItemsControl.Events().SizeChanged)
+                    .DisposeWith(d);
+                this.BindCommand(
+                        this.ViewModel,
+                        vm => vm.AddCircle,
+                        v => v.CircleButton)
+                    .DisposeWith(d);
+                this.BindCommand(
+                        this.ViewModel,
+                        vm => vm.TimerTick,
+                        v => v.Timer,
+                        nameof(Timer.Tick))
+                    .DisposeWith(d);
+            });
+        this.Timer.Start();
     }
 
-    private void AddShape(MovingShape shape)
-    {
-        this.movingShapes.Add(shape);
-        this.ShapesListBox.Items.Add(shape.ToString());
-        this.ShapesCanvas.Children.Add(shape);
-        Canvas.SetTop(shape, 10);
-        Canvas.SetLeft(shape, 10);
-    }
-
-    private void SquareButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var shape = new MovingRectangle(this.Boundary);
-        this.AddShape(shape);
-    }
-
-    private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var shape = new MovingTriangle(this.Boundary);
-        this.AddShape(shape);
-    }
-
-    private void CircleButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var shape = new MovingCircle(this.Boundary);
-        this.AddShape(shape);
-    }
-
+    // private void PlayButton_OnClick(object sender, RoutedEventArgs e)
+    // {
+    //     if (this.SelectedShape == null)
+    //     {
+    //         return;
+    //     }
+    //
+    //     if (this.SelectedShape.IsPaused)
+    //     {
+    //         this.SelectedShape.UnPause();
+    //     }
+    //     else
+    //     {
+    //         this.SelectedShape.Pause();
+    //     }
+    //
+    //     this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
+    // }
+    //
+    // private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    // {
+    //     if (this.SelectedShape != null)
+    //     {
+    //         this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
+    //     }
+    // }
     private void PlayButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (this.SelectedShape == null)
-        {
-            return;
-        }
-
-        if (this.SelectedShape.IsPaused)
-        {
-            this.SelectedShape.UnPause();
-        }
-        else
-        {
-            this.SelectedShape.Pause();
-        }
-
-        this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
-    }
-
-    private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (this.SelectedShape != null)
-        {
-            this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
-        }
-    }
-
-    private void UkrainianMenuItem_OnClick(object sender, RoutedEventArgs e)
-    {
-        CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("uk");
-        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("uk");
+        Console.WriteLine(this.ShapesListBox.Items[0]);
     }
 }
