@@ -9,7 +9,11 @@ using System.Windows.Media;
 
 public class MovingRectangle : MovingShape
 {
-    private static int RectangleCount = 0;
+    private static int RectangleCount;
+
+    public override string ToString() => "Square " + this.Id;
+    
+
     public MovingRectangle(Point boundaries)
         : base(boundaries)
     {

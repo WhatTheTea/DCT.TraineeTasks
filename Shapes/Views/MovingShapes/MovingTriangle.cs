@@ -8,7 +8,9 @@ using System.Windows.Media;
 
 public class MovingTriangle : MovingShape
 {
-    private static int TriangleCount = 0;
+    private static int TriangleCount;
+
+    public override string ToString() => "Triangle " + this.Id;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MovingTriangle"/> class.
