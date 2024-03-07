@@ -27,7 +27,7 @@ public class MovingTriangle : MovingShape
                 true),
         ]);
 
-        this.Fill = new SolidColorBrush(Colors.Gold);
+        this.Stroke = new SolidColorBrush(Colors.Gold);
         this.Height = 50;
         this.Width = 50;
         this.OffsetX = 9;

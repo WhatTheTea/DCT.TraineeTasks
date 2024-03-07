@@ -10,11 +10,11 @@ using System.Windows.Shapes;
 
 public abstract class MovingShape : Shape
 {
-    private Point boundary;
+    public Point Boundary { get; set; }
 
     protected MovingShape(Point boundary)
     {
-        this.boundary = boundary;
+        this.Boundary = boundary;
         var random = new Random();
         this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
     }
@@ -33,12 +33,12 @@ public abstract class MovingShape : Shape
     private void CheckOffsets(Point transform)
     {
         var nextPoint = new Point(transform.X + this.OffsetX, transform.Y + this.OffsetY);
-        if (nextPoint.X >= this.boundary.X || nextPoint.X <= 0)
+        if (nextPoint.X >= this.Boundary.X || nextPoint.X <= 0)
         {
             this.OffsetX *= -1;
         }
 
-        if (nextPoint.Y >= this.boundary.Y || nextPoint.Y <= 0)
+        if (nextPoint.Y >= this.Boundary.Y || nextPoint.Y <= 0)
         {
             this.OffsetY *= -1;
         }

@@ -17,7 +17,7 @@ public class MovingRectangle : MovingShape
             Rect = new Rect(0, 0, 20, 20),
         };
 
-        this.Fill = new SolidColorBrush(Colors.RoyalBlue);
+        this.Stroke = new SolidColorBrush(Colors.RoyalBlue);
         this.Height = 40;
         this.Width = 40;
         this.OffsetX = 6;

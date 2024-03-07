@@ -13,7 +13,7 @@ public class MovingCircle : MovingShape
     {
         this.DefiningGeometry = new EllipseGeometry(new Rect(0, 0, 30, 30));
 
-        this.Fill = new SolidColorBrush(Colors.Firebrick);
+        this.Stroke = new SolidColorBrush(Colors.Lime);
         this.Height = 30;
         this.Width = 30;
         this.OffsetX = 7;

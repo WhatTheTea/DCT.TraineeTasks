@@ -16,6 +16,9 @@ using ViewModels;
 public partial class MainWindow
 {
     private List<MovingShape> movingShapes = new();
+    private int circleCount = 0;
+    private int triangleCount = 0;
+    private int rectangleCount = 0;
 
     private Point Boundary => new (this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight); 
 
@@ -31,6 +34,7 @@ public partial class MainWindow
         {
             foreach (var shape in this.movingShapes)
             {
+                shape.Boundary = this.Boundary;
                 shape.Move();
             }
         };
@@ -41,12 +45,24 @@ public partial class MainWindow
     private void SquareButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingRectangle(this.Boundary);
+        this.rectangleCount++;
+        this.ShapesListBox.Items.Add("Square " + this.rectangleCount);
         this.AddShape(shape);
     }
 
     private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
     {
         var shape = new MovingTriangle(this.Boundary);
+        this.triangleCount++;
+        this.ShapesListBox.Items.Add("Triangle " + this.triangleCount);
+        this.AddShape(shape);
+    }
+
+    private void CircleButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var shape = new MovingCircle(this.Boundary);
+        this.circleCount++;
+        this.ShapesListBox.Items.Add("Circle " + this.circleCount);
         this.AddShape(shape);
     }
 
@@ -58,9 +74,4 @@ public partial class MainWindow
         Canvas.SetLeft(shape, 10);
     }
 
-    private void CircleButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var shape = new MovingCircle(this.Boundary);
-        this.AddShape(shape);
-    }
 }
