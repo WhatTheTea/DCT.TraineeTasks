@@ -9,6 +9,7 @@
         <RootNamespace>DCT.TraineeTasks.Shapes</RootNamespace>
         <Company>DCT</Company>
         <Product>TraineeTasks.Shapes</Product>
+        <NeutralLanguage>uk-UA</NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,18 +36,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Figures.resx">
+      <EmbeddedResource Update="Resources\LocalizedText.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Figures.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Figures.resx</DependentUpon>
-      </Compile>
+      <EmbeddedResource Update="Resources\LocalizedText.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

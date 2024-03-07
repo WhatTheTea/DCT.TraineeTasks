@@ -2,6 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using Splat;
+
 namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
 
 using System.Windows;
@@ -37,6 +39,8 @@ public abstract class MovingShape : Shape
     protected double OffsetX { get; set; }
 
     protected double OffsetY { get; set; }
+
+    protected LocalizedText locale = Locator.Current.GetService<LocalizedText>() !;
 
     private void Movement()
     {

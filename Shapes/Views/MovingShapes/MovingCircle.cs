@@ -9,8 +9,7 @@ using System.Windows.Media;
 public class MovingCircle : MovingShape
 {
     private static int CircleCount;
-
-    public override string ToString() => "Circle " + this.Id;
+    public override string ToString() => locale.Circle + this.Id;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MovingCircle"/> class.

@@ -11,7 +11,7 @@ public class MovingRectangle : MovingShape
 {
     private static int RectangleCount;
 
-    public override string ToString() => "Square " + this.Id;
+    public override string ToString() => locale.Square + this.Id;
     
 
     public MovingRectangle(Point boundaries)

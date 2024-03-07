@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Windows;
+using Microsoft.Extensions.Localization;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, // where theme specific resource dictionaries are located.
@@ -10,3 +11,5 @@ using System.Windows;
 ]
 
 [assembly: CLSCompliant(true)]
+[assembly: ResourceLocation("Resources")]
+[assembly: RootNamespace("DCT.TraineeTasks.Shapes")]

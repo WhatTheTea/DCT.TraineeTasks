@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-
 namespace DCT.TraineeTasks.Shapes;
 
 using ReactiveUI;
@@ -12,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 
 /// <summary>
@@ -40,6 +40,7 @@ public partial class App
                 services.AddLogging()
                     .AddLocalization(
                         options => options.ResourcesPath = "Resources")
+                    .AddSingleton<LocalizedText>()
                     ;
             })
             .UseEnvironment(Environments.Development)

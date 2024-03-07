@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <data name="Circle" xml:space="preserve">
+        <value>Circle </value>
+    </data>
+    <data name="Square" xml:space="preserve">
+        <value>Square </value>
+    </data>
+    <data name="Triangle" xml:space="preserve">
+        <value>Triangle </value>
+    </data>
+</root>
