@@ -65,42 +65,34 @@ public partial class MainWindow
                     .DisposeWith(d);
                 this.BindCommand(
                         this.ViewModel,
-                        vm => vm.TimerTick,
+                        vm => vm.AddSquare,
+                        v => v.SquareButton)
+                    .DisposeWith(d);
+                this.BindCommand(
+                        this.ViewModel,
+                        vm => vm.AddTriangle,
+                        v => v.TriangleButton)
+                    .DisposeWith(d);
+                this.BindCommand(
+                        this.ViewModel,
+                        vm => vm.MoveShapes,
                         v => v.Timer,
-                        nameof(Timer.Tick))
+                        nameof(this.Timer.Tick))
+                    .DisposeWith(d);
+                this.WhenAnyValue(x => x.ShapesListBox.SelectedItem)
+                    .BindTo(this.ViewModel, x => x.SelectedShapeName)
+                    .DisposeWith(d);
+                this.BindCommand(
+                        this.ViewModel,
+                        vm => vm.PlayPause,
+                        v => v.PlayButton)
+                    .DisposeWith(d);
+                this.OneWayBind(
+                    this.ViewModel,
+                    vm => vm.PlayButtonText,
+                    v => v.PlayButton.Content)
                     .DisposeWith(d);
             });
         this.Timer.Start();
-    }
-
-    // private void PlayButton_OnClick(object sender, RoutedEventArgs e)
-    // {
-    //     if (this.SelectedShape == null)
-    //     {
-    //         return;
-    //     }
-    //
-    //     if (this.SelectedShape.IsPaused)
-    //     {
-    //         this.SelectedShape.UnPause();
-    //     }
-    //     else
-    //     {
-    //         this.SelectedShape.Pause();
-    //     }
-    //
-    //     this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
-    // }
-    //
-    // private void ShapesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    // {
-    //     if (this.SelectedShape != null)
-    //     {
-    //         this.PlayButton.Content = this.SelectedShape.IsPaused ? "Play" : "Pause";
-    //     }
-    // }
-    private void PlayButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine(this.ShapesListBox.Items[0]);
     }
 }

@@ -32,6 +32,7 @@ public abstract class MovingShape : Shape
 
     private void OnPause()
     {
+        // Do nothing
     }
 
     protected double OffsetX { get; set; }

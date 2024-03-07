@@ -30,7 +30,6 @@
         <StackPanel>
             <Label>DCT.TraineeTasks.Shapes</Label>
             <Button
-                Click="PlayButton_OnClick"
                 x:Name="PlayButton">Play or Pause</Button>
         </StackPanel>
         <ListBox Grid.Row="1" Grid.Column="0" 
