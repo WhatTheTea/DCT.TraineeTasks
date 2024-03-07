@@ -15,13 +15,11 @@ using ViewModels;
 /// </summary>
 public partial class MainWindow
 {
+    private List<MovingShape> movingShapes = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
-    private List<MovingShape> movingShapes = new();
-
-    private ShapeFactory shapeFactory = new();
-
     public MainWindow()
     {
         this.InitializeComponent();
@@ -40,14 +38,14 @@ public partial class MainWindow
 
     private void SquareButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var shape = this.shapeFactory.MakeRectangle(
+        var shape = new MovingRectangle(
             new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
         AddShape(shape);
     }
 
     private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var shape = this.shapeFactory.MakeTriangle(
+        var shape = new MovingTriangle(
             new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
         AddShape(shape);
     }

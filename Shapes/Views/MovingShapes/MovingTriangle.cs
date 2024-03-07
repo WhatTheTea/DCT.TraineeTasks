@@ -1,15 +1,19 @@
 ﻿// <copyright file="MovingTriangle.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
+namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
 
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.Views.MovingShapes;
-
 public class MovingTriangle : MovingShape
 {
-    public MovingTriangle(Point boundary) : base(boundary)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MovingTriangle"/> class.
+    /// </summary>
+    /// <param name="boundary">Max XY position</param>
+    public MovingTriangle(Point boundary)
+        : base(boundary)
     {
         this.DefiningGeometry = new PathGeometry(
         [
@@ -22,6 +26,12 @@ public class MovingTriangle : MovingShape
                 }.AsReadOnly(),
                 true),
         ]);
+
+        this.Fill = new SolidColorBrush(Colors.Gold);
+        this.Height = 50;
+        this.Width = 50;
+        this.OffsetX = 9;
+        this.OffsetY = 9;
     }
 
     protected override Geometry DefiningGeometry { get; }

@@ -9,13 +9,19 @@ using System.Windows.Media;
 
 public class MovingRectangle : MovingShape
 {
-    public MovingRectangle(Rect rectangle, Point boundaries)
+    public MovingRectangle(Point boundaries)
         : base(boundaries)
     {
         this.DefiningGeometry = new RectangleGeometry
         {
-            Rect = rectangle,
+            Rect = new Rect(0, 0, 20, 20),
         };
+
+        this.Fill = new SolidColorBrush(Colors.RoyalBlue);
+        this.Height = 40;
+        this.Width = 40;
+        this.OffsetX = 6;
+        this.OffsetY = 6;
     }
 
     /// <inheritdoc/>
