@@ -2,17 +2,13 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Reactive.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using DCT.TraineeTasks.Shapes.ViewModels;
-
 namespace DCT.TraineeTasks.Shapes.Views;
 
-using System.Reactive.Disposables;
-using ReactiveUI;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
+using MovingShapes;
+using ViewModels;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml.
@@ -22,34 +18,45 @@ public partial class MainWindow
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
+    private List<MovingShape> movingShapes = new();
+
+    private ShapeFactory shapeFactory = new();
+
     public MainWindow()
     {
         this.InitializeComponent();
         this.ViewModel = new MainWindowViewModel();
-        this.WhenActivated(
-            d =>
+        var timer = new DispatcherTimer();
+        timer.Tick += (_, _) =>
+        {
+            foreach (var shape in this.movingShapes)
             {
-                // // this.OneWayBind(
-                // //         this.ViewModel,
-                // //         vm => vm.ShapeNames,
-                // //         v => v.ShapesListBox.Items)
-                // //     .DisposeWith(d);
-                // this.ShapesCanvas.Events().SizeChanged
-                //     .Select(x => x.NewSize)
-                //     .Subscribe(x =>
-                //     {
-                //         this.ViewModel.CanvasSize = x;
-                //         var rect = new Rectangle
-                //         {
-                //             Height = x.Height / 10,
-                //             Width = x.Width / 10,
-                //             Fill = new SolidColorBrush(Colors.Black),
-                //         };
-                //         this.ShapesCanvas.Children.Add(rect);
-                //         Canvas.SetTop(rect, 10);
-                //         Canvas.SetLeft(rect, 10);
-                //     })
-                //     .DisposeWith(d);
-            });
+                shape.Move();
+            }
+        };
+        timer.Interval = TimeSpan.FromMilliseconds(21);
+        timer.Start();
+    }
+
+    private void SquareButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var shape = this.shapeFactory.MakeRectangle(
+            new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
+        AddShape(shape);
+    }
+
+    private void TriangleButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var shape = this.shapeFactory.MakeTriangle(
+            new Point(this.ShapesCanvas.ActualWidth, this.ShapesCanvas.ActualHeight));
+        AddShape(shape);
+    }
+
+    private void AddShape(MovingShape shape)
+    {
+        this.movingShapes.Add(shape);
+        this.ShapesCanvas.Children.Add(shape);
+        Canvas.SetTop(shape, 10);
+        Canvas.SetLeft(shape, 10);
     }
 }

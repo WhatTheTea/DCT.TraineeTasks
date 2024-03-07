@@ -28,9 +28,11 @@
                     x:Name="ShapesStackPanel">
             <Button Margin="5" 
             Padding="5" 
+            Click="TriangleButton_OnClick"
             x:Name="TriangleButton">Triangle</Button>
             <Button Margin="5" 
-            Padding="5" 
+            Padding="5"
+            Click="SquareButton_OnClick"
             x:Name="SquareButton">Square</Button>
             <Button Margin="5" 
             Padding="5" 
