@@ -38,7 +38,19 @@ public partial class MainWindow
             this.OneWayBind(
                 this.ViewModel,
                 vm => vm.PlayButtonText,
-                v => v.PlayButton.Content)
+                v => v.PlayButton.Content),
+            this.OneWayBind(
+                this.ViewModel,
+                vm => vm.CircleText,
+                v => v.CircleButton.Content),
+            this.OneWayBind(
+                this.ViewModel,
+                vm => vm.SquareText,
+                v => v.SquareButton.Content),
+            this.OneWayBind(
+                this.ViewModel,
+                vm => vm.TriangleText,
+                v => v.TriangleButton.Content)
         ];
         IDisposable[] shapesCommandBindings =
         [
