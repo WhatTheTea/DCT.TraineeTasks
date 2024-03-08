@@ -9,4 +9,13 @@
     <data name="Triangle" xml:space="preserve">
         <value>Трикутник</value>
     </data>
+    <data name="playButtonPlay" xml:space="preserve">
+        <value>Рухатись</value>
+    </data>
+    <data name="playButtonPause" xml:space="preserve">
+        <value>Зупинити</value>
+    </data>
+    <data name="playButtonSelect" xml:space="preserve">
+        <value>Оберіть фігуру</value>
+    </data>
 </root>

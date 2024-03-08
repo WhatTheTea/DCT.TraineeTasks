@@ -11,7 +11,7 @@ namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 public abstract class MovingShape : Shape
 {
-    protected LocalizedText locale = Locator.Current.GetService<LocalizedText>() !;
+    protected LocalizerService locale = Locator.Current.GetService<LocalizerService>() !;
 
     protected MovingShape(Point boundary)
     {

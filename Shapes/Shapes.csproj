@@ -36,13 +36,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Update="Resources\LocalizedText.resx">
+        <EmbeddedResource Update="Resources\LocalizerService.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\LocalizedText.uk.resx">
+        <EmbeddedResource Update="Resources\LocalizerService.uk.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
+            <DependentUpon>LocalizerService.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
 

@@ -2,21 +2,23 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+namespace DCT.TraineeTasks.Shapes.ViewModels;
+
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
-using DCT.TraineeTasks.Shapes.MovingShapes;
+using MovingShapes;
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+using Splat;
 
 public class MainWindowViewModel : ReactiveObject
 {
+    private LocalizerService Localizer = Locator.Current.GetService<LocalizerService>() !;
     public MainWindowViewModel()
     {
         // Moving shapes -> shapes names
@@ -77,9 +79,19 @@ public class MainWindowViewModel : ReactiveObject
 
                 this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
                 this.PlayButtonText = this.GetPlayButtonTextFor(this.SelectedShape);
+                this.SetShapesText();
 
                 return default;
             });
+
+        this.SetShapesText();
+    }
+
+    private void SetShapesText()
+    {
+        this.TriangleText = this.Localizer.Triangle;
+        this.CircleText = this.Localizer.Circle;
+        this.SquareText = this.Localizer.Square;
     }
 
     [Reactive] public CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentUICulture;
@@ -123,9 +135,9 @@ public class MainWindowViewModel : ReactiveObject
     {
         if (shape == null)
         {
-            return "Select item";
+            return this.Localizer.PlayButtonSelect;
         }
 
-        return shape.IsPaused ? "Play" : "Pause";
+        return shape.IsPaused ? this.Localizer.PlayButtonPlay : this.Localizer.PlayButtonPause;
     }
 }

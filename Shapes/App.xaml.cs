@@ -38,7 +38,7 @@ public partial class App
 
                     services.AddLogging()
                         .AddLocalization(options => options.ResourcesPath = "Resources")
-                        .AddSingleton<LocalizedText>()
+                        .AddSingleton<LocalizerService>()
                         .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
                         .AddSingleton<MainWindowViewModel>()
                         ;

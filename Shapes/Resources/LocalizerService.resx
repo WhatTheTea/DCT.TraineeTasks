@@ -9,4 +9,13 @@
     <data name="Triangle" xml:space="preserve">
         <value>Triangle </value>
     </data>
+    <data name="playButtonPlay" xml:space="preserve">
+        <value>Play</value>
+    </data>
+    <data name="playButtonPause" xml:space="preserve">
+        <value>Pause</value>
+    </data>
+    <data name="playButtonSelect" xml:space="preserve">
+        <value>Select shape</value>
+    </data>
 </root>
