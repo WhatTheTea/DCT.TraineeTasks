@@ -14,7 +14,9 @@
                 <MenuItem
                     x:Name="UkrainianLanguageMenuItem"
                     Header="Ukrainian" />
-                <MenuItem Header="English" />
+                <MenuItem 
+                    x:Name="EnglishLanguageMenuItem"
+                    Header="English" />
             </MenuItem>
         </Menu>
         <Grid>

@@ -70,7 +70,12 @@ public partial class MainWindow
                 this.ViewModel,
                 vm => vm.ChangeLanguage,
                 v => v.UkrainianLanguageMenuItem,
-                Observable.Return(CultureInfo.GetCultureInfo("uk")))
+                Observable.Return(CultureInfo.GetCultureInfo("uk"))),
+            this.BindCommand(
+            this.ViewModel,
+            vm => vm.ChangeLanguage,
+            v => v.EnglishLanguageMenuItem,
+            Observable.Return(CultureInfo.GetCultureInfo("us")))
         ];
         this.WhenActivated(
             d =>
