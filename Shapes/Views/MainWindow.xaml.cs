@@ -85,6 +85,11 @@ public partial class MainWindow
                 vm => vm.PlayPause,
                 v => v.PlayButton)
             .DisposeWith(d);
+        this.BindCommand(
+            this.ViewModel,
+            vm => vm.ChangeLanguage,
+            v => v.UkrainianLanguageMenuItem,
+            vm => vm.UkCultureInfo).DisposeWith(d);
     }
 
     private void BindShapesButtons(CompositeDisposable d)
