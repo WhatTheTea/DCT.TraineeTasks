@@ -42,6 +42,7 @@ public partial class MainWindow
             d =>
             {
                 this.ViewModel.Boundary = Boundary;
+                this.BindCommands(d);
                 this.OneWayBind(
                     this.ViewModel,
                     vm => vm.MovingShapesNames,
@@ -58,34 +59,8 @@ public partial class MainWindow
                     v => v.Boundary,
                     this.ShapesCanvasItemsControl.Events().SizeChanged)
                     .DisposeWith(d);
-                this.BindCommand(
-                        this.ViewModel,
-                        vm => vm.AddCircle,
-                        v => v.CircleButton)
-                    .DisposeWith(d);
-                this.BindCommand(
-                        this.ViewModel,
-                        vm => vm.AddSquare,
-                        v => v.SquareButton)
-                    .DisposeWith(d);
-                this.BindCommand(
-                        this.ViewModel,
-                        vm => vm.AddTriangle,
-                        v => v.TriangleButton)
-                    .DisposeWith(d);
-                this.BindCommand(
-                        this.ViewModel,
-                        vm => vm.MoveShapes,
-                        v => v.Timer,
-                        nameof(this.Timer.Tick))
-                    .DisposeWith(d);
                 this.WhenAnyValue(x => x.ShapesListBox.SelectedItem)
                     .BindTo(this.ViewModel, x => x.SelectedShapeName)
-                    .DisposeWith(d);
-                this.BindCommand(
-                        this.ViewModel,
-                        vm => vm.PlayPause,
-                        v => v.PlayButton)
                     .DisposeWith(d);
                 this.OneWayBind(
                     this.ViewModel,
@@ -94,5 +69,40 @@ public partial class MainWindow
                     .DisposeWith(d);
             });
         this.Timer.Start();
+    }
+
+    private void BindCommands(CompositeDisposable d)
+    {
+        this.BindShapesButtons(d);
+        this.BindCommand(
+                this.ViewModel,
+                vm => vm.MoveShapes,
+                v => v.Timer,
+                nameof(this.Timer.Tick))
+            .DisposeWith(d);
+        this.BindCommand(
+                this.ViewModel,
+                vm => vm.PlayPause,
+                v => v.PlayButton)
+            .DisposeWith(d);
+    }
+
+    private void BindShapesButtons(CompositeDisposable d)
+    {
+        this.BindCommand(
+                this.ViewModel,
+                vm => vm.AddCircle,
+                v => v.CircleButton)
+            .DisposeWith(d);
+        this.BindCommand(
+                this.ViewModel,
+                vm => vm.AddSquare,
+                v => v.SquareButton)
+            .DisposeWith(d);
+        this.BindCommand(
+                this.ViewModel,
+                vm => vm.AddTriangle,
+                v => v.TriangleButton)
+            .DisposeWith(d);
     }
 }
