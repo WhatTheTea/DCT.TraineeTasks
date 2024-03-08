@@ -2,11 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Localization;
 
 namespace DCT.TraineeTasks.Shapes;
-
-using Microsoft.Extensions.Localization;
 
 public class LocalizedText(IStringLocalizer<LocalizedText> localizer)
 {

@@ -11,15 +11,12 @@ public class MovingRectangle : MovingShape
 {
     private static int RectangleCount;
 
-    public override string ToString() => this.locale.Square + this.Id;
-    
-
     public MovingRectangle(Point boundaries)
         : base(boundaries)
     {
         this.DefiningGeometry = new RectangleGeometry
         {
-            Rect = new Rect(0, 0, 20, 20),
+            Rect = new Rect(0, 0, 20, 20)
         };
         RectangleCount++;
         this.Stroke = new SolidColorBrush(Colors.RoyalBlue);
@@ -30,8 +27,16 @@ public class MovingRectangle : MovingShape
         this.Id = RectangleCount;
     }
 
-    ~MovingRectangle() => RectangleCount--;
-
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override Geometry DefiningGeometry { get; }
+
+    public override string ToString()
+    {
+        return this.locale.Square + this.Id;
+    }
+
+    ~MovingRectangle()
+    {
+        RectangleCount--;
+    }
 }

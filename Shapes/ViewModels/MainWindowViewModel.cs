@@ -2,58 +2,21 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Windows;
+using DCT.TraineeTasks.Shapes.MovingShapes;
+using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
-using System.Windows;
-using System.Reactive;
-using System.Windows.Shapes;
-using System.Reactive.Linq;
-using System.Collections.ObjectModel;
-using DynamicData;
-using DynamicData.Binding;
-using ReactiveUI.Fody.Helpers;
-using MovingShapes;
-using ReactiveUI;
-
 public class MainWindowViewModel : ReactiveObject
 {
-    [Reactive] public CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentUICulture;
-
-    public CultureInfo UkCultureInfo => CultureInfo.GetCultureInfo("uk");
-    public CultureInfo DefaultCultureInfo => CultureInfo.GetCultureInfo("us");
-    public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
-
-    [Reactive] public IEnumerable<string> MovingShapesNames { get; set; }
-
-    [Reactive] public string SelectedShapeName { get; set; }
-
-    [ObservableAsProperty] public MovingShape? SelectedShape { get; }
-
-    [Reactive] public Point Boundary { get; set; } = new(300, 300);
-
-    [Reactive] public string PlayButtonText { get; set; }
-
-    [Reactive] public string CircleText { get; set; }
-
-    [Reactive] public string SquareText { get; set; }
-
-    [Reactive] public string TriangleText { get; set; }
-
-    public ReactiveCommand<Unit, Unit> AddSquare { get;  }
-
-    public ReactiveCommand<Unit, Unit> AddTriangle { get; }
-
-    public ReactiveCommand<Unit, Unit> AddCircle { get; }
-
-    public ReactiveCommand<Unit, Unit> PlayPause { get; }
-
-    public ReactiveCommand<CultureInfo, Unit> ChangeLanguage { get; }
-
-    public ReactiveCommand<Unit, Unit> MoveShapes { get; }
-    public ReactiveCommand<Unit, Unit> UpdateUIText { get; } 
-
     public MainWindowViewModel()
     {
         // Moving shapes -> shapes names
@@ -111,13 +74,50 @@ public class MainWindowViewModel : ReactiveObject
             {
                 this.CurrentCulture = culture;
                 Thread.CurrentThread.CurrentUICulture = this.CurrentCulture;
+
                 this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
+                this.PlayButtonText = this.GetPlayButtonTextFor(this.SelectedShape);
+
                 return default;
             });
     }
 
-    private IEnumerable<string?> SelectMovingShapesNames(IReadOnlyCollection<MovingShape> x)
-        => x.Select(y => y.ToString());
+    [Reactive] public CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentUICulture;
+
+    public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
+
+    [Reactive] public IEnumerable<string> MovingShapesNames { get; set; }
+
+    [Reactive] public string SelectedShapeName { get; set; }
+
+    [ObservableAsProperty] public MovingShape? SelectedShape { get; }
+
+    [Reactive] public Point Boundary { get; set; } = new(300, 300);
+
+    [Reactive] public string PlayButtonText { get; set; }
+
+    [Reactive] public string CircleText { get; set; }
+
+    [Reactive] public string SquareText { get; set; }
+
+    [Reactive] public string TriangleText { get; set; }
+
+    public ReactiveCommand<Unit, Unit> AddSquare { get; }
+
+    public ReactiveCommand<Unit, Unit> AddTriangle { get; }
+
+    public ReactiveCommand<Unit, Unit> AddCircle { get; }
+
+    public ReactiveCommand<Unit, Unit> PlayPause { get; }
+
+    public ReactiveCommand<CultureInfo, Unit> ChangeLanguage { get; }
+
+    public ReactiveCommand<Unit, Unit> MoveShapes { get; }
+
+    private IEnumerable<string> SelectMovingShapesNames(IReadOnlyCollection<MovingShape> x)
+    {
+        return x.Select(y => y.ToString() !);
+    }
 
     private string GetPlayButtonTextFor(MovingShape? shape)
     {

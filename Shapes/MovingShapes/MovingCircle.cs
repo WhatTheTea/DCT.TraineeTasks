@@ -10,10 +10,9 @@ namespace DCT.TraineeTasks.Shapes.MovingShapes;
 public class MovingCircle : MovingShape
 {
     private static int CircleCount;
-    public override string ToString() => this.locale.Circle + this.Id;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MovingCircle"/> class.
+    ///     Initializes a new instance of the <see cref="MovingCircle" /> class.
     /// </summary>
     /// <param name="boundary">The most down-left point.</param>
     public MovingCircle(Point boundary)
@@ -29,11 +28,19 @@ public class MovingCircle : MovingShape
         this.Id = CircleCount;
     }
 
-    /// <summary>
-    /// Finalizes an instance of the <see cref="MovingCircle"/> class.
-    /// </summary>
-    ~MovingCircle() => CircleCount--;
-
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override Geometry DefiningGeometry { get; }
+
+    public override string ToString()
+    {
+        return this.locale.Circle + this.Id;
+    }
+
+    /// <summary>
+    ///     Finalizes an instance of the <see cref="MovingCircle" /> class.
+    /// </summary>
+    ~MovingCircle()
+    {
+        CircleCount--;
+    }
 }

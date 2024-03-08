@@ -6,8 +6,8 @@ using System.Windows;
 using Microsoft.Extensions.Localization;
 
 [assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, // where theme specific resource dictionaries are located.
-    ResourceDictionaryLocation.SourceAssembly) // where the generic resource dictionary is located.
+        ResourceDictionaryLocation.None, // where theme specific resource dictionaries are located.
+        ResourceDictionaryLocation.SourceAssembly) // where the generic resource dictionary is located.
 ]
 
 [assembly: CLSCompliant(true)]

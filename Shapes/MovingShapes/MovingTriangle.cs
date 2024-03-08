@@ -11,10 +11,8 @@ public class MovingTriangle : MovingShape
 {
     private static int TriangleCount;
 
-    public override string ToString() => this.locale.Triangle + this.Id;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="MovingTriangle"/> class.
+    ///     Initializes a new instance of the <see cref="MovingTriangle" /> class.
     /// </summary>
     /// <param name="boundary">Max XY position</param>
     public MovingTriangle(Point boundary)
@@ -26,10 +24,10 @@ public class MovingTriangle : MovingShape
                 new Point(20, 20),
                 new List<PathSegment>
                 {
-                    new LineSegment(new(40, 0), true),
-                    new LineSegment(new(0, 0), true),
+                    new LineSegment(new Point(40, 0), true),
+                    new LineSegment(new Point(0, 0), true)
                 }.AsReadOnly(),
-                true),
+                true)
         ]);
         TriangleCount++;
         this.Stroke = new SolidColorBrush(Colors.Gold);
@@ -40,6 +38,11 @@ public class MovingTriangle : MovingShape
         this.Id = TriangleCount;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override Geometry DefiningGeometry { get; }
+
+    public override string ToString()
+    {
+        return this.locale.Triangle + this.Id;
+    }
 }

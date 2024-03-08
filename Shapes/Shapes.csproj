@@ -13,37 +13,37 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.2" />
-        <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1" />
-        <PackageReference Include="ReactiveUI.Fody" Version="19.5.41" />
-        <PackageReference Include="ReactiveUI.WPF" Version="19.5.41" />
-        <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12" />
-        <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.8.12" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.2"/>
+        <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1"/>
+        <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
+        <PackageReference Include="ReactiveUI.WPF" Version="19.5.41"/>
+        <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12"/>
+        <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.8.12"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <AdditionalFiles Include="stylecop.json" />
+        <AdditionalFiles Include="stylecop.json"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
+        <Page Update="Views\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\LocalizedText.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\LocalizedText.uk.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Resources\LocalizedText.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\LocalizedText.uk.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>

@@ -4,18 +4,13 @@
 
 using DCT.TraineeTasks.Shapes.ViewModels;
 using DCT.TraineeTasks.Shapes.Views;
-
-namespace DCT.TraineeTasks.Shapes;
-
-using ReactiveUI;
-
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Hosting;
+using ReactiveUI;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
-using System.Globalization;
 
+namespace DCT.TraineeTasks.Shapes;
 
 /// <summary>
 ///     Interaction logic for App.xaml.
@@ -33,21 +28,21 @@ public partial class App
     {
         var host = Host
             .CreateDefaultBuilder()
-            .ConfigureServices(services =>
-            {
-                services.UseMicrosoftDependencyResolver();
-                var resolver = Locator.CurrentMutable;
-                resolver.InitializeSplat();
-                resolver.InitializeReactiveUI();
+            .ConfigureServices(
+                services =>
+                {
+                    services.UseMicrosoftDependencyResolver();
+                    var resolver = Locator.CurrentMutable;
+                    resolver.InitializeSplat();
+                    resolver.InitializeReactiveUI();
 
-                services.AddLogging()
-                    .AddLocalization(
-                        options => options.ResourcesPath = "Resources")
-                    .AddSingleton<LocalizedText>()
-                    .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
-                    .AddSingleton<MainWindowViewModel>()
-                    ;
-            })
+                    services.AddLogging()
+                        .AddLocalization(options => options.ResourcesPath = "Resources")
+                        .AddSingleton<LocalizedText>()
+                        .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
+                        .AddSingleton<MainWindowViewModel>()
+                        ;
+                })
             .UseEnvironment(Environments.Development)
             .Build();
         this.Container = host.Services;

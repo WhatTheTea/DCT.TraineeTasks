@@ -1,26 +1,17 @@
 ﻿// <copyright file="MovingShape.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
-namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Splat;
 
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
+
 public abstract class MovingShape : Shape
 {
-    public Point Boundary { get; set; }
-
-    public int Id { get; protected set; }
-
-    public Action Move { get; private set; }
-
-    public bool IsPaused => this.Move == this.OnPause;
-
-    public void Pause() => this.Move = this.OnPause;
-
-    public void UnPause() => this.Move = this.Movement;
+    protected LocalizedText locale = Locator.Current.GetService<LocalizedText>() !;
 
     protected MovingShape(Point boundary)
     {
@@ -30,16 +21,32 @@ public abstract class MovingShape : Shape
         this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
     }
 
-    private void OnPause()
-    {
-        // Do nothing
-    }
+    public Point Boundary { get; set; }
+
+    public int Id { get; protected set; }
+
+    public Action Move { get; private set; }
+
+    public bool IsPaused => this.Move == this.OnPause;
 
     protected double OffsetX { get; set; }
 
     protected double OffsetY { get; set; }
 
-    protected LocalizedText locale = Locator.Current.GetService<LocalizedText>() !;
+    public void Pause()
+    {
+        this.Move = this.OnPause;
+    }
+
+    public void UnPause()
+    {
+        this.Move = this.Movement;
+    }
+
+    private void OnPause()
+    {
+        // Do nothing
+    }
 
     private void Movement()
     {
