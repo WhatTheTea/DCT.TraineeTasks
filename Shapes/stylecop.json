@@ -3,6 +3,9 @@
   "settings": {
     "documentationRules": {
       "companyName": "Digital Cloud Technologies"
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace"
     }
   }
 }

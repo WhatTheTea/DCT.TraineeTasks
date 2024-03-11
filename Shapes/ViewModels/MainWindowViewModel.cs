@@ -2,23 +2,24 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
-
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
-using MovingShapes;
+using DCT.TraineeTasks.Shapes.MovingShapes;
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
 
+namespace DCT.TraineeTasks.Shapes.ViewModels;
+
 public class MainWindowViewModel : ReactiveObject
 {
-    private LocalizerService Localizer = Locator.Current.GetService<LocalizerService>() !;
+    private readonly LocalizerService Localizer = Locator.Current.GetService<LocalizerService>() !;
+
     public MainWindowViewModel()
     {
         // Moving shapes -> shapes names
@@ -87,13 +88,6 @@ public class MainWindowViewModel : ReactiveObject
         this.SetShapesText();
     }
 
-    private void SetShapesText()
-    {
-        this.TriangleText = this.Localizer.Triangle;
-        this.CircleText = this.Localizer.Circle;
-        this.SquareText = this.Localizer.Square;
-    }
-
     [Reactive] public CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentUICulture;
 
     public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
@@ -125,6 +119,13 @@ public class MainWindowViewModel : ReactiveObject
     public ReactiveCommand<CultureInfo, Unit> ChangeLanguage { get; }
 
     public ReactiveCommand<Unit, Unit> MoveShapes { get; }
+
+    private void SetShapesText()
+    {
+        this.TriangleText = this.Localizer.Triangle;
+        this.CircleText = this.Localizer.Circle;
+        this.SquareText = this.Localizer.Square;
+    }
 
     private IEnumerable<string> SelectMovingShapesNames(IReadOnlyCollection<MovingShape> x)
     {

@@ -2,9 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes;
-
 using Microsoft.Extensions.Localization;
+
+namespace DCT.TraineeTasks.Shapes;
 
 public class LocalizerService(IStringLocalizer<LocalizerService> localizer)
 {

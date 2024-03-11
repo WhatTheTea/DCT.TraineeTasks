@@ -11,14 +11,14 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Save"/>
-                <MenuItem Header="Load"/>
+                <MenuItem Header="Save" />
+                <MenuItem Header="Load" />
             </MenuItem>
             <MenuItem Header="Language">
-                <MenuItem Header="Ukrainian" 
-                    x:Name="UkrainianLanguageMenuItem" />
+                <MenuItem Header="Ukrainian"
+                          x:Name="UkrainianLanguageMenuItem" />
                 <MenuItem Header="English"
-                    x:Name="EnglishLanguageMenuItem" />
+                          x:Name="EnglishLanguageMenuItem" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -53,7 +53,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            
+
             <StackPanel Grid.Row="0" Grid.Column="1"
                         Orientation="Horizontal"
                         x:Name="ShapesStackPanel">
