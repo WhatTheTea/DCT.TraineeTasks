@@ -10,13 +10,15 @@
                    Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Load"/>
+            </MenuItem>
             <MenuItem Header="Language">
-                <MenuItem
-                    x:Name="UkrainianLanguageMenuItem"
-                    Header="Ukrainian" />
-                <MenuItem 
-                    x:Name="EnglishLanguageMenuItem"
-                    Header="English" />
+                <MenuItem Header="Ukrainian" 
+                    x:Name="UkrainianLanguageMenuItem" />
+                <MenuItem Header="English"
+                    x:Name="EnglishLanguageMenuItem" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -51,8 +53,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-
-
+            
             <StackPanel Grid.Row="0" Grid.Column="1"
                         Orientation="Horizontal"
                         x:Name="ShapesStackPanel">
@@ -68,7 +69,6 @@
                 </Button>
                 <Button Margin="5"
                         Padding="5"
-
                         x:Name="CircleButton">
                     Circle
                 </Button>
