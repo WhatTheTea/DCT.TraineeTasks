@@ -9,9 +9,10 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Splat;
 
+[Serializable]
 public abstract class MovingShape : Shape
 {
-    protected readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>() !;
+    protected LocalizerService LocalizedStrings => Locator.Current.GetService<LocalizerService>() !;
 
     protected MovingShape(Point boundary)
     {

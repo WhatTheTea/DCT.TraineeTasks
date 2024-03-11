@@ -7,6 +7,7 @@ using System.Windows.Media;
 
 namespace DCT.TraineeTasks.Shapes.MovingShapes;
 
+[Serializable]
 public class MovingCircle : MovingShape
 {
     private static int CircleCount;
