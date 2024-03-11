@@ -32,7 +32,7 @@ public class MovingRectangle : MovingShape
 
     public override string ToString()
     {
-        return this.locale.Square + this.Id;
+        return this.LocalizedStrings.Square + this.Id;
     }
 
     ~MovingRectangle()

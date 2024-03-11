@@ -33,7 +33,7 @@ public class MovingCircle : MovingShape
 
     public override string ToString()
     {
-        return this.locale.Circle + this.Id;
+        return this.LocalizedStrings.Circle + this.Id;
     }
 
     /// <summary>

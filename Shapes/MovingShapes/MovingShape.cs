@@ -2,16 +2,16 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+namespace DCT.TraineeTasks.Shapes.MovingShapes;
+
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Splat;
 
-namespace DCT.TraineeTasks.Shapes.MovingShapes;
-
 public abstract class MovingShape : Shape
 {
-    protected LocalizerService locale = Locator.Current.GetService<LocalizerService>() !;
+    protected readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>() !;
 
     protected MovingShape(Point boundary)
     {

@@ -43,6 +43,6 @@ public class MovingTriangle : MovingShape
 
     public override string ToString()
     {
-        return this.locale.Triangle + this.Id;
+        return this.LocalizedStrings.Triangle + this.Id;
     }
 }
