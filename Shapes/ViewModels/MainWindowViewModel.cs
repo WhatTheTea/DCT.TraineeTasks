@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -22,22 +23,6 @@ public class MainWindowViewModel : ReactiveObject
 
     public MainWindowViewModel()
     {
-        // Moving shapes -> shapes names
-        this.MovingShapes
-            .ToObservableChangeSet(x => x)
-            .ToCollection()
-            .Select(this.SelectMovingShapesNames)
-            .BindTo(this, x => x.MovingShapesNames);
-
-        // SelectedShapeName -> SelectedShape
-        this.WhenAnyValue(x => x.SelectedShapeName)
-            .Select(x => this.MovingShapes.FirstOrDefault(shape => shape.ToString() == x))
-            .ToPropertyEx(this, x => x.SelectedShape);
-
-        // On ShapeSelection set PlayButtonText
-        this.WhenAnyValue(x => x.SelectedShape)
-            .Select(this.GetPlayButtonTextFor)
-            .Subscribe(x => this.PlayButtonText = x);
 
         this.AddCircle = ReactiveCommand.Create(() => this.MovingShapes.Add(new MovingCircle(this.Boundary)));
         this.AddSquare = ReactiveCommand.Create(() => this.MovingShapes.Add(new MovingRectangle(this.Boundary)));
@@ -55,40 +40,62 @@ public class MainWindowViewModel : ReactiveObject
         this.PlayPause = ReactiveCommand.Create(
             () =>
             {
-                if (this.SelectedShape == null)
+                var shape = this.SelectedShape;
+                if (shape == null)
                 {
                     return;
                 }
 
-                if (this.SelectedShape.IsPaused)
+                if (shape.IsPaused)
                 {
-                    this.SelectedShape.UnPause();
+                    shape.UnPause();
                 }
                 else
                 {
-                    this.SelectedShape.Pause();
+                    shape.Pause();
                 }
-
-                this.PlayButtonText = this.GetPlayButtonTextFor(this.SelectedShape);
+                
+                this.RaisePropertyChanged(nameof(shape));
             });
 
         this.ChangeLanguage = ReactiveCommand.Create<CultureInfo, Unit>(
             culture =>
             {
+                Thread.CurrentThread.CurrentUICulture = culture;
                 this.CurrentCulture = culture;
-                Thread.CurrentThread.CurrentUICulture = this.CurrentCulture;
 
                 this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
-                this.PlayButtonText = this.GetPlayButtonTextFor(this.SelectedShape);
                 this.SetShapesText();
-
                 return default;
             });
 
         this.SetShapesText();
+        // Moving shapes -> shapes names
+        this.MovingShapes
+            .ToObservableChangeSet(x => x)
+            .ToCollection()
+            .Select(this.SelectMovingShapesNames)
+            .BindTo(this, x => x.MovingShapesNames);
+
+        // SelectedShapeName -> SelectedShape
+        this.WhenAnyValue(x => x.SelectedShapeName, y => y.CurrentCulture)
+            .Select(x => this.MovingShapes.FirstOrDefault(shape => shape.ToString() == x.Item1))
+            .ToPropertyEx(this, x => x.SelectedShape);
+
+        // // On ShapeSelection set PlayButtonText
+        this.WhenAnyValue(
+                x => x.SelectedShape,
+                y => y.CurrentCulture)
+            .Select(x => this.GetPlayButtonTextFor(x.Item1))
+            .Do(x => Debug.WriteLine("On shape selection: " + x))
+            .ToPropertyEx(this, x => x.PlayButtonText);
+        // this.WhenAnyValue(x => x.SelectedShape)
+        //     // .Select(this.GetPlayButtonTextFor)
+        //     .Subscribe(_ => this.RaisePropertyChanged(nameof(this.PlayButtonText)));
     }
 
-    [Reactive] public CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentUICulture;
+    [Reactive]
+    public CultureInfo CurrentCulture { get; set; }
 
     public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
 
@@ -100,7 +107,8 @@ public class MainWindowViewModel : ReactiveObject
 
     [Reactive] public Point Boundary { get; set; } = new(300, 300);
 
-    [Reactive] public string PlayButtonText { get; set; }
+    [ObservableAsProperty]
+    public string PlayButtonText { get; }
 
     [Reactive] public string CircleText { get; set; }
 
