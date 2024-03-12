@@ -7,9 +7,8 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Splat;
 
-namespace DCT.TraineeTasks.Shapes.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
 
-[Serializable]
 public abstract class MovingShape : Shape
 {
     protected MovingShape(Point boundary)

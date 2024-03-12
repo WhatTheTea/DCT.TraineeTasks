@@ -87,7 +87,12 @@ public partial class MainWindow
                 this.ViewModel,
                 vm => vm.ChangeLanguage,
                 v => v.EnglishLanguageMenuItem,
-                Observable.Return(CultureInfo.GetCultureInfo("us")))
+                Observable.Return(CultureInfo.GetCultureInfo("us"))),
+            this.BindCommand(
+                this.ViewModel,
+                vm => vm.Save,
+                v => v.SaveButton,
+                Observable.Return(FileFormats.Bin)),
         ];
         this.WhenActivated(
             d =>

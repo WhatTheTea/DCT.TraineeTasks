@@ -4,7 +4,6 @@
 
 using System.Collections.Immutable;
 using System.IO;
-using DCT.TraineeTasks.Shapes.MovingShapes;
 using MessagePack;
 using MessagePack.Resolvers;
 
@@ -16,7 +15,7 @@ public class BinaryFileService : IFileService
 
     public void Save(IEnumerable<MovingShape> shapes)
     {
-        var bytes = MessagePackSerializer.Serialize(shapes, ContractlessStandardResolver.Options);
+        var bytes = MessagePackSerializer.Serialize(shapes, MessagePack.Resolvers.ContractlessStandardResolver.Options);
         using var file = File.Create(FilePath);
         file.Write(bytes);
     }

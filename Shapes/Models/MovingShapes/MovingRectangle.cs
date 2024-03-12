@@ -5,7 +5,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
 
 [Serializable]
 public class MovingRectangle : MovingShape

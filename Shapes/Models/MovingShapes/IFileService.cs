@@ -3,7 +3,6 @@
 // </copyright>
 
 using System.Collections.Immutable;
-using DCT.TraineeTasks.Shapes.MovingShapes;
 
 namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
 

@@ -5,11 +5,12 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using DCT.TraineeTasks.Shapes.MovingShapes;
+using DCT.TraineeTasks.Shapes.Models.MovingShapes;
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
@@ -67,6 +68,21 @@ public class MainWindowViewModel : ReactiveObject
 
                 // collections binding skill issue ;-;
                 this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
+                return default;
+            });
+
+        this.Save = ReactiveCommand.Create<FileFormats, Unit>(
+            format =>
+            {
+                // temp
+                var service = new BinaryFileService();
+                switch (format)
+                {
+                    case FileFormats.Bin:
+                        service.Save(this.MovingShapes);
+                        break;
+                }
+
                 return default;
             });
 
@@ -146,6 +162,8 @@ public class MainWindowViewModel : ReactiveObject
     public ReactiveCommand<Unit, Unit> AddCircle { get; }
 
     public ReactiveCommand<Unit, Unit> PlayPause { get; }
+    
+    public ReactiveCommand<FileFormats, Unit> Save { get; }
 
     public ReactiveCommand<CultureInfo, Unit> ChangeLanguage { get; }
 
