@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using DCT.TraineeTasks.Shapes.MovingShapes;
 using DynamicData;
@@ -19,11 +20,10 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public class MainWindowViewModel : ReactiveObject
 {
-    private readonly LocalizerService Localizer = Locator.Current.GetService<LocalizerService>() !;
+    private readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>() !;
 
     public MainWindowViewModel()
     {
-
         this.AddCircle = ReactiveCommand.Create(() => this.MovingShapes.Add(new MovingCircle(this.Boundary)));
         this.AddSquare = ReactiveCommand.Create(() => this.MovingShapes.Add(new MovingRectangle(this.Boundary)));
         this.AddTriangle = ReactiveCommand.Create(() => this.MovingShapes.Add(new MovingTriangle(this.Boundary)));
@@ -36,7 +36,6 @@ public class MainWindowViewModel : ReactiveObject
                     shape.Move();
                 }
             });
-
         this.PlayPause = ReactiveCommand.Create(
             () =>
             {
@@ -54,8 +53,8 @@ public class MainWindowViewModel : ReactiveObject
                 {
                     shape.Pause();
                 }
-                
-                this.RaisePropertyChanged(nameof(shape));
+
+                this.IsSelectedShapePaused = shape.IsPaused;
             });
 
         this.ChangeLanguage = ReactiveCommand.Create<CultureInfo, Unit>(
@@ -70,6 +69,7 @@ public class MainWindowViewModel : ReactiveObject
             });
 
         this.SetShapesText();
+        // TODO : OAPH
         // Moving shapes -> shapes names
         this.MovingShapes
             .ToObservableChangeSet(x => x)
@@ -82,30 +82,35 @@ public class MainWindowViewModel : ReactiveObject
             .Select(x => this.MovingShapes.FirstOrDefault(shape => shape.ToString() == x.Item1))
             .ToPropertyEx(this, x => x.SelectedShape);
 
-        // // On ShapeSelection set PlayButtonText
+        // On ShapeSelection and locale change set PlayButtonText
         this.WhenAnyValue(
                 x => x.SelectedShape,
-                y => y.CurrentCulture)
+                x => x.CurrentCulture,
+                x => x.IsSelectedShapePaused)
             .Select(x => this.GetPlayButtonTextFor(x.Item1))
             .Do(x => Debug.WriteLine("On shape selection: " + x))
             .ToPropertyEx(this, x => x.PlayButtonText);
-        // this.WhenAnyValue(x => x.SelectedShape)
-        //     // .Select(this.GetPlayButtonTextFor)
-        //     .Subscribe(_ => this.RaisePropertyChanged(nameof(this.PlayButtonText)));
-    }
+            }
 
     [Reactive]
     public CultureInfo CurrentCulture { get; set; }
 
     public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
 
-    [Reactive] public IEnumerable<string> MovingShapesNames { get; set; }
+    [Reactive]
+    public IEnumerable<string> MovingShapesNames { get; set; }
 
-    [Reactive] public string SelectedShapeName { get; set; }
+    [Reactive]
+    public string SelectedShapeName { get; set; }
+    
+    [Reactive]
+    public bool IsSelectedShapePaused { get; set; }
 
-    [ObservableAsProperty] public MovingShape? SelectedShape { get; }
+    [ObservableAsProperty]
+    public MovingShape? SelectedShape { get; }
 
-    [Reactive] public Point Boundary { get; set; } = new(300, 300);
+    [Reactive]
+    public Point Boundary { get; set; } = new(300, 300);
 
     [ObservableAsProperty]
     public string PlayButtonText { get; }
@@ -130,9 +135,9 @@ public class MainWindowViewModel : ReactiveObject
 
     private void SetShapesText()
     {
-        this.TriangleText = this.Localizer.Triangle;
-        this.CircleText = this.Localizer.Circle;
-        this.SquareText = this.Localizer.Square;
+        this.TriangleText = this.LocalizedStrings.Triangle;
+        this.CircleText = this.LocalizedStrings.Circle;
+        this.SquareText = this.LocalizedStrings.Square;
     }
 
     private IEnumerable<string> SelectMovingShapesNames(IReadOnlyCollection<MovingShape> x)
@@ -144,9 +149,9 @@ public class MainWindowViewModel : ReactiveObject
     {
         if (shape == null)
         {
-            return this.Localizer.PlayButtonSelect;
+            return this.LocalizedStrings.PlayButtonSelect;
         }
 
-        return shape.IsPaused ? this.Localizer.PlayButtonPlay : this.Localizer.PlayButtonPause;
+        return shape.IsPaused ? this.LocalizedStrings.PlayButtonPlay : this.LocalizedStrings.PlayButtonPause;
     }
 }
