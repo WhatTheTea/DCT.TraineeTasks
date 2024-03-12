@@ -13,6 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MessagePack" Version="2.5.140" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.2"/>
         <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1"/>
