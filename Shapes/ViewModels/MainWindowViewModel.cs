@@ -20,7 +20,7 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public class MainWindowViewModel : ReactiveObject
 {
-    private readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>() !;
+    private static readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>() !;
 
     public MainWindowViewModel()
     {
@@ -62,13 +62,11 @@ public class MainWindowViewModel : ReactiveObject
             {
                 Thread.CurrentThread.CurrentUICulture = culture;
                 this.CurrentCulture = culture;
-
+                // collections binding skill issue ;-;
                 this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
-                this.SetShapesText();
                 return default;
             });
 
-        this.SetShapesText();
         // TODO : OAPH
         // Moving shapes -> shapes names
         this.MovingShapes
@@ -90,12 +88,25 @@ public class MainWindowViewModel : ReactiveObject
             .Select(x => this.GetPlayButtonTextFor(x.Item1))
             .Do(x => Debug.WriteLine("On shape selection: " + x))
             .ToPropertyEx(this, x => x.PlayButtonText);
-            }
+
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(x => LocalizedStrings.Triangle)
+            .ToPropertyEx(this, x => x.TriangleText);
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(x => LocalizedStrings.Circle)
+            .ToPropertyEx(this, x => x.CircleText);
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(x => LocalizedStrings.Square)
+            .ToPropertyEx(this, x => x.SquareText);
+
+        this.CurrentCulture = CultureInfo.CurrentCulture;
+    }
 
     [Reactive]
     public CultureInfo CurrentCulture { get; set; }
 
-    public ObservableCollection<MovingShape> MovingShapes { get; set; } = new();
+    [Reactive]
+    public ObservableCollection<MovingShape> MovingShapes { get; private set; } = new();
 
     [Reactive]
     public IEnumerable<string> MovingShapesNames { get; set; }
@@ -115,11 +126,11 @@ public class MainWindowViewModel : ReactiveObject
     [ObservableAsProperty]
     public string PlayButtonText { get; }
 
-    [Reactive] public string CircleText { get; set; }
+    [ObservableAsProperty] public string CircleText { get; } = LocalizedStrings.Circle;
 
-    [Reactive] public string SquareText { get; set; }
+    [ObservableAsProperty] public string SquareText { get; } = LocalizedStrings.Square;
 
-    [Reactive] public string TriangleText { get; set; }
+    [ObservableAsProperty] public string TriangleText { get; } = LocalizedStrings.Triangle;
 
     public ReactiveCommand<Unit, Unit> AddSquare { get; }
 
@@ -133,13 +144,6 @@ public class MainWindowViewModel : ReactiveObject
 
     public ReactiveCommand<Unit, Unit> MoveShapes { get; }
 
-    private void SetShapesText()
-    {
-        this.TriangleText = this.LocalizedStrings.Triangle;
-        this.CircleText = this.LocalizedStrings.Circle;
-        this.SquareText = this.LocalizedStrings.Square;
-    }
-
     private IEnumerable<string> SelectMovingShapesNames(IReadOnlyCollection<MovingShape> x)
     {
         return x.Select(y => y.ToString() !);
@@ -149,9 +153,9 @@ public class MainWindowViewModel : ReactiveObject
     {
         if (shape == null)
         {
-            return this.LocalizedStrings.PlayButtonSelect;
+            return LocalizedStrings.PlayButtonSelect;
         }
 
-        return shape.IsPaused ? this.LocalizedStrings.PlayButtonPlay : this.LocalizedStrings.PlayButtonPause;
+        return shape.IsPaused ? LocalizedStrings.PlayButtonPlay : LocalizedStrings.PlayButtonPause;
     }
 }

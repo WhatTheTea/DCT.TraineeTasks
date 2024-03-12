@@ -17,7 +17,7 @@ public abstract class MovingShape : Shape
         this.Boundary = boundary;
         this.Move = this.Movement;
         var random = new Random();
-        this.RenderTransform = new TranslateTransform(random.Next(0, 300), random.Next(0, 300));
+        this.RenderTransform = new TranslateTransform(random.Next(0, (int)boundary.X), random.Next(0, (int)boundary.Y));
     }
 
     protected LocalizerService LocalizedStrings => Locator.Current.GetService<LocalizerService>() !;
