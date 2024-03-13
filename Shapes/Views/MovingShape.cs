@@ -5,12 +5,16 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Splat;
 
-namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Views;
 
-public abstract class MovingShape : Shape
+public class MovingShape : Shape
 {
+    public MovingShape(Geometry definingGeometry)
+    {
+        this.DefiningGeometry = definingGeometry;
+    }
+
     public Guid Id { get; } = Guid.NewGuid();
 
     public void MoveTo(Point point)
@@ -18,4 +22,6 @@ public abstract class MovingShape : Shape
         var transform = this.RenderTransform.Transform(default);
         this.RenderTransform = new TranslateTransform(point.X, point.Y);
     }
+
+    protected override Geometry DefiningGeometry { get; }
 }

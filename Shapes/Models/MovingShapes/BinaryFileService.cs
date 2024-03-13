@@ -4,6 +4,7 @@
 
 using System.Collections.Immutable;
 using System.IO;
+using DCT.TraineeTasks.Shapes.Views;
 using MessagePack;
 using MessagePack.Resolvers;
 

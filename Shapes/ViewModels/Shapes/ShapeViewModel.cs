@@ -2,24 +2,20 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Numerics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
-using DCT.TraineeTasks.Shapes.Models.MovingShapes;
+using DCT.TraineeTasks.Shapes.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
-using Vector = System.Windows.Vector;
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
 public abstract class ShapeViewModel : ReactiveObject
 {
-    protected static LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>()
-        ?? throw new ArgumentNullException(nameof(LocalizedStrings));
-
-    public int Id { get; }
+    protected static LocalizerService localizedStrings = Locator.Current.GetService<LocalizerService>()
+        ?? throw new ArgumentNullException(nameof(localizedStrings));
 
     public MovingShape Shape { get; }
 
@@ -38,15 +34,17 @@ public abstract class ShapeViewModel : ReactiveObject
     [Reactive]
     public Point Boundary { get; set; }
     
-    public ReactiveCommand<Unit, Unit> Move { get; }
+    [Reactive]
+    public ReactiveCommand<Unit, Unit> Move { get; private set; }
+    
+    public ReactiveCommand<Unit, Unit> PlayPause { get; }
 
     protected ReactiveCommand<Unit, Unit> MoveActive;
 
     protected ReactiveCommand<Unit, Unit> MovePaused;
 
-    protected ShapeViewModel(int id, MovingShape shape)
+    protected ShapeViewModel(MovingShape shape)
     {
-        this.Id = id;
         this.Shape = shape;
         
         this.MoveActive = ReactiveCommand
@@ -62,6 +60,12 @@ public abstract class ShapeViewModel : ReactiveObject
         this.MovePaused = ReactiveCommand.Create(() => { });
 
         this.Move = this.MoveActive;
+
+        this.PlayPause = ReactiveCommand.Create(
+            () =>
+            {
+                this.Move = this.IsPaused ? this.MoveActive : this.MovePaused;
+            });
 
         this.WhenAnyValue(x => x.Move)
             .Select(x => x == this.MovePaused)

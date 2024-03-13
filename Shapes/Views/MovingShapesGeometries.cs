@@ -5,7 +5,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Views;
 
 public static class MovingShapesGeometries
 {
