@@ -2,21 +2,71 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Globalization;
+using System.Reactive.Linq;
 using Microsoft.Extensions.Localization;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace DCT.TraineeTasks.Shapes;
 
-public class LocalizerService(IStringLocalizer<LocalizerService> localizer)
+public class LocalizerService : ReactiveObject
 {
-    public string Circle => localizer["Circle"];
+    private CultureInfo currentCulture;
+    private readonly IStringLocalizer<LocalizerService> localizer;
 
-    public string Square => localizer["Square"];
+    public CultureInfo CurrentCulture
+    {
+        get => this.currentCulture;
+        set
+        {
+            Thread.CurrentThread.CurrentUICulture = value;
+            this.RaiseAndSetIfChanged(ref this.currentCulture, value);
+        }
+    }
 
-    public string Triangle => localizer["Triangle"];
+    public LocalizerService(IStringLocalizer<LocalizerService> localizer)
+    {
+        this.localizer = localizer;
 
-    public string PlayButtonPlay => localizer["playButtonPlay"];
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["Circle"].Value)
+            .ToPropertyEx(this, x => x.Circle);
 
-    public string PlayButtonPause => localizer["playButtonPause"];
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["Square"].Value)
+            .ToPropertyEx(this, x => x.Square);
+        
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["Triangle"].Value)
+            .ToPropertyEx(this, x => x.Triangle);
+        
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["playButtonSelect"].Value)
+            .ToPropertyEx(this, x => x.PlayButtonSelect);
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["playButtonPause"].Value)
+            .ToPropertyEx(this, x => x.PlayButtonPause);
+        this.WhenAnyValue(x => x.CurrentCulture)
+            .Select(_ => this.localizer["playButtonPlay"].Value)
+            .ToPropertyEx(this, x => x.PlayButtonPlay);
+    }
 
-    public string PlayButtonSelect => localizer["playButtonSelect"];
+    [ObservableAsProperty]
+    public string Circle { get; }
+    
+    [ObservableAsProperty]
+    public string Square { get; }
+    
+    [ObservableAsProperty]
+    public string Triangle { get; }
+
+    [ObservableAsProperty]
+    public string PlayButtonPlay { get; }
+
+    [ObservableAsProperty]
+    public string PlayButtonPause { get; }
+
+    [ObservableAsProperty]
+    public string PlayButtonSelect { get; }
 }
