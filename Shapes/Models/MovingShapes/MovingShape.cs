@@ -11,61 +11,11 @@ namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
 
 public abstract class MovingShape : Shape
 {
-    protected MovingShape(Point boundary)
-    {
-        this.Boundary = boundary;
-        this.Move = this.Movement;
-        var random = new Random();
-        this.RenderTransform = new TranslateTransform(random.Next(0, (int)boundary.X), random.Next(0, (int)boundary.Y));
-    }
+    public Guid Id { get; } = Guid.NewGuid();
 
-    protected LocalizerService LocalizedStrings => Locator.Current.GetService<LocalizerService>() !;
-
-    public Point Boundary { get; set; }
-
-    public int Id { get; protected set; }
-
-    public Action Move { get; private set; }
-
-    public bool IsPaused => this.Move == this.OnPause;
-
-    protected double OffsetX { get; set; }
-
-    protected double OffsetY { get; set; }
-
-    public void Pause()
-    {
-        this.Move = this.OnPause;
-    }
-
-    public void UnPause()
-    {
-        this.Move = this.Movement;
-    }
-
-    private void OnPause()
-    {
-        // Do nothing
-    }
-
-    private void Movement()
+    public void MoveTo(Point point)
     {
         var transform = this.RenderTransform.Transform(default);
-        this.CheckOffsets(transform);
-        this.RenderTransform = new TranslateTransform(transform.X + this.OffsetX, transform.Y + this.OffsetY);
-    }
-
-    private void CheckOffsets(Point transform)
-    {
-        var nextPoint = new Point(transform.X + this.OffsetX, transform.Y + this.OffsetY);
-        if (nextPoint.X >= this.Boundary.X || nextPoint.X <= 0)
-        {
-            this.OffsetX *= -1;
-        }
-
-        if (nextPoint.Y >= this.Boundary.Y || nextPoint.Y <= 0)
-        {
-            this.OffsetY *= -1;
-        }
+        this.RenderTransform = new TranslateTransform(point.X, point.Y);
     }
 }

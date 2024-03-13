@@ -2,12 +2,15 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Numerics;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows;
 using DCT.TraineeTasks.Shapes.Models.MovingShapes;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
+using Vector = System.Windows.Vector;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
@@ -18,10 +21,7 @@ public abstract class ShapeViewModel : ReactiveObject
 
     public int Id { get; }
 
-    public MovingShape ShapeView { get; }
-
-    [ObservableAsProperty]
-    public Point RightDownBoundary { get; }
+    public MovingShape Shape { get; }
 
     [ObservableAsProperty]
     public bool IsPaused { get; }
@@ -29,14 +29,64 @@ public abstract class ShapeViewModel : ReactiveObject
     [ObservableAsProperty]
     public string Name { get; }
 
-    [Reactive]
-    public Point Offset { get; set; }
+    [Reactive] 
+    public Vector Velocity { get; set; }
 
+    [Reactive]
+    public Point Position { get; set; }
+
+    [Reactive]
+    public Point Boundary { get; set; }
+    
     public ReactiveCommand<Unit, Unit> Move { get; }
 
-    protected ReactiveCommand<Unit, Unit> MoveActive = ReactiveCommand
-        .Create<Unit, Unit>(_ => default);
+    protected ReactiveCommand<Unit, Unit> MoveActive;
 
-    protected ReactiveCommand<Unit, Unit> MovePaused = ReactiveCommand
-        .Create<Unit, Unit>(_ => default);
+    protected ReactiveCommand<Unit, Unit> MovePaused;
+
+    protected ShapeViewModel(int id, MovingShape shape)
+    {
+        this.Id = id;
+        this.Shape = shape;
+        
+        this.MoveActive = ReactiveCommand
+            .Create(
+                () =>
+                {
+                    var nextPosition = this.NextPosition;
+                    this.BoundaryBump();
+                    this.Shape.MoveTo(nextPosition);
+                    this.Position = nextPosition;
+                });
+
+        this.MovePaused = ReactiveCommand.Create(() => { });
+
+        this.Move = this.MoveActive;
+
+        this.WhenAnyValue(x => x.Move)
+            .Select(x => x == this.MovePaused)
+            .ToPropertyEx(this, x => x.IsPaused);
+    }
+
+    private Point NextPosition => new(
+        this.Position.X + this.Velocity.X,
+        this.Position.Y + this.Velocity.Y);
+
+    private void BoundaryBump()
+    {
+        var velocityX = this.Velocity.X;
+        var velocityY = this.Velocity.Y;
+        var nextPoint = this.NextPosition;
+        if (nextPoint.X >= this.Boundary.X || nextPoint.X <= 0)
+        {
+            velocityX *= -1;
+        }
+
+        if (nextPoint.Y >= this.Boundary.Y || nextPoint.Y <= 0)
+        {
+            velocityY *= -1;
+        }
+
+        this.Velocity = new Vector { X = velocityX, Y = velocityY };
+    }
 }
