@@ -14,7 +14,7 @@ public class SquareViewModel : ShapeViewModel
     public SquareViewModel(MovingShape shape)
         : base(shape)
     {
-        this.WhenAnyValue(x => localizedStrings.Square)
+        this.WhenAnyValue(x => x.LocalizedStrings.Square)
             .ToPropertyEx(this, x => x.Name);
     }
 }

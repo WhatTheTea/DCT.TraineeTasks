@@ -12,7 +12,7 @@ namespace DCT.TraineeTasks.Shapes;
 
 public class LocalizerService : ReactiveObject
 {
-    private CultureInfo currentCulture;
+    private CultureInfo currentCulture = CultureInfo.CurrentUICulture;
     private readonly IStringLocalizer<LocalizerService> localizer;
 
     public CultureInfo CurrentCulture

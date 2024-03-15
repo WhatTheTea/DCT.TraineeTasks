@@ -14,7 +14,7 @@ public class CircleViewModel : ShapeViewModel
     public CircleViewModel(MovingShape shape)
         : base(shape)
     {
-        this.WhenAnyValue(x => localizedStrings.Circle)
+        this.WhenAnyValue(x => x.LocalizedStrings.Circle)
             .ToPropertyEx(this, x => x.Name);
     }
 }

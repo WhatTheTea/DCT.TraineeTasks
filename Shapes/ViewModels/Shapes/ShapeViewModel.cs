@@ -14,10 +14,10 @@ namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
 public abstract class ShapeViewModel : ReactiveObject
 {
-    protected static LocalizerService localizedStrings = Locator.Current.GetService<LocalizerService>()
-        ?? throw new ArgumentNullException(nameof(localizedStrings));
+    protected LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>()
+        ?? throw new ArgumentNullException(nameof(LocalizedStrings));
 
-    public MovingShape Shape { get; }
+    // public MovingShape Shape { get; }
 
     [ObservableAsProperty]
     public bool IsPaused { get; }
@@ -45,15 +45,15 @@ public abstract class ShapeViewModel : ReactiveObject
 
     protected ShapeViewModel(MovingShape shape)
     {
-        this.Shape = shape;
-        
+        // this.Shape = shape;
+
         this.MoveActive = ReactiveCommand
             .Create(
                 () =>
                 {
                     var nextPosition = this.NextPosition;
                     this.BoundaryBump();
-                    this.Shape.MoveTo(nextPosition);
+                    // this.Shape.MoveTo(nextPosition);
                     this.Position = nextPosition;
                 });
 

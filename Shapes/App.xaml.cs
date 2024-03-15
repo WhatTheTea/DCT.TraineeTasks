@@ -3,6 +3,7 @@
 // </copyright>
 
 using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 using DCT.TraineeTasks.Shapes.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,6 +40,7 @@ public partial class App
                     services.AddLogging()
                         .AddLocalization(options => options.ResourcesPath = "Resources")
                         .AddSingleton<LocalizerService>()
+                        .AddTransient<ShapeViewModelFactory>()
                         .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
                         .AddSingleton<MainWindowViewModel>()
                         ;

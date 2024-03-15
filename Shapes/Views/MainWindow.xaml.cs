@@ -104,7 +104,7 @@ public partial class MainWindow
                     .Select(x => x.DisposeWith(d));
                 this.OneWayBind(
                         this.ViewModel,
-                        vm => vm.MovingShapes,
+                        vm => vm.MovingShapesViews,
                         v => v.ShapesCanvasItemsControl.ItemsSource)
                     .DisposeWith(d);
                 this.Bind(

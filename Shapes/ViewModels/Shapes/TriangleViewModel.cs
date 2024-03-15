@@ -14,7 +14,7 @@ public class TriangleViewModel : ShapeViewModel
     public TriangleViewModel(MovingShape shape)
         : base(shape)
     {
-        this.WhenAnyValue(x => localizedStrings.Triangle)
+        this.WhenAnyValue(x => x.LocalizedStrings.Triangle)
             .ToPropertyEx(this, x => x.Name);
     }
 }

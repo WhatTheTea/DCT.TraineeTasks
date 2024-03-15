@@ -20,29 +20,31 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public class MainWindowViewModel : ReactiveObject
 {
-    private static readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>()
+    private readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>()
                                                                 ?? throw new ArgumentNullException(nameof(LocalizedStrings));
 
     private readonly ShapeViewModelFactory shapeFactory = Locator.Current.GetService<ShapeViewModelFactory>()
                                                           ?? throw new ArgumentNullException(nameof(shapeFactory));
     public MainWindowViewModel()
     {
+        this.MovingShapeViewModels = new ObservableCollection<ShapeViewModel>();
+
         this.AddCircle = ReactiveCommand.Create(
-            () => this.MovingShapes.Add(
+            () => this.MovingShapeViewModels.Add(
                 this.shapeFactory.MakeCircle()));
 
         this.AddSquare = ReactiveCommand.Create(
-            () => this.MovingShapes.Add(
+            () => this.MovingShapeViewModels.Add(
                 this.shapeFactory.MakeSquare()));
 
         this.AddTriangle = ReactiveCommand.Create(
-            () => this.MovingShapes.Add(
+            () => this.MovingShapeViewModels.Add(
                 this.shapeFactory.MakeTriangle()));
 
         this.MoveShapes = ReactiveCommand.Create(
             () =>
             {
-                foreach (var shape in this.MovingShapes)
+                foreach (var shape in this.MovingShapeViewModels)
                 {
                     shape.Boundary = this.Boundary;
                     shape.Move.Execute();
@@ -66,11 +68,10 @@ public class MainWindowViewModel : ReactiveObject
         this.ChangeLanguage = ReactiveCommand.Create<CultureInfo, Unit>(
             culture =>
             {
-                Thread.CurrentThread.CurrentUICulture = culture;
-                this.CurrentCulture = culture;
+                this.LocalizedStrings.CurrentCulture = culture;
 
                 // collections binding skill issue ;-;
-                this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
+                // this.MovingShapesNames = this.SelectMovingShapesNames(this.MovingShapes.AsReadOnly());
                 return default;
             });
 
@@ -90,66 +91,88 @@ public class MainWindowViewModel : ReactiveObject
                 return default;
             });
 
-        // Moving shapes -> shapes names
-        this.MovingShapes
+        // Moving shapes -> shapes names dictionary
+        this.MovingShapeViewModels
             .ToObservableChangeSet(x => x)
             .ToCollection()
-            .Select(this.SelectMovingShapesNames)
-            .BindTo(this, x => x.MovingShapesNames);
-        // Cache shapes by guid
-        this.MovingShapes
-            .ToObservableChangeSet(x => x)
-            .ToCollection()
-            .Select(x => x.Select(y => new KeyValuePair<Guid, ShapeViewModel>(y.Shape.Id, y)))
-            .BindTo(this, x => x.MovingShapesDictionary);
+            .Select(x =>
+            {
+                var shapeCounts = new Dictionary<string, int>();
+                var pairs = x.Select(
+                    shape =>
+                    {
+                        var isValue = shapeCounts.TryGetValue(shape.Name, out var count);
+                        if (!isValue)
+                        {
+                            shapeCounts[shape.Name] = 1;
+                        }
 
+                        shapeCounts[shape.Name]++;
+
+                        return new KeyValuePair<Guid, string>(shape.Shape.Id, $"{shape.Name} {count + 1}");
+                    });
+                return new Dictionary<Guid, string>(pairs);
+            })
+            .ToPropertyEx(this, x => x.MovingShapesNamesDictionary);
+        
+        this.MovingShapeViewModels
+            .ToObservableChangeSet(x => x)
+            .ToCollection()
+            .Select(x => x.Select(shape => this.MovingShapesNamesDictionary[shape.Shape.Id]))
+            .ToPropertyEx(this, x => x.MovingShapesNames);
         // SelectedShapeName -> SelectedShape
-        this.WhenAnyValue(x => x.SelectedShapeName, y => y.CurrentCulture)
-            .Select(x => this.MovingShapes.Where((shape, i) => shape.Name + i == x.Item1).FirstOrDefault())
+        this.WhenAnyValue(x => x.SelectedShapeName, y => y.LocalizedStrings.CurrentCulture)
+            .Select(x=>
+            {
+                if (this.MovingShapesNamesDictionary == null || this.MovingShapesNamesDictionary.Count < 1)
+                {
+                    return null;
+                }
+
+                var pair = this.MovingShapesNamesDictionary.FirstOrDefault(y => y.Value == (x.Item1 ?? string.Empty));
+                return this.MovingShapeViewModels.FirstOrDefault(y => y.Shape.Id == pair.Key);
+                })
             .ToPropertyEx(this, x => x.SelectedShape);
 
         // On ShapeSelection and locale change set PlayButtonText
         this.WhenAnyValue(
                 x => x.SelectedShape,
-                x => x.CurrentCulture,
+                x => x.LocalizedStrings.CurrentCulture,
                 x => x.IsSelectedShapePaused)
             .Select(x => this.GetPlayButtonTextFor(x.Item1))
             .ToPropertyEx(this, x => x.PlayButtonText);
 
+        this.LocalizedStrings.CurrentCulture = CultureInfo.CurrentCulture;
         // TriangleText
-        this.WhenAnyValue(x => x.CurrentCulture)
-            .Select(x => LocalizedStrings.Triangle)
+        this.WhenAnyValue(x => x.LocalizedStrings.Triangle)
             .ToPropertyEx(this, x => x.TriangleText);
 
         // CircleText
-        this.WhenAnyValue(x => x.CurrentCulture)
-            .Select(x => LocalizedStrings.Circle)
+        this.WhenAnyValue(x => x.LocalizedStrings.Circle)
             .ToPropertyEx(this, x => x.CircleText);
 
         // SquareText
-        this.WhenAnyValue(x => x.CurrentCulture)
-            .Select(x => LocalizedStrings.Square)
+        this.WhenAnyValue(x => x.LocalizedStrings.Square)
             .ToPropertyEx(this, x => x.SquareText);
 
-        this.CurrentCulture = CultureInfo.CurrentCulture;
     }
 
 #pragma warning disable SA1600 // ElementsMustBeDocumented
 
-    [Reactive]
-    public CultureInfo CurrentCulture { get; set; }
-
-    [Reactive]
-    public ObservableCollection<ShapeViewModel> MovingShapes { get; private set; } = new();
-
     [ObservableAsProperty]
-    public ReadOnlyDictionary<Guid, ShapeViewModel> MovingShapesDictionary { get; }
-    
+    public ObservableCollection<MovingShape> MovingShapesViews { get; }
+
     [Reactive]
+    public ObservableCollection<ShapeViewModel> MovingShapeViewModels { get; private set; }
+
+    [ObservableAsProperty] 
     public IEnumerable<string> MovingShapesNames { get; set; }
 
-    [Reactive]
-    public string SelectedShapeName { get; set; }
+    [ObservableAsProperty] 
+    public Dictionary<Guid, string> MovingShapesNamesDictionary { get; }
+
+    [Reactive] 
+    public string? SelectedShapeName { get; set; }
     
     [Reactive]
     public bool IsSelectedShapePaused { get; set; }
@@ -162,11 +185,11 @@ public class MainWindowViewModel : ReactiveObject
 
     [ObservableAsProperty] public string PlayButtonText { get; }
 
-    [ObservableAsProperty] public string CircleText { get; } = LocalizedStrings.Circle;
+    [ObservableAsProperty] public string CircleText { get; } = string.Empty;
 
-    [ObservableAsProperty] public string SquareText { get; } = LocalizedStrings.Square;
+    [ObservableAsProperty] public string SquareText { get; } = string.Empty;
 
-    [ObservableAsProperty] public string TriangleText { get; } = LocalizedStrings.Triangle;
+    [ObservableAsProperty] public string TriangleText { get; } = string.Empty;
 
     public ReactiveCommand<Unit, Unit> AddSquare { get; }
 
@@ -193,9 +216,9 @@ public class MainWindowViewModel : ReactiveObject
     {
         if (shape == null)
         {
-            return LocalizedStrings.PlayButtonSelect;
+            return this.LocalizedStrings.PlayButtonSelect;
         }
 
-        return shape.IsPaused ? LocalizedStrings.PlayButtonPlay : LocalizedStrings.PlayButtonPause;
+        return shape.IsPaused ? this.LocalizedStrings.PlayButtonPlay : this.LocalizedStrings.PlayButtonPause;
     }
 }
