@@ -11,10 +11,11 @@ namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
 public class CircleViewModel : ShapeViewModel
 {
-    public CircleViewModel(MovingShape shape)
-        : base(shape)
+    public CircleViewModel()
+        : base()
     {
+        this.Name = this.LocalizedStrings.Circle;
         this.WhenAnyValue(x => x.LocalizedStrings.Circle)
-            .ToPropertyEx(this, x => x.Name);
+            .BindTo(this, x => x.Name);
     }
 }

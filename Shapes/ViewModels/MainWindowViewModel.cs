@@ -23,31 +23,34 @@ public class MainWindowViewModel : ReactiveObject
     private readonly LocalizerService LocalizedStrings = Locator.Current.GetService<LocalizerService>()
                                                                 ?? throw new ArgumentNullException(nameof(LocalizedStrings));
 
-    private readonly ShapeViewModelFactory shapeFactory = Locator.Current.GetService<ShapeViewModelFactory>()
+    private readonly ShapeViewFactory shapeFactory = Locator.Current.GetService<ShapeViewFactory>()
                                                           ?? throw new ArgumentNullException(nameof(shapeFactory));
+
+    private ReadOnlyObservableCollection<MovingShape> movingShapesViews;
+
     public MainWindowViewModel()
     {
-        this.MovingShapeViewModels = new ObservableCollection<ShapeViewModel>();
+        this.MovingShapes = new();
 
         this.AddCircle = ReactiveCommand.Create(
-            () => this.MovingShapeViewModels.Add(
+            () => this.MovingShapes.Add(
                 this.shapeFactory.MakeCircle()));
 
         this.AddSquare = ReactiveCommand.Create(
-            () => this.MovingShapeViewModels.Add(
+            () => this.MovingShapes.Add(
                 this.shapeFactory.MakeSquare()));
 
         this.AddTriangle = ReactiveCommand.Create(
-            () => this.MovingShapeViewModels.Add(
+            () => this.MovingShapes.Add(
                 this.shapeFactory.MakeTriangle()));
 
         this.MoveShapes = ReactiveCommand.Create(
             () =>
             {
-                foreach (var shape in this.MovingShapeViewModels)
+                foreach (var shape in this.MovingShapes)
                 {
-                    shape.Boundary = this.Boundary;
-                    shape.Move.Execute();
+                    shape.ViewModel.Boundary = this.Boundary;
+                    shape.ViewModel.Move.Execute();
                 }
             });
 
@@ -60,9 +63,9 @@ public class MainWindowViewModel : ReactiveObject
                     return;
                 }
 
-                shape.PlayPause.Execute();
+                shape.ViewModel.PlayPause.Execute();
                 // TODO: Remove
-                this.IsSelectedShapePaused = shape.IsPaused;
+                this.IsSelectedShapePaused = shape.ViewModel.IsPaused;
             });
 
         this.ChangeLanguage = ReactiveCommand.Create<CultureInfo, Unit>(
@@ -91,34 +94,12 @@ public class MainWindowViewModel : ReactiveObject
                 return default;
             });
 
-        // Moving shapes -> shapes names dictionary
-        this.MovingShapeViewModels
+
+        // VMs to Names
+        this.MovingShapes
             .ToObservableChangeSet(x => x)
             .ToCollection()
-            .Select(x =>
-            {
-                var shapeCounts = new Dictionary<string, int>();
-                var pairs = x.Select(
-                    shape =>
-                    {
-                        var isValue = shapeCounts.TryGetValue(shape.Name, out var count);
-                        if (!isValue)
-                        {
-                            shapeCounts[shape.Name] = 1;
-                        }
-
-                        shapeCounts[shape.Name]++;
-
-                        return new KeyValuePair<Guid, string>(shape.Shape.Id, $"{shape.Name} {count + 1}");
-                    });
-                return new Dictionary<Guid, string>(pairs);
-            })
-            .ToPropertyEx(this, x => x.MovingShapesNamesDictionary);
-        
-        this.MovingShapeViewModels
-            .ToObservableChangeSet(x => x)
-            .ToCollection()
-            .Select(x => x.Select(shape => this.MovingShapesNamesDictionary[shape.Shape.Id]))
+            .Select(x => x.Select(shape => this.MovingShapesNamesDictionary[shape.Id]))
             .ToPropertyEx(this, x => x.MovingShapesNames);
         // SelectedShapeName -> SelectedShape
         this.WhenAnyValue(x => x.SelectedShapeName, y => y.LocalizedStrings.CurrentCulture)
@@ -130,7 +111,7 @@ public class MainWindowViewModel : ReactiveObject
                 }
 
                 var pair = this.MovingShapesNamesDictionary.FirstOrDefault(y => y.Value == (x.Item1 ?? string.Empty));
-                return this.MovingShapeViewModels.FirstOrDefault(y => y.Shape.Id == pair.Key);
+                return this.MovingShapes.FirstOrDefault(y => y.Id == pair.Key);
                 })
             .ToPropertyEx(this, x => x.SelectedShape);
 
@@ -155,21 +136,48 @@ public class MainWindowViewModel : ReactiveObject
         this.WhenAnyValue(x => x.LocalizedStrings.Square)
             .ToPropertyEx(this, x => x.SquareText);
 
+        // Moving shapes -> shapes names dictionary
+        this.MovingShapes
+            .ToObservableChangeSet(x => x)
+            .ToCollection()
+            .Select(x =>
+            {
+                var shapeCounts = new Dictionary<string, int>();
+                var pairs = x.Select(
+                    shape =>
+                    {
+                        var isValue = shapeCounts.TryGetValue(shape.Name, out var count);
+                        if (!isValue)
+                        {
+                            shapeCounts[shape.Name] = 1;
+                        }
+
+                        shapeCounts[shape.Name]++;
+
+                        return new KeyValuePair<Guid, string>(shape.Id, $"{shape.Name} {count + 1}");
+                    });
+                return new Dictionary<Guid, string>(pairs);
+            })
+            .ToPropertyEx(this, x => x.MovingShapesNamesDictionary);
     }
 
 #pragma warning disable SA1600 // ElementsMustBeDocumented
 
-    [ObservableAsProperty]
-    public ObservableCollection<MovingShape> MovingShapesViews { get; }
+    // [ObservableAsProperty]
+    public ReadOnlyObservableCollection<MovingShape> MovingShapesViews
+    {
+        get => this.movingShapesViews;
+        set => this.RaiseAndSetIfChanged(ref this.movingShapesViews, value);
+    }
 
     [Reactive]
-    public ObservableCollection<ShapeViewModel> MovingShapeViewModels { get; private set; }
+    public ObservableCollection<MovingShape> MovingShapes { get; private set; }
 
     [ObservableAsProperty] 
     public IEnumerable<string> MovingShapesNames { get; set; }
 
     [ObservableAsProperty] 
-    public Dictionary<Guid, string> MovingShapesNamesDictionary { get; }
+    public Dictionary<Guid, string> MovingShapesNamesDictionary { get; } = new();
 
     [Reactive] 
     public string? SelectedShapeName { get; set; }
@@ -178,7 +186,7 @@ public class MainWindowViewModel : ReactiveObject
     public bool IsSelectedShapePaused { get; set; }
 
     [ObservableAsProperty]
-    public ShapeViewModel? SelectedShape { get; }
+    public MovingShape? SelectedShape { get; }
 
     [Reactive]
     public Point Boundary { get; set; } = new(300, 300);
@@ -212,13 +220,13 @@ public class MainWindowViewModel : ReactiveObject
         return x.Select((shape, i) => shape.Name + i);
     }
 
-    private string GetPlayButtonTextFor(ShapeViewModel? shape)
+    private string GetPlayButtonTextFor(MovingShape? shape)
     {
         if (shape == null)
         {
             return this.LocalizedStrings.PlayButtonSelect;
         }
 
-        return shape.IsPaused ? this.LocalizedStrings.PlayButtonPlay : this.LocalizedStrings.PlayButtonPause;
+        return shape.ViewModel.IsPaused ? this.LocalizedStrings.PlayButtonPlay : this.LocalizedStrings.PlayButtonPause;
     }
 }

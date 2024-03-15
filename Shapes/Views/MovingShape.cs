@@ -13,8 +13,10 @@ namespace DCT.TraineeTasks.Shapes.Views;
 
 public class MovingShape : Shape, IViewFor<ShapeViewModel>
 {
-    public MovingShape(Geometry definingGeometry)
+    public MovingShape(Geometry definingGeometry, ShapeViewModel vm)
     {
+        this.ViewModel = vm;
+        
         this.DefiningGeometry = definingGeometry;
 
         this.WhenActivated(
@@ -41,6 +43,6 @@ public class MovingShape : Shape, IViewFor<ShapeViewModel>
         get => this.ViewModel;
         set => this.ViewModel = (ShapeViewModel?)value;
     }
-
+    
     public ShapeViewModel? ViewModel { get; set; }
 }

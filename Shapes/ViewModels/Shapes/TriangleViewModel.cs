@@ -11,10 +11,11 @@ namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
 public class TriangleViewModel : ShapeViewModel
 {
-    public TriangleViewModel(MovingShape shape)
-        : base(shape)
+    public TriangleViewModel()
+        : base()
     {
+        this.Name = this.LocalizedStrings.Triangle;
         this.WhenAnyValue(x => x.LocalizedStrings.Triangle)
-            .ToPropertyEx(this, x => x.Name);
+            .BindTo(this, x => x.Name);
     }
 }

@@ -22,8 +22,8 @@ public abstract class ShapeViewModel : ReactiveObject
     [ObservableAsProperty]
     public bool IsPaused { get; }
 
-    [ObservableAsProperty]
-    public string Name { get; }
+    [Reactive]
+    public string Name { get; set; }
 
     [Reactive] 
     public Vector Velocity { get; set; }
@@ -43,7 +43,7 @@ public abstract class ShapeViewModel : ReactiveObject
 
     protected ReactiveCommand<Unit, Unit> MovePaused;
 
-    protected ShapeViewModel(MovingShape shape)
+    protected ShapeViewModel()
     {
         // this.Shape = shape;
 

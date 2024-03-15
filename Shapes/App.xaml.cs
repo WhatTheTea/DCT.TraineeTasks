@@ -40,9 +40,12 @@ public partial class App
                     services.AddLogging()
                         .AddLocalization(options => options.ResourcesPath = "Resources")
                         .AddSingleton<LocalizerService>()
-                        .AddTransient<ShapeViewModelFactory>()
+                        .AddTransient<ShapeViewFactory>()
                         .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
                         .AddSingleton<MainWindowViewModel>()
+                        .AddTransient<CircleViewModel>()
+                        .AddTransient<SquareViewModel>()
+                        .AddTransient<TriangleViewModel>()
                         ;
                 })
             .UseEnvironment(Environments.Development)

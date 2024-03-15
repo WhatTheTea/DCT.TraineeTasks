@@ -11,10 +11,11 @@ namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
 public class SquareViewModel : ShapeViewModel
 {
-    public SquareViewModel(MovingShape shape)
-        : base(shape)
+    public SquareViewModel()
+        : base()
     {
+        this.Name = this.LocalizedStrings.Square;
         this.WhenAnyValue(x => x.LocalizedStrings.Square)
-            .ToPropertyEx(this, x => x.Name);
+            .BindTo(this, x => x.Name);
     }
 }
