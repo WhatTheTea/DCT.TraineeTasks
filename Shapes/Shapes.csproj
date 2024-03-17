@@ -9,7 +9,7 @@
         <RootNamespace>DCT.TraineeTasks.Shapes</RootNamespace>
         <Company>DCT</Company>
         <Product>TraineeTasks.Shapes</Product>
-        <NeutralLanguage>uk-UA</NeutralLanguage>
+        <NeutralLanguage></NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
@@ -37,7 +37,7 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Services.LocalizerService.uk.resx">
+      <EmbeddedResource Update="Resources\Services.LocalizerService.uk-ua.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
         <DependentUpon>Services.LocalizerService.resx</DependentUpon>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <data name="circle" xml:space="preserve">
-        <value>Коло</value>
+        <value>Коло </value>
     </data>
     <data name="square" xml:space="preserve">
         <value>Квадрат</value>

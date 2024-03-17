@@ -63,6 +63,7 @@ public sealed partial class MainViewModel : ObservableRecipient, IRecipient<Valu
     [RelayCommand]
     private void ChangeCulture(CultureInfo cultureInfo)
     {
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
         this.Messenger.Send(new ValueChangedMessage<LocalizerService>(this.LocalizerService));
     }
