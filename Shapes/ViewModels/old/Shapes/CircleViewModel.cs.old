@@ -1,4 +1,4 @@
-﻿// <copyright file="CircleViewModel.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="CircleViewModel.cs.old" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -14,8 +14,8 @@ public class CircleViewModel : ShapeViewModel
     public CircleViewModel()
         : base()
     {
-        this.Name = this.LocalizedStrings.Circle;
-        this.WhenAnyValue(x => x.LocalizedStrings.Circle)
+        this.Name = this.LocalizedStrings.circle;
+        this.WhenAnyValue(x => x.LocalizedStrings.circle)
             .BindTo(this, x => x.Name);
     }
 }

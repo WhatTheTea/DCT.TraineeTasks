@@ -2,14 +2,10 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Windows;
+using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using DCT.TraineeTasks.Shapes.ViewModels.Shapes;
-using DCT.TraineeTasks.Shapes.Views;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ReactiveUI;
-using Splat;
-using Splat.Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes;
 
@@ -20,37 +16,26 @@ public partial class App
 {
     public App()
     {
-        this.InitIoC();
+        this.Services = ConfigureServices();
+
+        this.InitializeComponent();
     }
 
-    private IServiceProvider Container { get; set; }
+    public new static App Current => (App)Application.Current;
 
-    private void InitIoC()
+    public IServiceProvider Services { get; }
+
+    private static IServiceProvider ConfigureServices()
     {
-        var host = Host
-            .CreateDefaultBuilder()
-            .ConfigureServices(
-                services =>
-                {
-                    services.UseMicrosoftDependencyResolver();
-                    var resolver = Locator.CurrentMutable;
-                    resolver.InitializeSplat();
-                    resolver.InitializeReactiveUI();
+        var services = new ServiceCollection();
 
-                    services.AddLogging()
-                        .AddLocalization(options => options.ResourcesPath = "Resources")
-                        .AddSingleton<LocalizerService>()
-                        .AddTransient<ShapeViewFactory>()
-                        .AddSingleton<IViewFor<MainWindowViewModel>, MainWindow>()
-                        .AddSingleton<MainWindowViewModel>()
-                        .AddTransient<CircleViewModel>()
-                        .AddTransient<SquareViewModel>()
-                        .AddTransient<TriangleViewModel>()
-                        ;
-                })
-            .UseEnvironment(Environments.Development)
-            .Build();
-        this.Container = host.Services;
-        this.Container.UseMicrosoftDependencyResolver();
+        services
+            .AddLogging()
+            .AddLocalization(options => options.ResourcesPath = "Resources")
+            .AddSingleton<LocalizerService>()
+            .AddSingleton<MainViewModel>()
+            ;
+
+        return services.BuildServiceProvider();
     }
 }

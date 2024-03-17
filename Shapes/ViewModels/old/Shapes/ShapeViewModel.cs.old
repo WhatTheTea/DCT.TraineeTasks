@@ -1,10 +1,11 @@
-﻿// <copyright file="ShapeViewModel.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="ShapeViewModel.cs.old" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

@@ -1,4 +1,4 @@
-﻿// <copyright file="MainWindowViewModel.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="MainWindowViewModel.cs.old" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -8,6 +8,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using DCT.TraineeTasks.Shapes.Models.MovingShapes;
+using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 using DCT.TraineeTasks.Shapes.Views;
 using DynamicData;
@@ -78,14 +79,14 @@ public class MainWindowViewModel : ReactiveObject
                 return default;
             });
 
-        this.Save = ReactiveCommand.Create<FileFormats, Unit>(
+        this.Save = ReactiveCommand.Create<FileFormat, Unit>(
             format =>
             {
                 // temp
                 var service = new BinaryFileService();
                 switch (format)
                 {
-                    case FileFormats.Bin:
+                    case FileFormat.Bin:
                         throw new NotImplementedException();
                         // service.Save(this.MovingShapes);
                         break;
@@ -125,15 +126,15 @@ public class MainWindowViewModel : ReactiveObject
 
         this.LocalizedStrings.CurrentCulture = CultureInfo.CurrentCulture;
         // TriangleText
-        this.WhenAnyValue(x => x.LocalizedStrings.Triangle)
+        this.WhenAnyValue(x => x.LocalizedStrings.triangle)
             .ToPropertyEx(this, x => x.TriangleText);
 
         // CircleText
-        this.WhenAnyValue(x => x.LocalizedStrings.Circle)
+        this.WhenAnyValue(x => x.LocalizedStrings.circle)
             .ToPropertyEx(this, x => x.CircleText);
 
         // SquareText
-        this.WhenAnyValue(x => x.LocalizedStrings.Square)
+        this.WhenAnyValue(x => x.LocalizedStrings.square)
             .ToPropertyEx(this, x => x.SquareText);
 
         // Moving shapes -> shapes names dictionary
@@ -207,7 +208,7 @@ public class MainWindowViewModel : ReactiveObject
 
     public ReactiveCommand<Unit, Unit> PlayPause { get; }
     
-    public ReactiveCommand<FileFormats, Unit> Save { get; }
+    public ReactiveCommand<FileFormat, Unit> Save { get; }
 
     public ReactiveCommand<CultureInfo, Unit> ChangeLanguage { get; }
 

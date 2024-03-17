@@ -1,4 +1,4 @@
-﻿// <copyright file="SquareViewModel.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="TriangleViewModel.cs.old" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -9,13 +9,13 @@ using ReactiveUI.Fody.Helpers;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels.Shapes;
 
-public class SquareViewModel : ShapeViewModel
+public class TriangleViewModel : ShapeViewModel
 {
-    public SquareViewModel()
+    public TriangleViewModel()
         : base()
     {
-        this.Name = this.LocalizedStrings.Square;
-        this.WhenAnyValue(x => x.LocalizedStrings.Square)
+        this.Name = this.LocalizedStrings.triangle;
+        this.WhenAnyValue(x => x.LocalizedStrings.triangle)
             .BindTo(this, x => x.Name);
     }
 }
