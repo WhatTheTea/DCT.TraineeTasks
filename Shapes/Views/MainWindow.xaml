@@ -89,19 +89,19 @@
                         x:Name="ShapesStackPanel">
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding TriangleButtonText, UpdateSourceTrigger=PropertyChanged, FallbackValue=triangle}"
+                        Content="{Binding LocalizerService.Triangle, UpdateSourceTrigger=PropertyChanged, FallbackValue=triangle}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Triangle}"
                         x:Name="TriangleButton"/>
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding SquareButtonText,UpdateSourceTrigger=PropertyChanged, FallbackValue=square}"
+                        Content="{Binding LocalizerService.Square,UpdateSourceTrigger=PropertyChanged, FallbackValue=square}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Square}"
                         x:Name="SquareButton"/>
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding CircleButtonText,UpdateSourceTrigger=PropertyChanged, FallbackValue=circle}"
+                        Content="{Binding LocalizerService.Circle,UpdateSourceTrigger=PropertyChanged, FallbackValue=circle}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Circle}"
                         x:Name="CircleButton"/>

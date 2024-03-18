@@ -34,6 +34,7 @@ public partial class App
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
             .AddSingleton<MainViewModel>()
+            .AddSingleton<LocalizerServiceObservableWrapper>()
             ;
 
         return services.BuildServiceProvider();

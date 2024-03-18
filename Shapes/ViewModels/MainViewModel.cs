@@ -18,31 +18,16 @@ using Microsoft.Extensions.Localization;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
-public sealed partial class MainViewModel : ObservableRecipient, IRecipient<ValueChangedMessage<LocalizerService>>
+public sealed partial class MainViewModel : ObservableObject
 {
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
-
-    // [ObservableProperty] 
-    public LocalizerService LocalizerService => App.Current.Services.GetService<LocalizerService>()
-                                                ?? throw new ArgumentNullException(nameof(this.LocalizerService));
+    
+    public LocalizerServiceObservableWrapper LocalizerService =>
+        App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
+        ?? throw new ArgumentNullException(nameof(this.LocalizerService));
 
     [ObservableProperty]
     private string selectedShapeName = string.Empty;
-
-    [ObservableProperty] private string circleButtonText;
-
-    [ObservableProperty] private string triangleButtonText;
-
-    [ObservableProperty] private string squareButtonText;
-   
-    public MainViewModel()
-    {
-        this.CircleButtonText = this.LocalizerService.Circle;
-        this.SquareButtonText = this.LocalizerService.Square;
-        this.TriangleButtonText = this.LocalizerService.Triangle;
-        
-        this.Messenger.RegisterAll(this);
-    }
 
     [RelayCommand]
     private void AddShape(SupportedShapes kind)
@@ -63,24 +48,12 @@ public sealed partial class MainViewModel : ObservableRecipient, IRecipient<Valu
     }
 
     [RelayCommand]
-    private void ChangeCulture(CultureInfo cultureInfo)
-    {
-        Thread.CurrentThread.CurrentCulture = cultureInfo;
-        Thread.CurrentThread.CurrentUICulture = cultureInfo;
-        this.Messenger.Send(new ValueChangedMessage<LocalizerService>(this.LocalizerService));
-    }
+    private void ChangeCulture(CultureInfo cultureInfo) =>
+        this.LocalizerService.CurrentCulture = cultureInfo;
 
     [RelayCommand]
     private void SaveTo(FileFormat format)
     {
         // TODO
-    }
-
-    public void Receive(ValueChangedMessage<LocalizerService> message)
-    {
-        var service = message.Value;
-        this.CircleButtonText = service.Circle;
-        this.SquareButtonText = service.Square;
-        this.TriangleButtonText = service.Triangle;
     }
 }
