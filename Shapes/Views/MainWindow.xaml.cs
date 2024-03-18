@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Windows;
+using System.Windows.Data;
 using DCT.TraineeTasks.Shapes.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Views;
@@ -18,13 +19,13 @@ public partial class MainWindow
     public MainWindow()
     {
         this.InitializeComponent();
+
+        this.ShapesCanvasItemsControl.LayoutUpdated += (_, _) =>
+        {
+            this.ViewModel.CanvasHeight = this.ShapesCanvasItemsControl.ActualHeight;
+            this.ViewModel.CanvasWidth = this.ShapesCanvasItemsControl.ActualWidth;
+        };
     }
 
     public MainViewModel ViewModel => (MainViewModel)this.DataContext;
-
-    private Point Boundary
-    {
-        get => new(this.ShapesCanvasItemsControl.ActualWidth, this.ShapesCanvasItemsControl.ActualHeight);
-        set => _ = value;
-    }
 }

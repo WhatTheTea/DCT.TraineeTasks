@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Shapes.Resources;
@@ -11,16 +10,14 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {
-    private readonly RelayCommand moving;
+    private readonly Action moving;
 
-    private readonly RelayCommand paused = new(
-        () =>
-        {
-            // Do nothing
-        });
+    private readonly Action paused = () =>
+    {
+        // Do nothing
+    };
 
-    [ObservableProperty] private ICommand move;
-
+    [ObservableProperty] private Action move;
     [ObservableProperty] private string name;
     [ObservableProperty] private double x;
     [ObservableProperty] private double y;
@@ -31,7 +28,7 @@ public partial class ShapeViewModel : ObservableObject
         this.ShapeKind = kind;
         this.name = name;
 
-        this.moving = new RelayCommand(() => { (this.X, this.Y) = (this.X + 10, this.Y + 10); });
+        this.moving = () => { (this.X, this.Y) = (this.X + 10, this.Y + 10); };
 
         this.Move = this.moving;
     }
@@ -41,4 +38,10 @@ public partial class ShapeViewModel : ObservableObject
     public SupportedShapes ShapeKind { get; }
 
     public bool IsPaused => this.Move == this.paused;
+
+    [RelayCommand]
+    private void PauseToggle()
+    {
+        this.Move = this.IsPaused ? this.moving : this.paused;
+    }
 }

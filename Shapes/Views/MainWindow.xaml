@@ -45,15 +45,15 @@
             <StackPanel>
                 <Label>DCT.TraineeTasks.Shapes</Label>
                 <Button
+                    Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
                     Command="{Binding PlayOrPauseCommand}"
                     CommandParameter="{Binding SelectedItem, ElementName=ShapesListBox}"
-                    x:Name="PlayButton">
-                    Play or Pause
-                </Button>
+                    x:Name="PlayButton"/>
             </StackPanel>
 
             <ListBox Grid.Row="1" Grid.Column="0"
                      ItemsSource="{Binding Shapes}"
+                     SelectedItem="{Binding SelectedShape, Mode=OneWayToSource}"
                      x:Name="ShapesListBox">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:ShapeViewModel}">
@@ -82,7 +82,7 @@
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas />
+                        <Canvas/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
@@ -92,7 +92,7 @@
                         x:Name="ShapesStackPanel">
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Triangle, UpdateSourceTrigger=PropertyChanged, FallbackValue=triangle}"
+                        Content="{Binding LocalizerService.Triangle, FallbackValue=triangle}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Triangle}"
                         x:Name="TriangleButton" />
