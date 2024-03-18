@@ -5,6 +5,7 @@
 using System.Windows;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes;

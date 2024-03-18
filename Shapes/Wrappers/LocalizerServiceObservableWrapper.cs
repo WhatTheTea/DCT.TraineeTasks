@@ -3,11 +3,10 @@
 // </copyright>
 
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DCT.TraineeTasks.Shapes.Services;
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+namespace DCT.TraineeTasks.Shapes.Wrappers;
 
 public class LocalizerServiceObservableWrapper(LocalizerService service) : ObservableObject
 {
@@ -36,6 +35,10 @@ public class LocalizerServiceObservableWrapper(LocalizerService service) : Obser
             this.OnPropertyChanged(nameof(this.Triangle));
             this.OnPropertyChanged(nameof(this.Circle));
             this.OnPropertyChanged(nameof(this.Square));
+            this.OnPropertyChanged(nameof(this.PlayButtonSelect));
+            this.OnPropertyChanged(nameof(this.PlayButtonPause));
+            this.OnPropertyChanged(nameof(this.PlayButtonPlay));
+            
         }
     }
 }

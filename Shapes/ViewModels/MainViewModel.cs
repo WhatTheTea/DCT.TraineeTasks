@@ -13,6 +13,7 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Views;
+using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -29,6 +30,9 @@ public sealed partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string selectedShapeName = string.Empty;
 
+    [ObservableProperty]
+    private string buttonText = string.Empty;
+
     [RelayCommand]
     private void AddShape(SupportedShapes kind)
     {
@@ -42,9 +46,9 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void PlayOrPause(object shape)
+    private void PlayOrPause(ShapeViewModel? shape)
     {
-        // TODO
+        Console.WriteLine(shape?.Name);
     }
 
     [RelayCommand]

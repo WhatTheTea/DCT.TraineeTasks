@@ -47,10 +47,13 @@
             <StackPanel>
                 <Label>DCT.TraineeTasks.Shapes</Label>
                 <Button
+                    Command="{Binding PlayOrPauseCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=ShapesListBox}"
                     x:Name="PlayButton">
                     Play or Pause
                 </Button>
             </StackPanel>
+            
             <ListBox Grid.Row="1" Grid.Column="0"
                      ItemsSource="{Binding Shapes}"
                      x:Name="ShapesListBox">
@@ -76,6 +79,7 @@
                             </Path.RenderTransform>
                         </Path>
                     </DataTemplate>
+                    
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -95,13 +99,13 @@
                         x:Name="TriangleButton"/>
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Square,UpdateSourceTrigger=PropertyChanged, FallbackValue=square}"
+                        Content="{Binding LocalizerService.Square, FallbackValue=square}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Square}"
                         x:Name="SquareButton"/>
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Circle,UpdateSourceTrigger=PropertyChanged, FallbackValue=circle}"
+                        Content="{Binding LocalizerService.Circle, FallbackValue=circle}"
                         Command="{Binding AddShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Circle}"
                         x:Name="CircleButton"/>
