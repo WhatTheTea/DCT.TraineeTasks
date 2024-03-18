@@ -5,7 +5,6 @@
 using System.Collections.Immutable;
 using System.IO;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using DCT.TraineeTasks.Shapes.Views;
 using MessagePack;
 using MessagePack.Resolvers;
 
@@ -17,7 +16,7 @@ public class BinaryFileService : IFileService
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
-        var bytes = MessagePackSerializer.Serialize(shapes, MessagePack.Resolvers.ContractlessStandardResolver.Options);
+        var bytes = MessagePackSerializer.Serialize(shapes, ContractlessStandardResolver.Options);
         using var file = File.Create(FilePath);
         file.Write(bytes);
     }

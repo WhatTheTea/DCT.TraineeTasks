@@ -13,7 +13,7 @@ public static class ShapesGeometries
 
     public static Geometry Rectangle => new RectangleGeometry
     {
-        Rect = new Rect(0, 0, 20, 20),
+        Rect = new Rect(0, 0, 20, 20)
     };
 
     public static Geometry Triangle => new PathGeometry(
@@ -23,7 +23,7 @@ public static class ShapesGeometries
             new List<PathSegment>
             {
                 new LineSegment(new Point(40, 0), true),
-                new LineSegment(new Point(0, 0), true),
+                new LineSegment(new Point(0, 0), true)
             }.AsReadOnly(),
             true)
     ]);

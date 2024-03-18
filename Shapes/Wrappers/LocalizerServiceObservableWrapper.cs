@@ -11,7 +11,7 @@ namespace DCT.TraineeTasks.Shapes.Wrappers;
 public class LocalizerServiceObservableWrapper(LocalizerService service) : ObservableObject
 {
     private CultureInfo culture = CultureInfo.CurrentUICulture;
-    
+
     public string PlayButtonSelect => service.PlayButtonSelect;
 
     public string PlayButtonPause => service.PlayButtonPause;
@@ -38,7 +38,6 @@ public class LocalizerServiceObservableWrapper(LocalizerService service) : Obser
             this.OnPropertyChanged(nameof(this.PlayButtonSelect));
             this.OnPropertyChanged(nameof(this.PlayButtonPause));
             this.OnPropertyChanged(nameof(this.PlayButtonPlay));
-            
         }
     }
 }

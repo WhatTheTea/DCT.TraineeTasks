@@ -26,12 +26,14 @@ public class ShapeKindConverter : IValueConverter
         throw new NotImplementedException();
     }
 
-    private Geometry GeometryByShape(SupportedShapes shape) => 
-        shape switch
+    private Geometry GeometryByShape(SupportedShapes shape)
+    {
+        return shape switch
         {
             SupportedShapes.Circle => ShapesGeometries.Circle,
             SupportedShapes.Square => ShapesGeometries.Rectangle,
             SupportedShapes.Triangle => ShapesGeometries.Triangle,
             _ => throw new ArgumentException(nameof(shape))
         };
+    }
 }

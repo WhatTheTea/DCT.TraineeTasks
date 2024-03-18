@@ -9,5 +9,6 @@ namespace DCT.TraineeTasks.Shapes.Resources;
 public static class SupportedCultures
 {
     public static CultureInfo UkUa => new("uk-ua");
+
     public static CultureInfo EnUs => new("en-us");
 }

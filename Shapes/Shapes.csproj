@@ -13,8 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-        <PackageReference Include="MessagePack" Version="2.5.140" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
+        <PackageReference Include="MessagePack" Version="2.5.140"/>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.2"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
@@ -25,23 +25,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
+        <Page Update="Views\MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Services.LocalizerService.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Services.LocalizerService.uk-ua.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
-        <DependentUpon>Services.LocalizerService.resx</DependentUpon>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Services.LocalizerService.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Services.LocalizerService.uk-ua.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
+            <DependentUpon>Services.LocalizerService.resx</DependentUpon>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>

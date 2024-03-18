@@ -4,34 +4,34 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Windows.Media;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.Services;
-using DCT.TraineeTasks.Shapes.Views;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableObject
 {
+    [ObservableProperty] private string buttonText = string.Empty;
+
+    [ObservableProperty] private string selectedShapeName = string.Empty;
+
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
-    
+
     public LocalizerServiceObservableWrapper LocalizerService =>
         App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
 
-    [ObservableProperty]
-    private string selectedShapeName = string.Empty;
-
-    [ObservableProperty]
-    private string buttonText = string.Empty;
+    /// <summary>
+    ///     Gets DispatcherTimer with frame time interval
+    /// </summary>
+    private DispatcherTimer FrameTimer { get; } = new()
+    {
+        Interval = TimeSpan.FromMilliseconds(21)
+    };
 
     [RelayCommand]
     private void AddShape(SupportedShapes kind)
@@ -42,7 +42,10 @@ public sealed partial class MainViewModel : ObservableObject
 
     private void MoveShapes()
     {
-        // TODO
+        foreach (var shape in this.Shapes)
+        {
+            shape.Move.Execute(null);
+        }
     }
 
     [RelayCommand]
@@ -52,8 +55,10 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ChangeCulture(CultureInfo cultureInfo) =>
+    private void ChangeCulture(CultureInfo cultureInfo)
+    {
         this.LocalizerService.CurrentCulture = cultureInfo;
+    }
 
     [RelayCommand]
     private void SaveTo(FileFormat format)

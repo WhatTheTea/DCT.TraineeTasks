@@ -3,9 +3,7 @@
 // </copyright>
 
 using System.Windows;
-using System.Windows.Threading;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.Views;
 
@@ -14,25 +12,15 @@ namespace DCT.TraineeTasks.Shapes.Views;
 /// </summary>
 public partial class MainWindow
 {
-    public MainViewModel ViewModel => (MainViewModel)this.DataContext;
-
-    /// <summary>
-    ///     Gets DispatcherTimer with frame time interval
-    /// </summary>
-    private DispatcherTimer FrameTimer { get; } = new()
-    {
-        Interval = TimeSpan.FromMilliseconds(21),
-    };
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();
-        // this.DataContext = App.Current.Services.GetService<MainViewModel>();
-        this.FrameTimer.Start();
     }
+
+    public MainViewModel ViewModel => (MainViewModel)this.DataContext;
 
     private Point Boundary
     {
