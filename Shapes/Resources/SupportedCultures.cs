@@ -4,7 +4,7 @@
 
 using System.Globalization;
 
-namespace DCT.TraineeTasks.Shapes.Views;
+namespace DCT.TraineeTasks.Shapes.Resources;
 
 public static class SupportedCultures
 {

@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +45,7 @@ public sealed partial class MainViewModel : ObservableRecipient, IRecipient<Valu
     }
 
     [RelayCommand]
-    private void AddShape(Geometry kind)
+    private void AddShape(SupportedShapes kind)
     {
         var shape = new ShapeViewModel(1337, "kek", kind);
         this.Shapes.Add(shape);

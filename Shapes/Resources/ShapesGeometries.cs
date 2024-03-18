@@ -1,13 +1,13 @@
-﻿// <copyright file="MovingShapesGeometries.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="ShapesGeometries.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.Views;
+namespace DCT.TraineeTasks.Shapes.Resources;
 
-public static class MovingShapesGeometries
+public static class ShapesGeometries
 {
     public static Geometry Circle => new EllipseGeometry(new Rect(0, 0, 30, 30));
 
