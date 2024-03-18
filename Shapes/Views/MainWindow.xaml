@@ -6,7 +6,6 @@
                    xmlns:vm="clr-namespace:DCT.TraineeTasks.Shapes.ViewModels"
                    xmlns:v="clr-namespace:DCT.TraineeTasks.Shapes.Views"
                    xmlns:local="clr-namespace:DCT.TraineeTasks.Shapes"
-                   xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
                    mc:Ignorable="d"
                    Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
