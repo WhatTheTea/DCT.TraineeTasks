@@ -18,10 +18,11 @@ public partial class ShapeViewModel : ObservableRecipient, IRecipient<ValueChang
     [ObservableProperty] private double y;
     [ObservableProperty] private Geometry geometry;
 
-    public ShapeViewModel(int id, string name)
+    public ShapeViewModel(int id, string name, Geometry geometry)
     {
         this.Id = id;
         this.name = name;
+        this.geometry = geometry;
     }
 
     public void Receive(ValueChangedMessage<LocalizerService> message)

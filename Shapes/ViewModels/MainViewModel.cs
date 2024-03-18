@@ -19,7 +19,7 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableRecipient, IRecipient<ValueChangedMessage<LocalizerService>>
 {
-    public ObservableCollection<ShapeViewModel> MovingShapes { get; } = new();
+    public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
 
     // [ObservableProperty] 
     public LocalizerService LocalizerService => App.Current.Services.GetService<LocalizerService>()
@@ -46,7 +46,8 @@ public sealed partial class MainViewModel : ObservableRecipient, IRecipient<Valu
     [RelayCommand]
     private void AddShape(Geometry kind)
     {
-        // TODO
+        var shape = new ShapeViewModel(1337, "kek", kind);
+        this.Shapes.Add(shape);
     }
 
     private void MoveShapes()
