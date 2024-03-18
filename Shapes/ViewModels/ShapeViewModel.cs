@@ -23,6 +23,7 @@ public partial class ShapeViewModel : ObservableRecipient, IRecipient<ValueChang
         this.Id = id;
         this.name = name;
         this.geometry = geometry;
+        this.Messenger.RegisterAll(this);
     }
 
     public void Receive(ValueChangedMessage<LocalizerService> message)
