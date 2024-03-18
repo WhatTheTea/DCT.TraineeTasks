@@ -48,15 +48,27 @@
                 </Button>
             </StackPanel>
             <ListBox Grid.Row="1" Grid.Column="0"
+                     ItemsSource="{Binding MovingShapes}"
                      x:Name="ShapesListBox">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label Content="{Binding }" />
+                    <DataTemplate DataType="{x:Type vm:ShapeViewModel}">
+                        <Label Content="{Binding Name}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <ItemsControl Grid.Row="1" Grid.Column="1"
+                          ItemsSource="{Binding MovingShapes}"
                           x:Name="ShapesCanvasItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:ShapeViewModel}">
+                        <Path Data="{Binding Geometry}">
+                            <Path.RenderTransform>
+                                <TranslateTransform X="{Binding X}"
+                                                    Y="{Binding Y}"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas />

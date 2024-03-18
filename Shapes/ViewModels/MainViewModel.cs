@@ -19,7 +19,7 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableRecipient, IRecipient<ValueChangedMessage<LocalizerService>>
 {
-    public ObservableCollection<object> MovingShapes { get; } = new();
+    public ObservableCollection<ShapeViewModel> MovingShapes { get; } = new();
 
     // [ObservableProperty] 
     public LocalizerService LocalizerService => App.Current.Services.GetService<LocalizerService>()

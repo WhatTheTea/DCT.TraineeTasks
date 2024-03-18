@@ -3,13 +3,14 @@
 // </copyright>
 
 using System.Collections.Immutable;
+using DCT.TraineeTasks.Shapes.ViewModels;
 using DCT.TraineeTasks.Shapes.Views;
 
 namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
 
 public interface IFileService
 {
-    void Save(IEnumerable<MovingShape> shapes);
+    void Save(IEnumerable<ShapeViewModel> shapes);
 
-    ImmutableArray<MovingShape> Load();
+    ImmutableArray<ShapeViewModel> Load();
 }
