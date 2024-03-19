@@ -15,6 +15,29 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableObject
 {
+    [ObservableProperty] private double canvasHeight;
+
+    [ObservableProperty] private double canvasWidth;
+
+    private ShapeViewModel? selectedShape;
+
+    public MainViewModel()
+    {
+        this.FrameTimer.Start();
+
+        this.FrameTimer.Tick += (_, _) =>
+        {
+            foreach (var shape in this.Shapes)
+            {
+                shape.UpdateBoundary(this.canvasWidth, this.canvasHeight);
+                shape.Move();
+            }
+        };
+
+        this.LocalizerService.PropertyChanged += (_, _) =>
+            this.OnPropertyChanged(nameof(this.ButtonText));
+    }
+
     public string ButtonText
     {
         get
@@ -41,28 +64,6 @@ public sealed partial class MainViewModel : ObservableObject
             this.OnPropertyChanged(nameof(this.ButtonText));
         }
     }
-    
-    [ObservableProperty] private double canvasHeight;
-
-    [ObservableProperty] private double canvasWidth;
-
-    private ShapeViewModel? selectedShape;
-
-    public MainViewModel()
-    {
-        this.FrameTimer.Start();
-
-        this.FrameTimer.Tick += (_, _) =>
-        {
-            foreach (var shape in this.Shapes)
-            {
-                shape.Move();
-            }
-        };
-
-        this.LocalizerService.PropertyChanged += (_, _) =>
-            this.OnPropertyChanged(nameof(this.ButtonText));
-    }
 
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
 
@@ -75,14 +76,13 @@ public sealed partial class MainViewModel : ObservableObject
     /// </summary>
     private DispatcherTimer FrameTimer { get; } = new()
     {
-        Interval = TimeSpan.FromMilliseconds(21)
+        Interval = TimeSpan.FromMilliseconds(21),
     };
-
 
     [RelayCommand]
     private void AddShape(SupportedShapes kind)
     {
-        var shape = new ShapeViewModel(1337, "kek", kind);
+        var shape = new ShapeViewModel(kind, 1, (this.CanvasWidth, this.CanvasHeight));
         this.Shapes.Add(shape);
     }
 
