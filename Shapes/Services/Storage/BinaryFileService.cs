@@ -5,6 +5,7 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
+using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -19,7 +20,7 @@ public class BinaryFileService : IFileService
     {
         var dtos = shapes.ToArray().Select(
             x =>
-                new ShapeDTO(x.X, x.Y, x.IsPaused, x.ShapeKind, x.Id));
+                new ShapeDTO(x.Id, x.X, x.Y, x.IsPaused, x.ShapeKind, (x.Velocity.X, x.Velocity.Y)));
         var bytes = MessagePackSerializer.Serialize(dtos, ContractlessStandardResolver.Options);
         using var file = File.Create(FilePath);
         file.Write(bytes);
@@ -36,6 +37,7 @@ public class BinaryFileService : IFileService
             IsPaused = x.isPaused,
             X = x.x,
             Y = x.y,
+            Velocity = new Point(x.velocity),
         });
     }
 }

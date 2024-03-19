@@ -4,12 +4,11 @@
 
 namespace DCT.TraineeTasks.Shapes.Primitives;
 
-public record Point(double x = 0, double y = 0)
+public record Point(double X = 0, double Y = 0)
 {
-    public double X { get; } = x;
-
-    public double Y { get; } = y;
-
+    public Point((double x, double y) tuple)
+        : this() =>
+        (X, Y) = tuple;
     public void Deconstruct(out double x, out double y)
     {
         x = this.X;
