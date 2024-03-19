@@ -25,7 +25,7 @@ public partial class ShapeViewModel : ObservableObject
     {
         this.Id = id;
         this.ShapeKind = kind;
-        this.UpdateBoundary(boundary.x, boundary.y);
+        this.SetBoundary(boundary.x, boundary.y);
 
         this.localizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.Name));
@@ -46,7 +46,7 @@ public partial class ShapeViewModel : ObservableObject
 
     private (double x, double y) NextPoint => (this.X + this.Velocity.x, this.Y + this.Velocity.y);
 
-    public void UpdateBoundary(double x, double y) => this.Boundary = (x, y);
+    public void SetBoundary(double x, double y) => this.Boundary = (x, y);
 
     public void Move()
     {
