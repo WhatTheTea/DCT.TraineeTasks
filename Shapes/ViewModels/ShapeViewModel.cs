@@ -21,7 +21,7 @@ public partial class ShapeViewModel : ObservableObject
     [ObservableProperty] private double x;
     [ObservableProperty] private double y;
 
-    public ShapeViewModel(SupportedShapes kind, int id, (double x, double y) boundary)
+    public ShapeViewModel(SupportedShapes kind, int id, (double x, double y) boundary = default)
     {
         this.Id = id;
         this.ShapeKind = kind;
