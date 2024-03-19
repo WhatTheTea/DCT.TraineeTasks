@@ -68,7 +68,7 @@ public partial class ShapeViewModel : ObservableObject
 
     public SupportedShapes ShapeKind { get; }
 
-    public string Name => this.ShapeKind.ToLocalizedString();
+    public string Name => $"{this.ShapeKind.ToLocalizedString()} {this.Id}";
 
     public bool IsPaused => this.Move == this.paused;
 

@@ -82,7 +82,10 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void AddShape(SupportedShapes kind)
     {
-        var shape = new ShapeViewModel(kind, 1, (this.CanvasWidth, this.CanvasHeight));
+        var shape = new ShapeViewModel(
+            kind,
+            this.GetCountOf(kind),
+            (this.CanvasWidth, this.CanvasHeight));
         this.Shapes.Add(shape);
     }
 
@@ -106,4 +109,7 @@ public sealed partial class MainViewModel : ObservableObject
     {
         // TODO
     }
+
+    private int GetCountOf(SupportedShapes kind) =>
+        this.Shapes.Count(x => x.ShapeKind == kind);
 }

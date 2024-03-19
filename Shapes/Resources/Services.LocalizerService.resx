@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <data name="circle" xml:space="preserve">
-        <value>Circle </value>
+        <value>Circle</value>
     </data>
     <data name="square" xml:space="preserve">
-        <value>Square </value>
+        <value>Square</value>
     </data>
     <data name="triangle" xml:space="preserve">
-        <value>Triangle </value>
+        <value>Triangle</value>
     </data>
     <data name="playButtonPlay" xml:space="preserve">
         <value>Play</value>
