@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using DCT.TraineeTasks.Shapes.Converters;
 using DCT.TraineeTasks.Shapes.Primitives;

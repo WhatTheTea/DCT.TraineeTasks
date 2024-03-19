@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.Resources;
 
 namespace DCT.TraineeTasks.Shapes.Services.Storage;

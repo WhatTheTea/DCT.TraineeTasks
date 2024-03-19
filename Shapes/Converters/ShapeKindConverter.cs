@@ -33,7 +33,7 @@ public class ShapeKindConverter : IValueConverter
             SupportedShapes.Circle => ShapesGeometries.Circle,
             SupportedShapes.Square => ShapesGeometries.Rectangle,
             SupportedShapes.Triangle => ShapesGeometries.Triangle,
-            _ => throw new ArgumentException(nameof(shape))
+            _ => throw new ArgumentOutOfRangeException(nameof(shape))
         };
     }
 }

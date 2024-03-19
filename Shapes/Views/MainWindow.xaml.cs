@@ -2,8 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Windows;
-using System.Windows.Data;
 using DCT.TraineeTasks.Shapes.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Views;

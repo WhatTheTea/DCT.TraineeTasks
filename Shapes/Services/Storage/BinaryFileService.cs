@@ -2,8 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.IO;
 using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.ViewModels;
@@ -33,11 +31,11 @@ public class BinaryFileService : IFileService
             .Deserialize<ShapeDTO[]>(file, ContractlessStandardResolver.Options);
         return shapes.Select(
             x => new ShapeViewModel(x.kind, x.id)
-        {
-            IsPaused = x.isPaused,
-            X = x.x,
-            Y = x.y,
-            Velocity = new Point(x.velocity),
-        });
+            {
+                IsPaused = x.isPaused,
+                X = x.x,
+                Y = x.y,
+                Velocity = new Point(x.velocity)
+            });
     }
 }

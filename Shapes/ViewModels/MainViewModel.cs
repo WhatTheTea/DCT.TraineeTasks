@@ -72,7 +72,7 @@ public sealed partial class MainViewModel : ObservableObject
     public LocalizerServiceObservableWrapper LocalizerService =>
         App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
-    
+
     public IFileService BinFileService =>
         App.Current.Services.GetService<BinaryFileService>()
         ?? throw new ArgumentNullException(nameof(this.BinFileService));
@@ -82,7 +82,7 @@ public sealed partial class MainViewModel : ObservableObject
     /// </summary>
     private DispatcherTimer FrameTimer { get; } = new()
     {
-        Interval = TimeSpan.FromMilliseconds(21),
+        Interval = TimeSpan.FromMilliseconds(21)
     };
 
     [RelayCommand]
@@ -128,6 +128,7 @@ public sealed partial class MainViewModel : ObservableObject
             default:
                 throw new ArgumentOutOfRangeException(nameof(format), format, null);
         }
+
         this.Shapes.Clear();
     }
 
@@ -156,6 +157,8 @@ public sealed partial class MainViewModel : ObservableObject
         }
     }
 
-    private int GetCountOf(SupportedShapes kind) =>
-        this.Shapes.Count(x => x.ShapeKind == kind);
+    private int GetCountOf(SupportedShapes kind)
+    {
+        return this.Shapes.Count(x => x.ShapeKind == kind);
+    }
 }

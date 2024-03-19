@@ -52,7 +52,7 @@
                     Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
                     Command="{Binding PlayOrPauseCommand}"
                     CommandParameter="{Binding SelectedItem, ElementName=ShapesListBox}"
-                    x:Name="PlayButton"/>
+                    x:Name="PlayButton" />
             </StackPanel>
 
             <ListBox Grid.Row="1" Grid.Column="0"
@@ -86,7 +86,7 @@
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
