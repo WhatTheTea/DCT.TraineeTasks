@@ -11,5 +11,5 @@ public interface IFileService
 {
     void Save(IEnumerable<ShapeViewModel> shapes);
 
-    ImmutableArray<ShapeViewModel> Load();
+    IEnumerable<ShapeViewModel> Load();
 }

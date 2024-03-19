@@ -22,6 +22,8 @@
                           CommandParameter="{x:Static resources:SupportedFileFormats.Bin}"
                           x:Name="SaveButton" />
                 <MenuItem Header="Load"
+                          Command="{Binding LoadFromCommand}"
+                          CommandParameter="{x:Static resources:SupportedFileFormats.Bin}"
                           x:Name="LoadButton" />
             </MenuItem>
             <MenuItem Header="Language">

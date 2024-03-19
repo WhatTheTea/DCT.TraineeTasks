@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.IO;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using MessagePack;
@@ -24,7 +25,7 @@ public class BinaryFileService : IFileService
         file.Write(bytes);
     }
 
-    public ImmutableArray<ShapeViewModel> Load()
+    public IEnumerable<ShapeViewModel> Load()
     {
         using var file = new FileStream(FilePath, FileMode.Open);
         var shapes = MessagePackSerializer
@@ -35,6 +36,6 @@ public class BinaryFileService : IFileService
             IsPaused = x.isPaused,
             X = x.x,
             Y = x.y,
-        }).ToImmutableArray();
+        });
     }
 }

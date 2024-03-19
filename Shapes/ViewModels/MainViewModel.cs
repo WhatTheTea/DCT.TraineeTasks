@@ -113,9 +113,9 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SaveTo(SupportedFileFormats formats)
+    private void SaveTo(SupportedFileFormats format)
     {
-        switch (formats)
+        switch (format)
         {
             case SupportedFileFormats.Bin:
                 this.BinFileService.Save(this.Shapes);
@@ -125,8 +125,33 @@ public sealed partial class MainViewModel : ObservableObject
             case SupportedFileFormats.Xml:
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(formats), formats, null);
+                throw new ArgumentOutOfRangeException(nameof(format), format, null);
         }
+        this.Shapes.Clear();
+    }
+
+    [RelayCommand]
+    private void LoadFrom(SupportedFileFormats format)
+    {
+        var shapes = Array.Empty<ShapeViewModel>();
+        switch (format)
+        {
+            case SupportedFileFormats.Bin:
+                shapes = this.BinFileService.Load().ToArray();
+                break;
+            case SupportedFileFormats.JSON:
+                break;
+            case SupportedFileFormats.Xml:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(format), format, null);
+        }
+
+        foreach (var shape in shapes)
+        {
+            shape.SetBoundary(this.CanvasWidth, this.CanvasHeight);
+        }
+
         this.Shapes.Clear();
     }
 
