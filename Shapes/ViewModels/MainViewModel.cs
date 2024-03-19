@@ -97,7 +97,10 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void PlayOrPause(ShapeViewModel? shape)
     {
-        shape?.PauseToggleCommand.Execute(null);
+        if (shape != null)
+        {
+            shape.IsPaused = !shape.IsPaused;
+        }
 
         // Dependent
         this.OnPropertyChanged(nameof(this.ButtonText));
@@ -110,19 +113,19 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SaveTo(FileFormat format)
+    private void SaveTo(SupportedFileFormats formats)
     {
-        switch (format)
+        switch (formats)
         {
-            case FileFormat.Bin:
+            case SupportedFileFormats.Bin:
                 this.BinFileService.Save(this.Shapes);
                 break;
-            case FileFormat.JSON:
+            case SupportedFileFormats.JSON:
                 break;
-            case FileFormat.Xml:
+            case SupportedFileFormats.Xml:
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(format), format, null);
+                throw new ArgumentOutOfRangeException(nameof(formats), formats, null);
         }
     }
 

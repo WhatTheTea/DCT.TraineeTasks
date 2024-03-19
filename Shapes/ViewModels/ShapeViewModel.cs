@@ -16,15 +16,8 @@ public partial class ShapeViewModel : ObservableObject
     private readonly LocalizerServiceObservableWrapper localizerService =
         App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(localizerService));
-    
-    private readonly Action moving;
 
-    private readonly Action paused = () =>
-    {
-        // Do nothing
-    };
-
-    [ObservableProperty] private Action move;
+    [ObservableProperty] private bool isPaused;
     [ObservableProperty] private double x;
     [ObservableProperty] private double y;
 
@@ -39,25 +32,6 @@ public partial class ShapeViewModel : ObservableObject
 
         this.X = Random.Shared.Next(0, (int)this.Boundary.x);
         this.Y = Random.Shared.Next(0, (int)this.Boundary.y);
-
-        this.moving = () =>
-        {
-            (double x, double y) NextPoint() => (this.X + this.Velocity.x, this.Y + this.Velocity.y);
-            var nextPoint = NextPoint();
-            if (nextPoint.x <= 0 || nextPoint.x >= this.Boundary.x)
-            {
-                this.Velocity = (this.Velocity.x * -1, this.Velocity.y);
-            }
-
-            if (nextPoint.y <= 0 || nextPoint.y >= this.Boundary.y)
-            {
-                this.Velocity = (this.Velocity.x, this.Velocity.y * -1);
-            }
-
-            (this.X, this.Y) = NextPoint();
-        };
-
-        this.Move = this.moving;
     }
 
     private (double x, double y) Boundary { get; set; } = (0, 0);
@@ -70,13 +44,28 @@ public partial class ShapeViewModel : ObservableObject
 
     public string Name => $"{this.ShapeKind.ToLocalizedString()} {this.Id}";
 
-    public bool IsPaused => this.Move == this.paused;
+    private (double x, double y) NextPoint => (this.X + this.Velocity.x, this.Y + this.Velocity.y);
 
     public void UpdateBoundary(double x, double y) => this.Boundary = (x, y);
 
-    [RelayCommand]
-    private void PauseToggle()
+    public void Move()
     {
-        this.Move = this.IsPaused ? this.moving : this.paused;
+        if (this.IsPaused)
+        {
+            return;
+        }
+
+        var nextPoint = this.NextPoint;
+        if (nextPoint.x <= 0 || nextPoint.x >= this.Boundary.x)
+        {
+            this.Velocity = (this.Velocity.x * -1, this.Velocity.y);
+        }
+
+        if (nextPoint.y <= 0 || nextPoint.y >= this.Boundary.y)
+        {
+            this.Velocity = (this.Velocity.x, this.Velocity.y * -1);
+        }
+
+        (this.X, this.Y) = this.NextPoint;
     }
 }

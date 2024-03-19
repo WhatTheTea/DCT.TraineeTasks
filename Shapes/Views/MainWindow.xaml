@@ -18,6 +18,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Save"
+                          Command="{Binding SaveToCommand}"
+                          CommandParameter="{x:Static resources:SupportedFileFormats.Bin}"
                           x:Name="SaveButton" />
                 <MenuItem Header="Load"
                           x:Name="LoadButton" />
