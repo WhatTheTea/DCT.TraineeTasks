@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public enum FileFormat
 {

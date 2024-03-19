@@ -4,6 +4,7 @@
 
 using System.Windows;
 using DCT.TraineeTasks.Shapes.Services;
+using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ public partial class App
             .AddLogging()
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
+            .AddSingleton<BinaryFileService>()
             .AddSingleton<MainViewModel>()
             .AddSingleton<LocalizerServiceObservableWrapper>()
             ;

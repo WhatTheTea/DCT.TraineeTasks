@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Shapes.Resources;
+using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -70,6 +71,10 @@ public sealed partial class MainViewModel : ObservableObject
     public LocalizerServiceObservableWrapper LocalizerService =>
         App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
+    
+    public IFileService BinFileService =>
+        App.Current.Services.GetService<BinaryFileService>()
+        ?? throw new ArgumentNullException(nameof(this.BinFileService));
 
     /// <summary>
     ///     Gets DispatcherTimer with frame time interval
@@ -107,7 +112,18 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void SaveTo(FileFormat format)
     {
-        // TODO
+        switch (format)
+        {
+            case FileFormat.Bin:
+                this.BinFileService.Save(this.Shapes);
+                break;
+            case FileFormat.JSON:
+                break;
+            case FileFormat.Xml:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(format), format, null);
+        }
     }
 
     private int GetCountOf(SupportedShapes kind) =>

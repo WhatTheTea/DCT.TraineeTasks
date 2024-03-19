@@ -5,7 +5,7 @@
 using System.Collections.Immutable;
 using DCT.TraineeTasks.Shapes.ViewModels;
 
-namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public interface IFileService
 {

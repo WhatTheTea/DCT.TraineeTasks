@@ -8,7 +8,7 @@ using DCT.TraineeTasks.Shapes.ViewModels;
 using MessagePack;
 using MessagePack.Resolvers;
 
-namespace DCT.TraineeTasks.Shapes.Models.MovingShapes;
+namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class BinaryFileService : IFileService
 {
