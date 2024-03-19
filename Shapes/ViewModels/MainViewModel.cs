@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Wrappers;
@@ -30,7 +31,7 @@ public sealed partial class MainViewModel : ObservableObject
         {
             foreach (var shape in this.Shapes)
             {
-                shape.SetBoundary(this.canvasWidth, this.canvasHeight);
+                shape.Boundary = new Point(this.canvasWidth, this.canvasHeight);
                 shape.Move();
             }
         };
@@ -90,7 +91,7 @@ public sealed partial class MainViewModel : ObservableObject
         var shape = new ShapeViewModel(
             kind,
             this.GetCountOf(kind),
-            (this.CanvasWidth, this.CanvasHeight));
+            new Point(this.CanvasWidth, this.CanvasHeight));
         this.Shapes.Add(shape);
     }
 
@@ -133,6 +134,7 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void LoadFrom(SupportedFileFormats format)
     {
+        this.Shapes.Clear();
         var shapes = Array.Empty<ShapeViewModel>();
         switch (format)
         {
@@ -149,10 +151,9 @@ public sealed partial class MainViewModel : ObservableObject
 
         foreach (var shape in shapes)
         {
-            shape.SetBoundary(this.CanvasWidth, this.CanvasHeight);
+            shape.Boundary = new Point(this.CanvasWidth, this.CanvasHeight);
+            this.Shapes.Add(shape);
         }
-
-        this.Shapes.Clear();
     }
 
     private int GetCountOf(SupportedShapes kind) =>

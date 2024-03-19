@@ -2,9 +2,10 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Shapes.Converters;
+using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,22 +22,22 @@ public partial class ShapeViewModel : ObservableObject
     [ObservableProperty] private double x;
     [ObservableProperty] private double y;
 
-    public ShapeViewModel(SupportedShapes kind, int id, (double x, double y) boundary = default)
+    public ShapeViewModel(SupportedShapes kind, int id, Point? boundary = null)
     {
         this.Id = id;
         this.ShapeKind = kind;
-        this.SetBoundary(boundary.x, boundary.y);
+        this.Boundary = boundary ?? new Point();
 
         this.localizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.Name));
 
-        this.X = Random.Shared.Next(0, (int)this.Boundary.x);
-        this.Y = Random.Shared.Next(0, (int)this.Boundary.y);
+        this.X = Random.Shared.Next(0, (int)this.Boundary.X);
+        this.Y = Random.Shared.Next(0, (int)this.Boundary.Y);
     }
 
-    private (double x, double y) Boundary { get; set; } = (0, 0);
+    public Point Boundary { get; set; }
 
-    private (double x, double y) Velocity { get; set; } = (10, 10);
+    public Point Velocity { get; set; } = new(10, 10);
 
     public int Id { get; }
 
@@ -44,9 +45,7 @@ public partial class ShapeViewModel : ObservableObject
 
     public string Name => $"{this.ShapeKind.ToLocalizedString()} {this.Id}";
 
-    private (double x, double y) NextPoint => (this.X + this.Velocity.x, this.Y + this.Velocity.y);
-
-    public void SetBoundary(double x, double y) => this.Boundary = (x, y);
+    private Point NextPoint => new(this.X + this.Velocity.X, this.Y + this.Velocity.Y);
 
     public void Move()
     {
@@ -56,14 +55,14 @@ public partial class ShapeViewModel : ObservableObject
         }
 
         var nextPoint = this.NextPoint;
-        if (nextPoint.x <= 0 || nextPoint.x >= this.Boundary.x)
+        if (nextPoint.X <= 0 || nextPoint.X >= this.Boundary.X)
         {
-            this.Velocity = (this.Velocity.x * -1, this.Velocity.y);
+            this.Velocity = new Point(this.Velocity.X * -1, this.Velocity.Y);
         }
 
-        if (nextPoint.y <= 0 || nextPoint.y >= this.Boundary.y)
+        if (nextPoint.Y <= 0 || nextPoint.Y >= this.Boundary.Y)
         {
-            this.Velocity = (this.Velocity.x, this.Velocity.y * -1);
+            this.Velocity = new Point(this.Velocity.X, this.Velocity.Y * -1);
         }
 
         (this.X, this.Y) = this.NextPoint;
