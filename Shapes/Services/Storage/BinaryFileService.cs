@@ -29,7 +29,7 @@ public class BinaryFileService : IFileService
     {
         using var file = new FileStream(FilePath, FileMode.Open);
         var shapes = MessagePackSerializer
-            .Deserialize<ImmutableArray<ShapeDTO>>(file);
+            .Deserialize<ShapeDTO[]>(file, ContractlessStandardResolver.Options);
         return shapes.Select(
             x => new ShapeViewModel(x.kind, x.id)
         {
