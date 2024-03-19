@@ -30,7 +30,7 @@ public sealed partial class MainViewModel : ObservableObject
         {
             foreach (var shape in this.Shapes)
             {
-                shape.UpdateBoundary(this.canvasWidth, this.canvasHeight);
+                shape.SetBoundary(this.canvasWidth, this.canvasHeight);
                 shape.Move();
             }
         };
@@ -127,6 +127,7 @@ public sealed partial class MainViewModel : ObservableObject
             default:
                 throw new ArgumentOutOfRangeException(nameof(formats), formats, null);
         }
+        this.Shapes.Clear();
     }
 
     private int GetCountOf(SupportedShapes kind) =>

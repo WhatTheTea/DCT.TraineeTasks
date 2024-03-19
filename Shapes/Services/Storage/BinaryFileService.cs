@@ -16,7 +16,10 @@ public class BinaryFileService : IFileService
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
-        var bytes = MessagePackSerializer.Serialize(shapes, ContractlessStandardResolver.Options);
+        var dtos = shapes.ToArray().Select(
+            x =>
+                new ShapeDTO(x.X, x.Y, x.IsPaused, x.ShapeKind, x.Id));
+        var bytes = MessagePackSerializer.Serialize(dtos, ContractlessStandardResolver.Options);
         using var file = File.Create(FilePath);
         file.Write(bytes);
     }
@@ -25,7 +28,13 @@ public class BinaryFileService : IFileService
     {
         using var file = new FileStream(FilePath, FileMode.Open);
         var shapes = MessagePackSerializer
-            .Deserialize<ImmutableArray<ShapeViewModel>>(file);
-        return shapes;
+            .Deserialize<ImmutableArray<ShapeDTO>>(file);
+        return shapes.Select(
+            x => new ShapeViewModel(x.kind, x.id)
+        {
+            IsPaused = x.isPaused,
+            X = x.x,
+            Y = x.y,
+        }).ToImmutableArray();
     }
 }
