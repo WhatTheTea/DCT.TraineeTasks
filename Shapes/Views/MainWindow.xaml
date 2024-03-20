@@ -12,7 +12,7 @@
         <vm:MainViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <converters:ShapeKindConverter x:Key="ShapeKindConverter" />
+        <converters:ShapeKindValueConverter x:Key="ShapeKindConverter" />
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">

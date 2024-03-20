@@ -1,4 +1,4 @@
-﻿// <copyright file="ShapeKindConverter.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="ShapeKindValueConverter.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ using DCT.TraineeTasks.Shapes.Resources;
 
 namespace DCT.TraineeTasks.Shapes.Converters;
 
-public class ShapeKindConverter : IValueConverter
+public class ShapeKindValueConverter : IValueConverter
 {
     public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
     {
