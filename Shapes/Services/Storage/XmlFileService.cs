@@ -16,9 +16,9 @@ public class XmlFileService : IFileService
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
         var dtos = shapes.Select(x => x.ToDTO());
-        var serializer = new XmlSerializer(typeof(IEnumerable<ShapeDTO>));
+        var serializer = new XmlSerializer(typeof(ShapeDTO[]), [typeof(ShapeDTO), typeof((double x, double y))]);
         using var writer = new StreamWriter(this.FileLocation);
-        serializer.Serialize(writer, dtos);
+        serializer.Serialize(writer, dtos.ToArray());
     }
 
     public IEnumerable<ShapeViewModel> Load()

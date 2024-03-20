@@ -12,4 +12,10 @@ public record ShapeDTO(
     double y,
     bool isPaused,
     SupportedShapes kind,
-    (double x, double y) velocity);
+    (double x, double y) velocity)
+{
+    private ShapeDTO()
+        : this(0, 0, 0, false, 0, (0, 0))
+    {
+    }
+};
