@@ -16,6 +16,10 @@ namespace DCT.TraineeTasks.Shapes.Views;
 /// </summary>
 public partial class MainWindow
 {
+    private const string FormatFilter = "JSON files (*.json)|*.json"
+                                        + "|Binary files (*.bin)|*.bin"
+                                        + "|XML files (*.xml)|*.xml";
+
     /// <summary>
     ///     Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
@@ -36,36 +40,35 @@ public partial class MainWindow
     {
         var dialog = new SaveFileDialog
         {
-            Filter = "JSON files (*.json)|*.json"
-            + "|Binary files (*.bin)|*.bin"
-            + "|XML files (*.xml)|*.xml",
+            Filter = FormatFilter,
         };
 
         if (dialog.ShowDialog() ?? false)
         {
             var extension = Path.GetExtension(dialog.FileName);
             var service = GetService(extension.ToLower());
+            service.FileLocation = dialog.FileName;
             this.ViewModel.SaveToCommand.Execute(service);
+        }
+    }
+
+    private void LoadButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var dialog = new OpenFileDialog
+        {
+            Filter = FormatFilter,
+        };
+
+        if (dialog.ShowDialog() ?? false)
+        {
+            var extension = Path.GetExtension(dialog.FileName);
+            var service = GetService(extension.ToLower());
+            service.FileLocation = dialog.FileName;
+            this.ViewModel.LoadFromCommand.Execute(service);
         }
     }
 
     private static IFileService GetService(string format) => App.Current.Services.GetKeyedService<IFileService>(format)
                                                              ?? throw new ArgumentOutOfRangeException(nameof(format));
 
-    private void LoadButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var dialog = new OpenFileDialog
-        {
-            Filter = "JSON files (*.json)|*.json"
-                     + "|Binary files (*.bin)|*.bin"
-                     + "|XML files (*.xml)|*.xml",
-        };
-
-        if (dialog.ShowDialog() ?? false)
-        {
-            var extension = Path.GetExtension(dialog.FileName);
-            var service = GetService(extension.ToLower());
-            this.ViewModel.LoadFromCommand.Execute(service);
-        }
-    }
 }

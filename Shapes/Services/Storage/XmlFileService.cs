@@ -8,7 +8,7 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class XmlFileService : IFileService
 {
-    public string FileLocation { get; set; }
+    public string FileLocation { get; set; } = "movingShapes.xml";
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
