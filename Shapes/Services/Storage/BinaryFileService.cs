@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.IO;
+using DCT.TraineeTasks.Shapes.Converters;
 using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using MessagePack;
@@ -16,9 +17,8 @@ public class BinaryFileService : IFileService
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
-        var dtos = shapes.ToArray().Select(
-            x =>
-                new ShapeDTO(x.Id, x.X, x.Y, x.IsPaused, x.ShapeKind, (x.Velocity.X, x.Velocity.Y)));
+        var dtos = shapes.ToArray()
+            .Select(x => x.ToDTO());
         var bytes = MessagePackSerializer.Serialize(dtos, ContractlessStandardResolver.Options);
         using var file = File.Create(FilePath);
         file.Write(bytes);
@@ -29,13 +29,6 @@ public class BinaryFileService : IFileService
         using var file = new FileStream(FilePath, FileMode.Open);
         var shapes = MessagePackSerializer
             .Deserialize<ShapeDTO[]>(file, ContractlessStandardResolver.Options);
-        return shapes.Select(
-            x => new ShapeViewModel(x.kind, x.id)
-            {
-                IsPaused = x.isPaused,
-                X = x.x,
-                Y = x.y,
-                Velocity = new Point(x.velocity)
-            });
+        return shapes.Select(x => x.ToViewModel());
     }
 }

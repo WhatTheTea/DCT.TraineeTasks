@@ -1,8 +1,9 @@
-﻿// <copyright file="Shape.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="ShapeDTO.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using DCT.TraineeTasks.Shapes.Resources;
+using DCT.TraineeTasks.Shapes.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
