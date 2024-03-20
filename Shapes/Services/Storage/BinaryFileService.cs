@@ -12,20 +12,20 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class BinaryFileService : IFileService
 {
-    private const string FilePath = "movingShapes.bin";
+    public string FileLocation { get; set; } = "movingShapes.bin";
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
         var dtos = shapes.ToArray()
             .Select(x => x.ToDTO());
         var bytes = MessagePackSerializer.Serialize(dtos, ContractlessStandardResolver.Options);
-        using var file = File.Create(FilePath);
+        using var file = File.Create(this.FileLocation);
         file.Write(bytes);
     }
 
     public IEnumerable<ShapeViewModel> Load()
     {
-        using var file = new FileStream(FilePath, FileMode.Open);
+        using var file = new FileStream(this.FileLocation, FileMode.Open);
         var shapes = MessagePackSerializer
             .Deserialize<ShapeDTO[]>(file, ContractlessStandardResolver.Options);
         return shapes.Select(x => x.ToViewModel());

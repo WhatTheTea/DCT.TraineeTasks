@@ -11,7 +11,7 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class JsonFileService : IFileService
 {
-    private const string FilePath = "movingShapes.json";
+    public string FileLocation { get; set; } = "movingShapes.json";
 
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -22,14 +22,14 @@ public class JsonFileService : IFileService
     {
         var dtos = shapes.Select(x => x.ToDTO());
         var data = JsonSerializer.Serialize(dtos, Options);
-        File.WriteAllText(FilePath, data);
+        File.WriteAllText(this.FileLocation, data);
     }
 
     public IEnumerable<ShapeViewModel> Load()
     {
-        var text = File.ReadAllText(FilePath);
+        var text = File.ReadAllText(this.FileLocation);
         var data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, Options)
-                   ?? throw new FileFormatException(FilePath);
+                   ?? throw new FileFormatException(this.FileLocation);
         return data.Select(x => x.ToViewModel());
     }
 }

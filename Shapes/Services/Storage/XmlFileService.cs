@@ -8,6 +8,8 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class XmlFileService : IFileService
 {
+    public string FileLocation { get; set; }
+
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
         throw new NotImplementedException();
