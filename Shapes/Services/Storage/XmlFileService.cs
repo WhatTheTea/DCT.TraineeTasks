@@ -2,6 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.IO;
+using System.Xml.Serialization;
+using DCT.TraineeTasks.Shapes.Converters;
 using DCT.TraineeTasks.Shapes.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Services.Storage;
@@ -12,7 +15,10 @@ public class XmlFileService : IFileService
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
-        throw new NotImplementedException();
+        var dtos = shapes.Select(x => x.ToDTO());
+        var serializer = new XmlSerializer(typeof(IEnumerable<ShapeDTO>));
+        using var writer = new StreamWriter(this.FileLocation);
+        serializer.Serialize(writer, dtos);
     }
 
     public IEnumerable<ShapeViewModel> Load()
