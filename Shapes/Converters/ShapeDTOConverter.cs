@@ -10,21 +10,25 @@ namespace DCT.TraineeTasks.Shapes.Converters;
 
 public static class ShapeDTOConverter
 {
-    public static ShapeDTO ToDTO(this ShapeViewModel viewModel) =>
-        new(
+    public static ShapeDTO ToDTO(this ShapeViewModel viewModel)
+    {
+        return new ShapeDTO(
             viewModel.Id,
             viewModel.X,
             viewModel.Y,
             viewModel.IsPaused,
             viewModel.ShapeKind,
             (viewModel.Velocity.X, viewModel.Velocity.Y));
+    }
 
-    public static ShapeViewModel ToViewModel(this ShapeDTO dto) =>
-        new(dto.kind, dto.id)
+    public static ShapeViewModel ToViewModel(this ShapeDTO dto)
+    {
+        return new ShapeViewModel(dto.kind, dto.id)
         {
             IsPaused = dto.isPaused,
             X = dto.x,
             Y = dto.y,
-            Velocity = new Point(dto.velocity),
+            Velocity = new Point(dto.velocity)
         };
+    }
 }

@@ -13,23 +13,23 @@ public class JsonFileService : IFileService
 {
     private const string FilePath = "movingShapes.json";
 
-    private static readonly JsonSerializerOptions options = new()
+    private static readonly JsonSerializerOptions Options = new()
     {
-        IncludeFields = true,
+        IncludeFields = true
     };
-    
+
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {
         var dtos = shapes.Select(x => x.ToDTO());
-        var data = JsonSerializer.Serialize(dtos, options);
+        var data = JsonSerializer.Serialize(dtos, Options);
         File.WriteAllText(FilePath, data);
     }
 
     public IEnumerable<ShapeViewModel> Load()
     {
         var text = File.ReadAllText(FilePath);
-        var data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, options)
-            ?? throw new FileFormatException(FilePath);
+        var data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, Options)
+                   ?? throw new FileFormatException(FilePath);
         return data.Select(x => x.ToViewModel());
     }
 }

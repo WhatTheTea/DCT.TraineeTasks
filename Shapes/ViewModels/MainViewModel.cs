@@ -76,7 +76,7 @@ public sealed partial class MainViewModel : ObservableObject
     public IFileService BinFileService =>
         App.Current.Services.GetService<BinaryFileService>()
         ?? throw new ArgumentNullException(nameof(this.BinFileService));
-    
+
     public IFileService JsonFileService =>
         App.Current.Services.GetService<JsonFileService>()
         ?? throw new ArgumentNullException(nameof(this.JsonFileService));
@@ -121,7 +121,7 @@ public sealed partial class MainViewModel : ObservableObject
     private void SaveTo(SupportedFileFormats format)
     {
         // TODO: Can be refactored to converter
-        switch (format) 
+        switch (format)
         {
             case SupportedFileFormats.Bin:
                 this.BinFileService.Save(this.Shapes);

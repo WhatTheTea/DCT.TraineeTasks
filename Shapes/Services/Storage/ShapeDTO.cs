@@ -3,7 +3,6 @@
 // </copyright>
 
 using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
