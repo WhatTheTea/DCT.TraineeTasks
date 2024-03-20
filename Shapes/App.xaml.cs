@@ -38,6 +38,7 @@ public partial class App
             .AddSingleton<LocalizerService>()
             .AddKeyedSingleton<IFileService, JsonFileService>(".json")
             .AddKeyedSingleton<IFileService, BinaryFileService>(".bin")
+            .AddKeyedSingleton<IFileService, XmlFileService>(".xml")
             .AddSingleton<MainViewModel>()
             .AddSingleton<LocalizerServiceObservableWrapper>()
             ;
