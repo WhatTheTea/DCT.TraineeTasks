@@ -4,7 +4,6 @@
 
 using System.IO;
 using DCT.TraineeTasks.Shapes.Converters;
-using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using MessagePack;
 using MessagePack.Resolvers;
