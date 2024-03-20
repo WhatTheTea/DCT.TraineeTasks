@@ -19,11 +19,11 @@
             <MenuItem Header="File">
                 <MenuItem Header="Save"
                           Command="{Binding SaveToCommand}"
-                          CommandParameter="{x:Static resources:SupportedFileFormats.Bin}"
+                          CommandParameter="{x:Static resources:SupportedFileFormats.JSON}"
                           x:Name="SaveButton" />
                 <MenuItem Header="Load"
                           Command="{Binding LoadFromCommand}"
-                          CommandParameter="{x:Static resources:SupportedFileFormats.Bin}"
+                          CommandParameter="{x:Static resources:SupportedFileFormats.JSON}"
                           x:Name="LoadButton" />
             </MenuItem>
             <MenuItem Header="Language">

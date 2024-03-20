@@ -76,13 +76,17 @@ public sealed partial class MainViewModel : ObservableObject
     public IFileService BinFileService =>
         App.Current.Services.GetService<BinaryFileService>()
         ?? throw new ArgumentNullException(nameof(this.BinFileService));
+    
+    public IFileService JsonFileService =>
+        App.Current.Services.GetService<JsonFileService>()
+        ?? throw new ArgumentNullException(nameof(this.JsonFileService));
 
     /// <summary>
     ///     Gets DispatcherTimer with frame time interval
     /// </summary>
     private DispatcherTimer FrameTimer { get; } = new()
     {
-        Interval = TimeSpan.FromMilliseconds(21)
+        Interval = TimeSpan.FromMilliseconds(21),
     };
 
     [RelayCommand]
@@ -116,12 +120,14 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void SaveTo(SupportedFileFormats format)
     {
-        switch (format)
+        // TODO: Can be refactored to converter
+        switch (format) 
         {
             case SupportedFileFormats.Bin:
                 this.BinFileService.Save(this.Shapes);
                 break;
             case SupportedFileFormats.JSON:
+                this.JsonFileService.Save(this.Shapes);
                 break;
             case SupportedFileFormats.Xml:
                 break;
@@ -143,6 +149,7 @@ public sealed partial class MainViewModel : ObservableObject
                 shapes = this.BinFileService.Load().ToArray();
                 break;
             case SupportedFileFormats.JSON:
+                shapes = this.JsonFileService.Load().ToArray();
                 break;
             case SupportedFileFormats.Xml:
                 break;

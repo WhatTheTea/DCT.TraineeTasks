@@ -36,6 +36,7 @@ public partial class App
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
             .AddSingleton<BinaryFileService>()
+            .AddSingleton<JsonFileService>()
             .AddSingleton<MainViewModel>()
             .AddSingleton<LocalizerServiceObservableWrapper>()
             ;
