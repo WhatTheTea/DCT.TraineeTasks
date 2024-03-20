@@ -73,14 +73,6 @@ public sealed partial class MainViewModel : ObservableObject
         App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
 
-    public IFileService BinFileService =>
-        App.Current.Services.GetService<BinaryFileService>()
-        ?? throw new ArgumentNullException(nameof(this.BinFileService));
-
-    public IFileService JsonFileService =>
-        App.Current.Services.GetService<JsonFileService>()
-        ?? throw new ArgumentNullException(nameof(this.JsonFileService));
-
     /// <summary>
     ///     Gets DispatcherTimer with frame time interval
     /// </summary>
@@ -118,44 +110,17 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SaveTo(SupportedFileFormats format)
+    private void SaveTo(IFileService service)
     {
-        // TODO: Can be refactored to converter
-        switch (format)
-        {
-            case SupportedFileFormats.Bin:
-                this.BinFileService.Save(this.Shapes);
-                break;
-            case SupportedFileFormats.JSON:
-                this.JsonFileService.Save(this.Shapes);
-                break;
-            case SupportedFileFormats.Xml:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(format), format, null);
-        }
-
+        service.Save(this.Shapes);
         this.Shapes.Clear();
     }
 
     [RelayCommand]
-    private void LoadFrom(SupportedFileFormats format)
+    private void LoadFrom(IFileService service)
     {
         this.Shapes.Clear();
-        var shapes = Array.Empty<ShapeViewModel>();
-        switch (format)
-        {
-            case SupportedFileFormats.Bin:
-                shapes = this.BinFileService.Load().ToArray();
-                break;
-            case SupportedFileFormats.JSON:
-                shapes = this.JsonFileService.Load().ToArray();
-                break;
-            case SupportedFileFormats.Xml:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(format), format, null);
-        }
+        var shapes = service.Load().ToArray();
 
         foreach (var shape in shapes)
         {

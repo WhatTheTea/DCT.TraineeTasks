@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Windows;
+using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
@@ -35,8 +36,8 @@ public partial class App
             .AddLogging()
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
-            .AddSingleton<BinaryFileService>()
-            .AddSingleton<JsonFileService>()
+            .AddKeyedSingleton<IFileService, JsonFileService>(".json")
+            .AddKeyedSingleton<IFileService, BinaryFileService>(".bin")
             .AddSingleton<MainViewModel>()
             .AddSingleton<LocalizerServiceObservableWrapper>()
             ;

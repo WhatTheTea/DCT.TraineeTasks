@@ -2,8 +2,11 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.IO;
 using System.Windows;
+using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 
 namespace DCT.TraineeTasks.Shapes.Views;
@@ -33,14 +36,36 @@ public partial class MainWindow
     {
         var dialog = new SaveFileDialog
         {
-            Filter = "JSON files (*.json)|*.json" 
+            Filter = "JSON files (*.json)|*.json"
             + "|Binary files (*.bin)|*.bin"
             + "|XML files (*.xml)|*.xml",
         };
 
         if (dialog.ShowDialog() ?? false)
         {
-            Console.WriteLine(dialog.FileName);
+            var extension = Path.GetExtension(dialog.FileName);
+            var service = GetService(extension.ToLower());
+            this.ViewModel.SaveToCommand.Execute(service);
+        }
+    }
+
+    private static IFileService GetService(string format) => App.Current.Services.GetKeyedService<IFileService>(format)
+                                                             ?? throw new ArgumentOutOfRangeException(nameof(format));
+
+    private void LoadButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var dialog = new OpenFileDialog
+        {
+            Filter = "JSON files (*.json)|*.json"
+                     + "|Binary files (*.bin)|*.bin"
+                     + "|XML files (*.xml)|*.xml",
+        };
+
+        if (dialog.ShowDialog() ?? false)
+        {
+            var extension = Path.GetExtension(dialog.FileName);
+            var service = GetService(extension.ToLower());
+            this.ViewModel.LoadFromCommand.Execute(service);
         }
     }
 }

@@ -21,8 +21,7 @@
                           Click="SaveButton_OnClick"
                           x:Name="SaveButton" />
                 <MenuItem Header="Load"
-                          Command="{Binding LoadFromCommand}"
-                          CommandParameter="{x:Static resources:SupportedFileFormats.JSON}"
+                          Click="LoadButton_OnClick"
                           x:Name="LoadButton" />
             </MenuItem>
             <MenuItem Header="Language">
