@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Shapes.Resources;
@@ -70,7 +71,7 @@ public sealed partial class MainViewModel : ObservableObject
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
 
     public LocalizerServiceObservableWrapper LocalizerService =>
-        App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
+        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
 
     /// <summary>

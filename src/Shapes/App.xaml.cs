@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Windows;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Services.Storage;
@@ -20,6 +21,7 @@ public partial class App
     public App()
     {
         this.Services = ConfigureServices();
+        Ioc.Default.ConfigureServices(this.Services);
 
         this.InitializeComponent();
     }

@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Windows;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +69,7 @@ public partial class MainWindow
         }
     }
 
-    private static IFileService GetService(string format) => App.Current.Services.GetKeyedService<IFileService>(format)
+    private static IFileService GetService(string format) => Ioc.Default.GetKeyedService<IFileService>(format)
                                                              ?? throw new ArgumentOutOfRangeException(nameof(format));
 
 }

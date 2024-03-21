@@ -3,6 +3,7 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Randomizer;
 using DCT.TraineeTasks.Shapes.Converters;
@@ -14,9 +15,10 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {
-    private readonly LocalizerServiceObservableWrapper localizerService =
-        App.Current.Services.GetService<LocalizerServiceObservableWrapper>()
-        ?? throw new ArgumentNullException(nameof(localizerService));
+    internal LocalizerServiceObservableWrapper LocalizerService { get; } =
+        // App.Current?.Services?.GetService<LocalizerServiceObservableWrapper>()
+        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
+        ?? throw new ArgumentNullException(nameof(LocalizerService));
 
     [ObservableProperty] private bool isPaused;
     [ObservableProperty] private double x;
@@ -28,7 +30,7 @@ public partial class ShapeViewModel : ObservableObject
         this.ShapeKind = kind;
         this.Boundary = boundary ?? new Point();
 
-        this.localizerService.PropertyChanged += (_, _) =>
+        this.LocalizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.Name));
 
         (this.X, this.Y) = PointRandomizer.Next(this.Boundary);
