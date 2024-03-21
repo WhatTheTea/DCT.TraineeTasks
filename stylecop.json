@@ -2,7 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
   "settings": {
     "documentationRules": {
-      "companyName": "Digital Cloud Technologies"
+      "companyName": "Digital Cloud Technologies",
+      "documentExposedElements": false,
+      "documentInternalElements": false
     },
     "orderingRules": {
       "usingDirectivesPlacement": "outsideNamespace"

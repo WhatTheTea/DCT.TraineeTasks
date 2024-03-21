@@ -31,7 +31,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <AdditionalFiles Include="..\stylecop.json">
+        <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
             <Link>stylecop.json</Link>
         </AdditionalFiles>
     </ItemGroup>
