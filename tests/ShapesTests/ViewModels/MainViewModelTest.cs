@@ -10,10 +10,8 @@ namespace DCT.TraineeTasks.Tests.Shapes.ViewModels;
 [TestOf(typeof(MainViewModel))]
 public class MainViewModelTest
 {
-
     [Test]
-    public void METHOD()
+    public void Method()
     {
-        
     }
 }
