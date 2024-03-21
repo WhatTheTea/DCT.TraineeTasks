@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>DCT.TraineeTasks.PrimitivesStrongNameKey.snk</AssemblyOriginatorKeyFile>
+        <RootNamespace>DCT.TraineeTasks.Primitives</RootNamespace>
     </PropertyGroup>
 
 </Project>

@@ -3,8 +3,8 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Shapes.Converters;
-using DCT.TraineeTasks.Shapes.Primitives;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;

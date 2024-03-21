@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.Primitives;
+namespace DCT.TraineeTasks.Primitives;
 
 public record Point(double X = 0, double Y = 0)
 {

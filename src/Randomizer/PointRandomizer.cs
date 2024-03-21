@@ -1,4 +1,4 @@
-﻿namespace Randomizer;
+﻿namespace DCT.TraineeTasks.Randomizer;
 
 public class PointRandomizer
 {
