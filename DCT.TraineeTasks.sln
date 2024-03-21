@@ -7,6 +7,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitives", "src\Primitives\Primitives.csproj", "{F5E54360-D790-4077-BD63-201E1F704F26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B74D53A0-6E41-413A-B4E4-C84B88BACB79}"
+	ProjectSection(SolutionItems) = preProject
+		src\stylecop.json = src\stylecop.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CBCAA36B-0200-45F7-8FB5-04E9640FF658}"
 EndProject
