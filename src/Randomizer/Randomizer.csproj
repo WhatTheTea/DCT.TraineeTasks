@@ -10,4 +10,8 @@
         <RootNamespace>DCT.TraineeTasks.Randomizer</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Primitives\Primitives.csproj" />
+    </ItemGroup>
+
 </Project>

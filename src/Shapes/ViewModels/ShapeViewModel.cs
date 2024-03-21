@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using DCT.TraineeTasks.Primitives;
+using DCT.TraineeTasks.Randomizer;
 using DCT.TraineeTasks.Shapes.Converters;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Wrappers;
@@ -30,8 +31,7 @@ public partial class ShapeViewModel : ObservableObject
         this.localizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.Name));
 
-        this.X = Random.Shared.Next(0, (int)this.Boundary.X);
-        this.Y = Random.Shared.Next(0, (int)this.Boundary.Y);
+        (this.X, this.Y) = PointRandomizer.Next(this.Boundary);
     }
 
     public Point Boundary { get; set; }
