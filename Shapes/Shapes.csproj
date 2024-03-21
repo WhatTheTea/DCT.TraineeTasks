@@ -9,7 +9,6 @@
         <RootNamespace>DCT.TraineeTasks.Shapes</RootNamespace>
         <Company>DCT</Company>
         <Product>TraineeTasks.Shapes</Product>
-        <NeutralLanguage></NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,13 +34,21 @@
     <ItemGroup>
         <EmbeddedResource Update="Resources\Services.LocalizerService.resx">
             <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>
+<!--            <LastGenOutput>MovingCircle.Designer.cs</LastGenOutput>-->
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\Services.LocalizerService.uk-ua.resx">
             <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>
+<!--            <LastGenOutput>LocalizedText.uk.Designer.cs</LastGenOutput>-->
             <DependentUpon>Services.LocalizerService.resx</DependentUpon>
         </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Primitives\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Primitives\Primitives.csproj" />
     </ItemGroup>
 
 </Project>
