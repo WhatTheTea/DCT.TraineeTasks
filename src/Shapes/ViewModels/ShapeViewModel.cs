@@ -9,20 +9,21 @@ using DCT.TraineeTasks.Randomizer;
 using DCT.TraineeTasks.Shapes.Converters;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Wrappers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {
     internal LocalizerServiceObservableWrapper LocalizerService { get; } =
-        // App.Current?.Services?.GetService<LocalizerServiceObservableWrapper>()
         Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(LocalizerService));
 
-    [ObservableProperty] private bool isPaused;
-    [ObservableProperty] private double x;
-    [ObservableProperty] private double y;
+    [ObservableProperty]
+    private bool isPaused;
+    [ObservableProperty]
+    private double x;
+    [ObservableProperty]
+    private double y;
 
     public ShapeViewModel(SupportedShapes kind, int id, Point? boundary = null)
     {
