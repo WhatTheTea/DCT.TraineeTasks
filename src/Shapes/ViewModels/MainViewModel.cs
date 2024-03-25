@@ -9,15 +9,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Primitives;
+using DCT.TraineeTasks.Shapes.Events;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Wrappers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableObject
 {
+    public event EventHandler<IntersectionEventArgs> IntersectionOccured;
+    
     [ObservableProperty] private double canvasHeight;
 
     [ObservableProperty] private double canvasWidth;
@@ -28,17 +30,35 @@ public sealed partial class MainViewModel : ObservableObject
     {
         this.FrameTimer.Start();
 
-        this.FrameTimer.Tick += (_, _) =>
-        {
-            foreach (var shape in this.Shapes)
-            {
-                shape.Boundary = new Point(this.canvasWidth, this.canvasHeight);
-                shape.Move();
-            }
-        };
+        this.FrameTimer.Tick += (_, _) => this.MoveShapes();
 
         this.LocalizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.ButtonText));
+    }
+
+    private void MoveShapes()
+    {
+        var pointsDictionary = new Dictionary<Point, ShapeViewModel>();
+        foreach (var shape in this.Shapes)
+        {
+            shape.Boundary = new Point(this.canvasWidth, this.canvasHeight);
+            shape.Move();
+            var shapePosition = new Point(shape.X, shape.Y);
+
+            if (pointsDictionary.TryAdd(shapePosition, shape))
+            {
+                continue;
+            }
+
+            // TryAdd fails, so current shape position is key for first shape with this position
+            var firstShape = pointsDictionary[shapePosition];
+            this.IntersectionOccured?.Invoke(
+                this,
+                new IntersectionEventArgs(
+                    firstShape,
+                    shape,
+                    shapePosition));
+        }
     }
 
     public string ButtonText
