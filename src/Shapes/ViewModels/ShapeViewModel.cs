@@ -28,7 +28,7 @@ public partial class ShapeViewModel : ObservableObject
     public ShapeViewModel(SupportedShapes kind, int id, Point? boundary = null)
     {
         this.Id = id;
-        this.ShapeKind = kind;
+        this.Kind = kind;
         this.Boundary = boundary ?? new Point();
 
         this.LocalizerService.PropertyChanged += (_, _) =>
@@ -43,9 +43,9 @@ public partial class ShapeViewModel : ObservableObject
 
     public int Id { get; }
 
-    public SupportedShapes ShapeKind { get; }
+    public SupportedShapes Kind { get; }
 
-    public string Name => $"{this.ShapeKind.ToLocalizedString()} {this.Id}";
+    public string Name => $"{this.Kind.ToLocalizedString()} {this.Id}";
 
     private Point NextPoint => new(this.X + this.Velocity.X, this.Y + this.Velocity.Y);
 

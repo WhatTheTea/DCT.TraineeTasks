@@ -71,7 +71,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:ShapeViewModel}">
                         <Path
-                            Data="{Binding ShapeKind, 
+                            Data="{Binding Kind, 
                         Converter={StaticResource ShapeKindConverter}}"
                             Stroke="Black">
                             <Path.RenderTransform>

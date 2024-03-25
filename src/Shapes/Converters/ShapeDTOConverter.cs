@@ -17,7 +17,7 @@ public static class ShapeDTOConverter
             viewModel.X,
             viewModel.Y,
             viewModel.IsPaused,
-            viewModel.ShapeKind,
+            viewModel.Kind,
             (viewModel.Velocity.X, viewModel.Velocity.Y));
     }
 
