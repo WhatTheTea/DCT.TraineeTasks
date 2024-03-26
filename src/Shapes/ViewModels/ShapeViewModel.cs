@@ -59,12 +59,12 @@ public partial class ShapeViewModel : ObservableObject
         var nextPoint = this.NextPoint;
         if (nextPoint.X <= 0 || nextPoint.X >= this.Boundary.X)
         {
-            this.Velocity = new Point(this.Velocity.X * -1, this.Velocity.Y);
+            this.Velocity.X *= -1;
         }
 
         if (nextPoint.Y <= 0 || nextPoint.Y >= this.Boundary.Y)
         {
-            this.Velocity = new Point(this.Velocity.X, this.Velocity.Y * -1);
+            this.Velocity.Y *= -1;
         }
 
         (this.X, this.Y) = this.NextPoint;
