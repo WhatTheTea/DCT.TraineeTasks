@@ -4,7 +4,6 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -60,9 +59,11 @@ public sealed partial class MainViewModel : ObservableRecipient
     
     public MainViewModel()
     {
-        this.FrameTimer.Start();
-
-        this.FrameTimer.Tick += (_, _) => this.MoveShapes();
+        this.FrameTimer = new DispatcherTimer(
+            TimeSpan.FromMilliseconds(21),
+            DispatcherPriority.Render,
+            (_, _) => this.MoveShapes(),
+            App.Current.Dispatcher);
 
         this.LocalizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.ButtonText));
@@ -88,12 +89,8 @@ public sealed partial class MainViewModel : ObservableRecipient
     /// <summary>
     ///     Gets DispatcherTimer with frame time interval
     /// </summary>
-    private DispatcherTimer FrameTimer { get; } = new()
-    {
-        Interval = TimeSpan.FromMilliseconds(21),
-    };
-
-
+    private DispatcherTimer FrameTimer { get; }
+    
     private void MoveShapes()
     {
         var pointsDictionary = new Dictionary<Point, ShapeViewModel>();
