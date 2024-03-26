@@ -17,12 +17,12 @@ using DCT.TraineeTasks.Shapes.Wrappers;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
-public sealed partial class MainViewModel : ObservableObject
+public sealed partial class MainViewModel : ObservableRecipient
 {
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
-    
-    private Dictionary<ShapeViewModel, int> ShapeInvokeCount { get; set; }
-    
+
+    private Dictionary<ShapeViewModel, int> ShapeInvokeCount { get; set; } = new();
+
     public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
 
     public string ButtonText
@@ -100,13 +100,22 @@ public sealed partial class MainViewModel : ObservableObject
         foreach (var shape in this.Shapes)
         {
             shape.Move();
-            var shapePosition = new Point(shape.X, shape.Y);
+            this.CheckIntersectionsWith(shape, pointsDictionary);
+        }
+    }
 
-            if (pointsDictionary.TryAdd(shapePosition, shape))
-            {
-                continue;
-            }
+    private void CheckIntersectionsWith(ShapeViewModel shape, Dictionary<Point, ShapeViewModel> pointsDictionary)
+    {
+        var shapePosition = new Point(shape.X, shape.Y);
 
+        if (pointsDictionary.TryAdd(shapePosition, shape))
+        {
+            return;
+        }
+
+        // Simulate multiple event handler assignment
+        for (var i = 0; i < this.ShapeInvokeCount[shape]; i++)
+        {
             // TryAdd fails, so current shape position is key for first shape with this position
             var firstShape = pointsDictionary[shapePosition];
             this.IntersectionOccured?.Invoke(
@@ -126,6 +135,7 @@ public sealed partial class MainViewModel : ObservableObject
             this.GetCountOf(kind),
             new Point(this.CanvasWidth, this.CanvasHeight));
         this.Shapes.Add(shape);
+        this.ShapeInvokeCount.Add(shape, 1);
     }
 
     [RelayCommand]
