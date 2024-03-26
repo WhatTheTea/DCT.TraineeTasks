@@ -41,16 +41,27 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.12*" />
+                <RowDefinition Height="0.15*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel>
                 <Label>DCT.TraineeTasks.Shapes</Label>
+                <StackPanel Orientation="Horizontal">
                 <Button
+                    Margin="4"
                     Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
                     Command="{Binding PlayOrPauseCommand}"
                     CommandParameter="{Binding SelectedItem, ElementName=ShapesListBox}"
                     x:Name="PlayButton" />
+                    <Button
+                        Margin="4"
+                        Content="+"
+                        />
+                    <Button
+                        Margin="4"
+                        Content="-"
+                        />
+                </StackPanel>
             </StackPanel>
 
             <ListBox Grid.Row="1" Grid.Column="0"
