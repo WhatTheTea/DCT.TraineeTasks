@@ -70,7 +70,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 
         this.IntersectionOccured += (_, args) =>
         {
-            Console.WriteLine(args.Intersection);
+            Console.WriteLine($"{args.Shape1.Name} with {args.Shape2.Name} @ {args.Intersection}");
         };
     }
 
@@ -183,6 +183,17 @@ public sealed partial class MainViewModel : ObservableRecipient
         }
 
         this.ShapeInvokeCountDictionary[shape]++;
+    }
+
+    [RelayCommand]
+    private void RemoveHandlerFrom(ShapeViewModel? shape)
+    {
+        if (shape == null)
+        {
+            return;
+        }
+
+        this.ShapeInvokeCountDictionary.Remove(shape);
     }
 
     private int GetCountOf(SupportedShapes kind)
