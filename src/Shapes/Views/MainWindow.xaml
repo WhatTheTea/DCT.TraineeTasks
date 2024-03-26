@@ -51,11 +51,14 @@
                     Margin="4"
                     Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
                     Command="{Binding PlayOrPauseCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=ShapesListBox}"
-                    x:Name="PlayButton" />
+                    x:Name="PlayButton" 
+                    CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}">
+                </Button>
                     <Button
                         Margin="4"
                         Content="+"
+                        Command="{Binding AddEventHandlerToCommand}"
+                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}"
                         />
                     <Button
                         Margin="4"

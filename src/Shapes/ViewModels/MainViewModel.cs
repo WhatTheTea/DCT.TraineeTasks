@@ -20,7 +20,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 {
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
 
-    private Dictionary<ShapeViewModel, int> ShapeInvokeCount { get; set; } = new();
+    private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; set; } = new();
 
     public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
 
@@ -110,11 +110,12 @@ public sealed partial class MainViewModel : ObservableRecipient
             return;
         }
 
+        // TryAdd fails, so current shape position is key for first shape with this position
+        var firstShape = pointsDictionary[shapePosition];
+
         // Simulate multiple event handler assignment
-        for (var i = 0; i < this.ShapeInvokeCount[shape]; i++)
+        for (var i = 0; i < this.ShapeInvokeCountDictionary[shape]; i++)
         {
-            // TryAdd fails, so current shape position is key for first shape with this position
-            var firstShape = pointsDictionary[shapePosition];
             this.IntersectionOccured?.Invoke(
                 this,
                 new IntersectionEventArgs(
@@ -132,7 +133,7 @@ public sealed partial class MainViewModel : ObservableRecipient
             this.GetCountOf(kind),
             new Point(this.CanvasWidth, this.CanvasHeight));
         this.Shapes.Add(shape);
-        this.ShapeInvokeCount.Add(shape, 1);
+        this.ShapeInvokeCountDictionary.Add(shape, 0);
     }
 
     [RelayCommand]
@@ -171,6 +172,17 @@ public sealed partial class MainViewModel : ObservableRecipient
             this.UpdateChildrenCanvasBoundary();
             this.Shapes.Add(shape);
         }
+    }
+
+    [RelayCommand]
+    private void AddEventHandlerTo(ShapeViewModel? shape)
+    {
+        if (shape == null)
+        {
+            return;
+        }
+
+        this.ShapeInvokeCountDictionary[shape]++;
     }
 
     private int GetCountOf(SupportedShapes kind)
