@@ -4,6 +4,7 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -19,9 +20,9 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 public sealed partial class MainViewModel : ObservableObject
 {
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
-
-    private ShapeViewModel? selectedShape;
-
+    
+    private Dictionary<ShapeViewModel, int> ShapeInvokeCount { get; set; }
+    
     public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
 
     public string ButtonText
@@ -39,18 +40,6 @@ public sealed partial class MainViewModel : ObservableObject
         }
     }
 
-    public ShapeViewModel? SelectedShape
-    {
-        get => this.selectedShape;
-        set
-        {
-            this.SetProperty(ref this.selectedShape, value);
-
-            // Dependent:
-            this.OnPropertyChanged(nameof(this.ButtonText));
-        }
-    }
-
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
 
     public LocalizerServiceObservableWrapper LocalizerService =>
@@ -65,6 +54,10 @@ public sealed partial class MainViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
     private double canvasWidth;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ButtonText))]
+    private ShapeViewModel? selectedShape;
+    
     public MainViewModel()
     {
         this.FrameTimer.Start();
