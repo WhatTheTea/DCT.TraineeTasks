@@ -20,7 +20,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 {
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
 
-    private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; set; } = new();
+    private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; } = new();
 
     public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
 
@@ -125,14 +125,13 @@ public sealed partial class MainViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void AddShape(SupportedShapes kind)
+    private void CreateShape(SupportedShapes kind)
     {
         var shape = new ShapeViewModel(
             kind,
             this.GetCountOf(kind),
-            new Point(this.CanvasWidth, this.CanvasHeight));
-        this.Shapes.Add(shape);
-        this.ShapeInvokeCountDictionary.Add(shape, 0);
+            this.CanvasBoundary);
+        this.AddShape(shape);
     }
 
     [RelayCommand]
@@ -168,9 +167,16 @@ public sealed partial class MainViewModel : ObservableRecipient
 
         foreach (var shape in shapes)
         {
-            this.UpdateChildrenCanvasBoundary();
-            this.Shapes.Add(shape);
+            this.AddShape(shape);
         }
+
+        this.UpdateChildrenCanvasBoundary();
+    }
+
+    private void AddShape(ShapeViewModel shape)
+    {
+        this.Shapes.Add(shape);
+        this.ShapeInvokeCountDictionary.Add(shape, 0);
     }
 
     [RelayCommand]

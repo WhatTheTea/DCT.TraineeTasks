@@ -111,19 +111,19 @@
                 <Button Margin="5"
                         Padding="5"
                         Content="{Binding LocalizerService.Triangle, FallbackValue=triangle}"
-                        Command="{Binding AddShapeCommand}"
+                        Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Triangle}"
                         x:Name="TriangleButton" />
                 <Button Margin="5"
                         Padding="5"
                         Content="{Binding LocalizerService.Square, FallbackValue=square}"
-                        Command="{Binding AddShapeCommand}"
+                        Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Square}"
                         x:Name="SquareButton" />
                 <Button Margin="5"
                         Padding="5"
                         Content="{Binding LocalizerService.Circle, FallbackValue=circle}"
-                        Command="{Binding AddShapeCommand}"
+                        Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static resources:SupportedShapes.Circle}"
                         x:Name="CircleButton" />
             </StackPanel>
