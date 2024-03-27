@@ -56,7 +56,7 @@ public sealed partial class MainViewModel : ObservableRecipient
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ButtonText))]
     private ShapeViewModel? selectedShape;
-    
+
     public MainViewModel()
     {
         this.FrameTimer = new DispatcherTimer(
@@ -93,35 +93,34 @@ public sealed partial class MainViewModel : ObservableRecipient
     
     private void MoveShapes()
     {
-        var pointsDictionary = new Dictionary<Point, ShapeViewModel>();
         foreach (var shape in this.Shapes)
         {
             shape.Move();
-            this.CheckIntersectionsWith(shape, pointsDictionary);
+            this.CheckIntersectionsWith(shape);
         }
     }
 
-    private void CheckIntersectionsWith(ShapeViewModel shape, Dictionary<Point, ShapeViewModel> pointsDictionary)
+    private void CheckIntersectionsWith(ShapeViewModel shape)
     {
-        var shapePosition = new Point(shape.X, shape.Y);
-
-        if (pointsDictionary.TryAdd(shapePosition, shape))
-        {
-            return;
-        }
-
-        // TryAdd fails, so current shape position is key for first shape with this position
-        var firstShape = pointsDictionary[shapePosition];
+        var contactShapes = this.Shapes.Where(
+            x =>
+                x.Kind == shape.Kind
+                && Math.Abs(x.X - shape.X) < 1
+                && Math.Abs(x.Y - shape.Y) < 1
+                && x != shape).ToArray();
 
         // Simulate multiple event handler assignment
         for (var i = 0; i < this.ShapeInvokeCountDictionary[shape]; i++)
         {
-            this.IntersectionOccured?.Invoke(
-                this,
-                new IntersectionEventArgs(
-                    firstShape,
-                    shape,
-                    shapePosition));
+            foreach (var contact in contactShapes)
+            {
+                this.IntersectionOccured?.Invoke(
+                    this,
+                    new IntersectionEventArgs(
+                        contact,
+                        shape,
+                        new Point(shape.X, shape.Y)));
+            }
         }
     }
 
@@ -193,7 +192,12 @@ public sealed partial class MainViewModel : ObservableRecipient
             return;
         }
 
-        this.ShapeInvokeCountDictionary.Remove(shape);
+        if (this.ShapeInvokeCountDictionary[shape] < 1)
+        {
+            return;
+        }
+
+        this.ShapeInvokeCountDictionary[shape]--;
     }
 
     private int GetCountOf(SupportedShapes kind)
