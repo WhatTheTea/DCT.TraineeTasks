@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
@@ -22,11 +23,22 @@ public partial class MainWindow
                                         + "|XML files (*.xml)|*.xml";
 
     /// <summary>
+    ///     Gets DispatcherTimer with frame time interval
+    /// </summary>
+    private DispatcherTimer FrameTimer { get; }
+
+    /// <summary>
     ///     Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();
+        
+        this.FrameTimer = new DispatcherTimer(
+            TimeSpan.FromMilliseconds(21),
+            DispatcherPriority.Render,
+            (_, _) => this.ViewModel.MoveShapes(),
+            App.Current.Dispatcher);
 
         this.ShapesCanvasItemsControl.LayoutUpdated += (_, _) =>
         {

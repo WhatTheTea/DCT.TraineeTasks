@@ -59,12 +59,6 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     public MainViewModel()
     {
-        this.FrameTimer = new DispatcherTimer(
-            TimeSpan.FromMilliseconds(21),
-            DispatcherPriority.Render,
-            (_, _) => this.MoveShapes(),
-            App.Current.Dispatcher);
-
         this.LocalizerService.PropertyChanged += (_, _) =>
             this.OnPropertyChanged(nameof(this.ButtonText));
 
@@ -86,10 +80,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     partial void OnCanvasWidthChanged(double value) => this.UpdateChildrenCanvasBoundary();
 
-    /// <summary>
-    ///     Gets DispatcherTimer with frame time interval
-    /// </summary>
-    private DispatcherTimer FrameTimer { get; }
+    
 
     internal void MoveShapes()
     {
