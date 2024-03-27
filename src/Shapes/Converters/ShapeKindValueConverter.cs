@@ -15,7 +15,7 @@ public class ShapeKindValueConverter : IValueConverter
     {
         if (value is SupportedShapes shape)
         {
-            return this.GeometryByShape(shape);
+            return GeometryByShape(shape);
         }
 
         return null;
@@ -26,7 +26,7 @@ public class ShapeKindValueConverter : IValueConverter
         throw new NotImplementedException();
     }
 
-    private Geometry GeometryByShape(SupportedShapes shape)
+    private static Geometry GeometryByShape(SupportedShapes shape)
     {
         return shape switch
         {
