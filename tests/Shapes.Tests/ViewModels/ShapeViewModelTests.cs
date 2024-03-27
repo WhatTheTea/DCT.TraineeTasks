@@ -18,16 +18,6 @@ public class ShapeViewModelTests
 {
     private ShapeViewModel TestedShapeViewModel { get; set; }
 
-    [OneTimeSetUp]
-    public void OneTimeSetup()
-    {
-        var services = new ServiceCollection();
-        services.AddSingleton(new Mock<LocalizerServiceObservableWrapper>(
-            new Mock<LocalizerService>(new Mock<IStringLocalizer<LocalizerService>>().Object).Object).Object);
-        var provider = services.BuildServiceProvider();
-        Ioc.Default.ConfigureServices(provider);
-    }
-
     [SetUp]
     public void Setup()
     {

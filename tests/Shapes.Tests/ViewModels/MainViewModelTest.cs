@@ -20,20 +20,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
 public class MainViewModelTest
 {
     private MainViewModel ViewModel { get; set; }
-
-    [OneTimeSetUp]
-    public void OneTimeSetup()
-    {
-        var services = new ServiceCollection();
-        services
-            .AddLogging()
-            .AddLocalization(options => options.ResourcesPath = "Resources")
-            .AddSingleton<LocalizerService>()
-            .AddSingleton<LocalizerServiceObservableWrapper>();
-        var provider = services.BuildServiceProvider();
-        Ioc.Default.ConfigureServices(provider);
-    }
-
+    
     [SetUp]
     public void Setup()
     {
