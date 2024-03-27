@@ -90,8 +90,8 @@ public sealed partial class MainViewModel : ObservableRecipient
     ///     Gets DispatcherTimer with frame time interval
     /// </summary>
     private DispatcherTimer FrameTimer { get; }
-    
-    private void MoveShapes()
+
+    internal void MoveShapes()
     {
         foreach (var shape in this.Shapes)
         {
@@ -173,7 +173,7 @@ public sealed partial class MainViewModel : ObservableRecipient
         this.UpdateChildrenCanvasBoundary();
     }
 
-    private void AddShape(ShapeViewModel shape)
+    internal void AddShape(ShapeViewModel shape)
     {
         this.Shapes.Add(shape);
         this.ShapeInvokeCountDictionary.Add(shape, 0);

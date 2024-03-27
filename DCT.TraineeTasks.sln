@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B74D53A0-6E4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CBCAA36B-0200-45F7-8FB5-04E9640FF658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapesTests", "tests\ShapesTests\ShapesTests.csproj", "{1886C692-5F43-4ED9-8386-C8CFBB2CC90B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shapes.Tests", "tests\Shapes.Tests\Shapes.Tests.csproj", "{1886C692-5F43-4ED9-8386-C8CFBB2CC90B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
