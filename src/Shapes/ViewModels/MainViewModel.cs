@@ -87,6 +87,10 @@ public sealed partial class MainViewModel : ObservableRecipient
         foreach (var shape in this.Shapes)
         {
             shape.Move();
+        }
+
+        foreach (var shape in this.Shapes)
+        {
             this.CheckIntersectionsWith(shape);
         }
     }
@@ -120,8 +124,7 @@ public sealed partial class MainViewModel : ObservableRecipient
     {
         var shape = new ShapeViewModel(
             kind,
-            this.GetCountOf(kind),
-            this.CanvasBoundary);
+            this.GetCountOf(kind));
         this.AddShape(shape);
     }
 
@@ -160,12 +163,11 @@ public sealed partial class MainViewModel : ObservableRecipient
         {
             this.AddShape(shape);
         }
-
-        this.UpdateChildrenCanvasBoundary();
     }
 
     internal void AddShape(ShapeViewModel shape)
     {
+        shape.Boundary = this.CanvasBoundary;
         this.Shapes.Add(shape);
         this.ShapeInvokeCountDictionary.Add(shape, 0);
     }

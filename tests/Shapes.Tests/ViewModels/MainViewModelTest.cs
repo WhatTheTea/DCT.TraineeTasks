@@ -2,6 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
+using Accessibility;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Events;
 using DCT.TraineeTasks.Shapes.Resources;
@@ -23,18 +25,23 @@ public class MainViewModelTest
     public void OneTimeSetup()
     {
         var services = new ServiceCollection();
-        services.AddSingleton(new Mock<LocalizerServiceObservableWrapper>(
-            new Mock<LocalizerService>(new Mock<IStringLocalizer<LocalizerService>>().Object).Object).Object);
+        services
+            .AddLogging()
+            .AddLocalization(options => options.ResourcesPath = "Resources")
+            .AddSingleton<LocalizerService>()
+            .AddSingleton<LocalizerServiceObservableWrapper>();
         var provider = services.BuildServiceProvider();
         Ioc.Default.ConfigureServices(provider);
     }
-    
+
     [SetUp]
     public void Setup()
     {
-        this.ViewModel = new MainViewModel();
-        this.ViewModel.CanvasHeight = 100;
-        this.ViewModel.CanvasWidth = 100;
+        this.ViewModel = new MainViewModel
+        {
+            CanvasHeight = 100,
+            CanvasWidth = 100,
+        };
     }
     
     // Intersections
@@ -44,14 +51,23 @@ public class MainViewModelTest
         // Arrange
         using var vm = this.ViewModel.Monitor();
         var shape1 = new ShapeViewModel(0, 0) { X = 10, Y = 10, };
-        var shape2 = new ShapeViewModel(0, 0) { X = 10, Y = 10, };
+        var shape2 = new ShapeViewModel(0, 1) { X = 10, Y = 10, };
         vm.Subject.AddShape(shape1);
         vm.Subject.AddShape(shape2);
-
+        vm.Subject.AddEventHandlerToCommand.Execute(shape1);
+        vm.Subject.AddEventHandlerToCommand.Execute(shape2);
         // Act
         this.ViewModel.MoveShapes();
 
         // Assert
-        vm.Should().Raise(nameof(MainViewModel.IntersectionOccured));
+        vm.Should().Raise(nameof(vm.Subject.IntersectionOccured))
+            .WithArgs<IntersectionEventArgs>(
+                x => x.Shape1 == shape1
+                && x.Shape2 == shape2);
+
+        vm.Should().Raise(nameof(vm.Subject.IntersectionOccured))
+            .WithArgs<IntersectionEventArgs>(
+                x => x.Shape1 == shape2
+                     && x.Shape2 == shape1);
     }
 }
