@@ -10,9 +10,12 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Shapes.Events;
+using DCT.TraineeTasks.Shapes.Exceptions;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Wrappers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
@@ -44,6 +47,9 @@ public sealed partial class MainViewModel : ObservableRecipient
     public LocalizerServiceObservableWrapper LocalizerService =>
         Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
+
+    private ILogger<MainViewModel> Logger => Ioc.Default.GetService<Logger<MainViewModel>>()
+                                             ?? throw new ArgumentNullException(nameof(this.Logger));
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
@@ -84,7 +90,14 @@ public sealed partial class MainViewModel : ObservableRecipient
     {
         foreach (var shape in this.Shapes)
         {
-            shape.Move();
+            try
+            {
+                shape.Move();
+            }
+            catch (ShapeOutOfBoundsException e)
+            {
+                shape.JumpToBoundary();
+            }
         }
 
         foreach (var shape in this.Shapes)
@@ -98,8 +111,8 @@ public sealed partial class MainViewModel : ObservableRecipient
         var contactShapes = this.Shapes.Where(
             x =>
                 x.Kind == shape.Kind
-                && Math.Abs(x.X - shape.X) < 1
-                && Math.Abs(x.Y - shape.Y) < 1
+                && Math.Abs(x.X - shape.X) < 5
+                && Math.Abs(x.Y - shape.Y) < 5
                 && x != shape).ToArray();
 
         // Simulate multiple event handler assignment
@@ -122,7 +135,8 @@ public sealed partial class MainViewModel : ObservableRecipient
     {
         var shape = new ShapeViewModel(
             kind,
-            this.GetCountOf(kind));
+            this.GetCountOf(kind),
+            this.CanvasBoundary);
         this.AddShape(shape);
     }
 

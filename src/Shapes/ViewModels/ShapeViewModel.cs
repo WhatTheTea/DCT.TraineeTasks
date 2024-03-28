@@ -2,6 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using System.Reflection.Metadata;
+using System.Windows.Media.Animation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Primitives;
@@ -95,6 +97,32 @@ public partial class ShapeViewModel : ObservableObject
             this.Velocity.Y *= -1;
         }
 
+        this.Velocity.Y = double.Abs(this.Velocity.Y) > 10
+            ? (double.Abs(this.Velocity.Y) - 1) * double.Sign(this.Velocity.Y)
+            : this.Velocity.Y;
+        this.Velocity.X = double.Abs(this.Velocity.X) > 10
+            ? (double.Abs(this.Velocity.X) - 1) * double.Sign(this.Velocity.X)
+            : this.Velocity.X;
+
         (this.X, this.Y) = this.NextPoint;
+    }
+
+    internal void JumpToBoundary()
+    {
+        if (this.X > this.Boundary.X)
+        {
+            this.X = this.Boundary.X;
+            this.Velocity.X = (10 + double.Abs(this.Velocity.X)) * double.Sign(this.Velocity.X);
+        }
+
+        this.X = this.X < 0 ? 0 : this.X;
+
+        if (this.Y > this.Boundary.Y)
+        {
+            this.Y = this.Boundary.Y;
+            this.Velocity.Y = (10 + double.Abs(this.Velocity.Y)) * double.Sign(this.Velocity.Y);
+        }
+
+        this.Y = this.Y < 0 ? 0 : this.Y;
     }
 }

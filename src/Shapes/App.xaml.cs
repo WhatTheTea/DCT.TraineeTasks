@@ -10,6 +10,7 @@ using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DCT.TraineeTasks.Shapes;
 
@@ -35,7 +36,7 @@ public partial class App
         var services = new ServiceCollection();
 
         services
-            .AddLogging()
+            .AddLogging(builder => builder.AddConsole())
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
             .AddKeyedSingleton<IFileService, JsonFileService>(".json")
