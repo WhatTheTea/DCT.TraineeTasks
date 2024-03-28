@@ -45,7 +45,18 @@ public class PlayButtonTests
                 isPaused ? this.LocalizerService.PlayButtonPlay
                 : this.LocalizerService.PlayButtonPause);
     }
-    
-    // [Test]
-    // public void PlayButtonShapeNull()
+
+    [Test]
+    public void PlayButtonShapeNull()
+    {
+        // Arrange
+        var vm = this.MonitoredViewModel.Subject;
+
+        // Act
+        vm.SelectedShape = null;
+
+        // Assert
+        this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.ButtonText);
+        vm.ButtonText.Should().Be(this.LocalizerService.PlayButtonSelect);
+    }
 }
