@@ -89,40 +89,38 @@ public partial class ShapeViewModel : ObservableObject
         var nextPoint = this.NextPoint;
         if (nextPoint.X <= 0 || nextPoint.X >= this.Boundary.X)
         {
+            this.Velocity.X = Bounce(this.Velocity.X);
             this.Velocity.X *= -1;
         }
 
         if (nextPoint.Y <= 0 || nextPoint.Y >= this.Boundary.Y)
         {
+            this.Velocity.Y = Bounce(this.Velocity.Y);
             this.Velocity.Y *= -1;
         }
 
-        this.Velocity.Y = double.Abs(this.Velocity.Y) > 10
-            ? (double.Abs(this.Velocity.Y) - 1) * double.Sign(this.Velocity.Y)
-            : this.Velocity.Y;
-        this.Velocity.X = double.Abs(this.Velocity.X) > 10
-            ? (double.Abs(this.Velocity.X) - 1) * double.Sign(this.Velocity.X)
-            : this.Velocity.X;
+        this.Velocity.Y = Friction(this.Velocity.Y);
+        this.Velocity.X = Friction(this.Velocity.X);
 
         (this.X, this.Y) = this.NextPoint;
     }
 
+    private static double Friction(double value) =>
+        double.Abs(value) > 10
+            ? (double.Abs(value) - .5) * double.Sign(value)
+            : value;
+
+    private static double Bounce(double value) =>
+        double.Clamp(
+            (10 + double.Abs(value)) * double.Sign(value),
+            -30,
+            30);
+
     internal void JumpToBoundary()
     {
-        if (this.X > this.Boundary.X)
-        {
-            this.X = this.Boundary.X;
-            this.Velocity.X = (10 + double.Abs(this.Velocity.X)) * double.Sign(this.Velocity.X);
-        }
-
-        this.X = this.X < 0 ? 0 : this.X;
-
-        if (this.Y > this.Boundary.Y)
-        {
-            this.Y = this.Boundary.Y;
-            this.Velocity.Y = (10 + double.Abs(this.Velocity.Y)) * double.Sign(this.Velocity.Y);
-        }
-
-        this.Y = this.Y < 0 ? 0 : this.Y;
+        this.X = double.Clamp(this.X, 0, this.Boundary.X);
+        this.Velocity.X = Bounce(this.Velocity.X);
+        this.Y = double.Clamp(this.Y, 0, this.Boundary.Y);
+        this.Velocity.Y = Bounce(this.Velocity.Y);
     }
 }
