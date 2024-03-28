@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Randomizer;
 using DCT.TraineeTasks.Shapes.Converters;
+using DCT.TraineeTasks.Shapes.Exceptions;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Wrappers;
 
@@ -20,9 +21,8 @@ public partial class ShapeViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isPaused;
-    [ObservableProperty]
+    
     private double x;
-    [ObservableProperty]
     private double y;
 
     public ShapeViewModel(SupportedShapes kind, int id, Point? boundary = null)
@@ -40,6 +40,34 @@ public partial class ShapeViewModel : ObservableObject
     public Point Boundary { get; set; }
 
     public Point Velocity { get; set; } = new(10, 10);
+
+    public double X
+    {
+        get => this.x;
+        set
+        {
+            if (value < 0 || value > this.Boundary.X)
+            {
+                throw new ShapeOutOfBoundsException(this);
+            }
+
+            this.SetProperty(ref this.x, value);
+        }
+    }
+
+    public double Y
+    {
+        get => this.y;
+        set
+        {
+            if (value < 0 || value > this.Boundary.Y)
+            {
+                throw new ShapeOutOfBoundsException(this);
+            }
+
+            this.SetProperty(ref this.y, value);
+        }
+    }
 
     public int Id { get; }
 

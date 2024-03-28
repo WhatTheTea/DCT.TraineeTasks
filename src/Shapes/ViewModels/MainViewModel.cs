@@ -80,8 +80,6 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     partial void OnCanvasWidthChanged(double value) => this.UpdateChildrenCanvasBoundary();
 
-    
-
     internal void MoveShapes()
     {
         foreach (var shape in this.Shapes)
