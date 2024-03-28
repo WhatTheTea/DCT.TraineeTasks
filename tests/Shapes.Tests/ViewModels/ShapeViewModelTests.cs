@@ -2,13 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using DCT.TraineeTasks.Shapes.Wrappers;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
 
@@ -16,13 +11,13 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
 [TestOf(typeof(ShapeViewModel))]
 public class ShapeViewModelTests
 {
-    private ShapeViewModel TestedShapeViewModel { get; set; }
-
     [SetUp]
     public void Setup()
     {
         this.TestedShapeViewModel = new ShapeViewModel(0, 0);
     }
+
+    private ShapeViewModel TestedShapeViewModel { get; set; }
 
     [Test]
     public void Move()

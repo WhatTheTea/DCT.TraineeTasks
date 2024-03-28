@@ -3,5 +3,4 @@
 [TestFixture]
 public class CanvasTests : MainViewModelTests
 {
-    
 }

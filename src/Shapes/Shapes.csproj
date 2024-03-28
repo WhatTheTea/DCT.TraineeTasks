@@ -29,7 +29,7 @@
             <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
-    
+
     <ItemGroup>
         <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
             <Link>stylecop.json</Link>
@@ -37,10 +37,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Primitives\Primitives.csproj" />
-      <ProjectReference Include="..\Randomizer\Randomizer.csproj" />
+        <ProjectReference Include="..\Primitives\Primitives.csproj"/>
+        <ProjectReference Include="..\Randomizer\Randomizer.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).Tests"/>
     </ItemGroup>

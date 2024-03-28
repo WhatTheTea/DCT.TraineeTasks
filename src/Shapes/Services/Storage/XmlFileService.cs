@@ -11,8 +11,11 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class XmlFileService : IFileService
 {
+    private readonly XmlSerializer serializer = new(
+        typeof(ShapeDTO[]),
+        [typeof(ShapeDTO), typeof((double x, double y))]);
+
     public string FileLocation { get; set; } = "movingShapes.xml";
-    private readonly XmlSerializer serializer = new(typeof(ShapeDTO[]), [typeof(ShapeDTO), typeof((double x, double y))]);
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {

@@ -4,6 +4,7 @@ using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
+
 [SetUpFixture]
 public class TestsWithConfiguredServices
 {

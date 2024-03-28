@@ -47,25 +47,22 @@
             <StackPanel>
                 <Label>DCT.TraineeTasks.Shapes</Label>
                 <StackPanel Orientation="Horizontal">
-                <Button
-                    Margin="4"
-                    Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
-                    Command="{Binding PlayOrPauseCommand}"
-                    x:Name="PlayButton" 
-                    CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}">
-                </Button>
+                    <Button
+                        Margin="4"
+                        Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
+                        Command="{Binding PlayOrPauseCommand}"
+                        x:Name="PlayButton"
+                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}" />
                     <Button
                         Margin="4"
                         Content="+"
                         Command="{Binding AddEventHandlerToCommand}"
-                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}"
-                        />
+                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}" />
                     <Button
                         Margin="4"
                         Content="-"
                         Command="{Binding RemoveHandlerFromCommand}"
-                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}"
-                        />
+                        CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}" />
                 </StackPanel>
             </StackPanel>
 

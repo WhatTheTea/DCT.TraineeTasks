@@ -11,12 +11,12 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class JsonFileService : IFileService
 {
-    public string FileLocation { get; set; } = "movingShapes.json";
-
     private static readonly JsonSerializerOptions Options = new()
     {
         IncludeFields = true
     };
+
+    public string FileLocation { get; set; } = "movingShapes.json";
 
     public void Save(IEnumerable<ShapeViewModel> shapes)
     {

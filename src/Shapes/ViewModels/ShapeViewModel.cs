@@ -2,8 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Reflection.Metadata;
-using System.Windows.Media.Animation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Primitives;
@@ -17,13 +15,8 @@ namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {
-    internal LocalizerServiceObservableWrapper LocalizerService { get; } =
-        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
-        ?? throw new ArgumentNullException(nameof(LocalizerService));
+    [ObservableProperty] private bool isPaused;
 
-    [ObservableProperty]
-    private bool isPaused;
-    
     private double x;
     private double y;
 
@@ -38,6 +31,10 @@ public partial class ShapeViewModel : ObservableObject
 
         (this.X, this.Y) = PointRandomizer.Next(this.Boundary);
     }
+
+    internal LocalizerServiceObservableWrapper LocalizerService { get; } =
+        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
+        ?? throw new ArgumentNullException(nameof(LocalizerService));
 
     public Point Boundary { get; set; }
 
@@ -105,16 +102,20 @@ public partial class ShapeViewModel : ObservableObject
         (this.X, this.Y) = this.NextPoint;
     }
 
-    private static double Friction(double value) =>
-        double.Abs(value) > 10
+    private static double Friction(double value)
+    {
+        return double.Abs(value) > 10
             ? (double.Abs(value) - .5) * double.Sign(value)
             : value;
+    }
 
-    private static double Bounce(double value) =>
-        double.Clamp(
+    private static double Bounce(double value)
+    {
+        return double.Clamp(
             (10 + double.Abs(value)) * double.Sign(value),
             -30,
             30);
+    }
 
     internal void JumpToBoundary()
     {

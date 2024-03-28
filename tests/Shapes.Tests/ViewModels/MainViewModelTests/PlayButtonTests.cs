@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using FluentAssertions.Events;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
@@ -10,19 +9,18 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 public class PlayButtonTests : MainViewModelTests
 {
     private LocalizerService LocalizerService { get; } = Ioc.Default.GetService<LocalizerService>()
-        ?? throw new ArgumentNullException();
+                                                         ?? throw new ArgumentNullException();
 
     public override void Setup()
     {
         base.Setup();
-        var shape = new ShapeViewModel(0, 0) { X = 10, Y = 10, };
+        var shape = new ShapeViewModel(0, 0) { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape);
         this.MonitoredViewModel.Subject.SelectedShape = shape;
     }
 
     [Test]
-    public void PlayButtonPlayPause(
-        [Values(true, false)] bool isPaused)
+    public void PlayButtonPlayPause([Values(true, false)] bool isPaused)
     {
         // Arrange
         var vm = this.MonitoredViewModel.Subject;
@@ -34,8 +32,9 @@ public class PlayButtonTests : MainViewModelTests
         this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.ButtonText);
         vm.ButtonText.Should()
             .Be(
-                isPaused ? this.LocalizerService.PlayButtonPlay
-                : this.LocalizerService.PlayButtonPause);
+                isPaused
+                    ? this.LocalizerService.PlayButtonPlay
+                    : this.LocalizerService.PlayButtonPause);
     }
 
     [Test]

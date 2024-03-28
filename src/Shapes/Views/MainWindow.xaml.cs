@@ -23,17 +23,12 @@ public partial class MainWindow
                                         + "|XML files (*.xml)|*.xml";
 
     /// <summary>
-    ///     Gets DispatcherTimer with frame time interval
-    /// </summary>
-    private DispatcherTimer FrameTimer { get; }
-
-    /// <summary>
     ///     Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();
-        
+
         this.FrameTimer = new DispatcherTimer(
             TimeSpan.FromMilliseconds(21),
             DispatcherPriority.Render,
@@ -47,13 +42,18 @@ public partial class MainWindow
         };
     }
 
+    /// <summary>
+    ///     Gets DispatcherTimer with frame time interval
+    /// </summary>
+    private DispatcherTimer FrameTimer { get; }
+
     public MainViewModel ViewModel => (MainViewModel)this.DataContext;
 
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
         var dialog = new SaveFileDialog
         {
-            Filter = FormatFilter,
+            Filter = FormatFilter
         };
 
         if (dialog.ShowDialog() ?? false)
@@ -69,7 +69,7 @@ public partial class MainWindow
     {
         var dialog = new OpenFileDialog
         {
-            Filter = FormatFilter,
+            Filter = FormatFilter
         };
 
         if (dialog.ShowDialog() ?? false)
@@ -81,7 +81,9 @@ public partial class MainWindow
         }
     }
 
-    private static IFileService GetService(string format) => Ioc.Default.GetKeyedService<IFileService>(format)
-                                                             ?? throw new ArgumentOutOfRangeException(nameof(format));
-
+    private static IFileService GetService(string format)
+    {
+        return Ioc.Default.GetKeyedService<IFileService>(format)
+               ?? throw new ArgumentOutOfRangeException(nameof(format));
+    }
 }

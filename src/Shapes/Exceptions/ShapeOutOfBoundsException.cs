@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Text;
 using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Shapes.ViewModels;
 

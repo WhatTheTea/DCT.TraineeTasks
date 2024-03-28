@@ -4,7 +4,6 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
@@ -14,14 +13,31 @@ using DCT.TraineeTasks.Shapes.Exceptions;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Wrappers;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace DCT.TraineeTasks.Shapes.ViewModels;
 
 public sealed partial class MainViewModel : ObservableRecipient
 {
-    public event EventHandler<IntersectionEventArgs> IntersectionOccured;
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
+    private double canvasHeight;
+
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
+    private double canvasWidth;
+
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(ButtonText))]
+    private ShapeViewModel? selectedShape;
+
+    public MainViewModel()
+    {
+        this.LocalizerService.PropertyChanged += (_, _) =>
+            this.OnPropertyChanged(nameof(this.ButtonText));
+
+        this.IntersectionOccured += (_, args) =>
+        {
+            Console.WriteLine($"{args.Shape1.Name} with {args.Shape2.Name} @ {args.Intersection}");
+        };
+    }
 
     private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; } = new();
 
@@ -51,28 +67,7 @@ public sealed partial class MainViewModel : ObservableRecipient
     private ILogger<MainViewModel> Logger => Ioc.Default.GetService<Logger<MainViewModel>>()
                                              ?? throw new ArgumentNullException(nameof(this.Logger));
 
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
-    private double canvasHeight;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
-    private double canvasWidth;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(ButtonText))]
-    private ShapeViewModel? selectedShape;
-
-    public MainViewModel()
-    {
-        this.LocalizerService.PropertyChanged += (_, _) =>
-            this.OnPropertyChanged(nameof(this.ButtonText));
-
-        this.IntersectionOccured += (_, args) =>
-        {
-            Console.WriteLine($"{args.Shape1.Name} with {args.Shape2.Name} @ {args.Intersection}");
-        };
-    }
+    public event EventHandler<IntersectionEventArgs> IntersectionOccured;
 
     private void UpdateChildrenCanvasBoundary()
     {
@@ -82,9 +77,15 @@ public sealed partial class MainViewModel : ObservableRecipient
         }
     }
 
-    partial void OnCanvasHeightChanged(double value) => this.UpdateChildrenCanvasBoundary();
+    partial void OnCanvasHeightChanged(double value)
+    {
+        this.UpdateChildrenCanvasBoundary();
+    }
 
-    partial void OnCanvasWidthChanged(double value) => this.UpdateChildrenCanvasBoundary();
+    partial void OnCanvasWidthChanged(double value)
+    {
+        this.UpdateChildrenCanvasBoundary();
+    }
 
     internal void MoveShapes()
     {

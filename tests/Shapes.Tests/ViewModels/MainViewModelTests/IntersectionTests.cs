@@ -1,7 +1,6 @@
 ﻿using DCT.TraineeTasks.Shapes.Events;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.ViewModels;
-using FluentAssertions.Events;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
@@ -12,8 +11,8 @@ public class IntersectionTests : MainViewModelTests
     public override void Setup()
     {
         base.Setup();
-        var shape1 = new ShapeViewModel(0, 0) { X = 10, Y = 10, };
-        var shape2 = new ShapeViewModel(0, 1) { X = 10, Y = 10, };
+        var shape1 = new ShapeViewModel(0, 0) { X = 10, Y = 10 };
+        var shape2 = new ShapeViewModel(0, 1) { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape1);
         this.MonitoredViewModel.Subject.AddShape(shape2);
         this.MonitoredViewModel.Subject.AddEventHandlerToCommand.Execute(shape1);
@@ -33,7 +32,7 @@ public class IntersectionTests : MainViewModelTests
         this.MonitoredViewModel.Should().Raise(nameof(MainViewModel.IntersectionOccured))
             .WithArgs<IntersectionEventArgs>(
                 x => x.Shape1 == vm.Shapes[0]
-                && x.Shape2 == vm.Shapes[1]);
+                     && x.Shape2 == vm.Shapes[1]);
 
         this.MonitoredViewModel.Should().Raise(nameof(MainViewModel.IntersectionOccured))
             .WithArgs<IntersectionEventArgs>(

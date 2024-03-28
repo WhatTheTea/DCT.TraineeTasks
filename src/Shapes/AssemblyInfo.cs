@@ -2,7 +2,6 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.Runtime.CompilerServices;
 using System.Windows;
 using Microsoft.Extensions.Localization;
 
