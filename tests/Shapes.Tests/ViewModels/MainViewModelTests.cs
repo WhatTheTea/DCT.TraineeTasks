@@ -1,4 +1,4 @@
-﻿// <copyright file="MainViewModelTest.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="MainViewModelTests.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -14,7 +14,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
 
 [TestFixture]
 [TestOf(typeof(MainViewModel))]
-public class MainViewModelTest
+public class MainViewModelTests
 {
     private MainViewModel ViewModel { get; set; }
     
@@ -97,7 +97,7 @@ public class MainViewModelTest
     }
     
     [Test]
-    [Category("Intersection")]
+    [Category("PlayButton")]
     public void PlayButtonPause()
     {
         // Arrange

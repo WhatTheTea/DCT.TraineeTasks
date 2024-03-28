@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;
 [SetUpFixture]
-public class Config
+public class TestsWithConfiguredServices
 {
     [OneTimeSetUp]
     public void OneTimeGlobalSetup()
