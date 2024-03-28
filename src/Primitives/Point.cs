@@ -4,7 +4,7 @@
 
 namespace DCT.TraineeTasks.Primitives;
 
-public record Point(double X = 0, double Y = 0)
+public sealed record Point(double X = 0, double Y = 0)
 {
     public Point((double x, double y) tuple)
         : this(tuple.x, tuple.y)
