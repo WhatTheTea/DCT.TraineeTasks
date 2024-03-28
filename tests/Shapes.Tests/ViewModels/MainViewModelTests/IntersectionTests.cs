@@ -6,31 +6,18 @@ using FluentAssertions.Events;
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
 [TestFixture]
-public class IntersectionTests
+[TestOf(typeof(MainViewModel))]
+public class IntersectionTests : MainViewModelTests
 {
-    private IMonitor<MainViewModel> MonitoredViewModel { get; set; }
-    
-    [SetUp]
-    public void Setup()
+    public override void Setup()
     {
-        var vm = new MainViewModel
-        {
-            CanvasHeight = 100,
-            CanvasWidth = 100,
-        };
-        this.MonitoredViewModel = vm.Monitor();
+        base.Setup();
         var shape1 = new ShapeViewModel(0, 0) { X = 10, Y = 10, };
         var shape2 = new ShapeViewModel(0, 1) { X = 10, Y = 10, };
         this.MonitoredViewModel.Subject.AddShape(shape1);
         this.MonitoredViewModel.Subject.AddShape(shape2);
         this.MonitoredViewModel.Subject.AddEventHandlerToCommand.Execute(shape1);
         this.MonitoredViewModel.Subject.AddEventHandlerToCommand.Execute(shape2);
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        this.MonitoredViewModel.Dispose();
     }
 
     [Test]

@@ -7,22 +7,30 @@ using DCT.TraineeTasks.Shapes.Events;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.ViewModels;
+using FluentAssertions.Events;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
 [TestFixture]
 [TestOf(typeof(MainViewModel))]
-public class MainViewModelTests
+public abstract class MainViewModelTests
 {
-    private MainViewModel ViewModel { get; set; }
-    
+    protected IMonitor<MainViewModel> MonitoredViewModel { get; set; }
+
     [SetUp]
-    public void Setup()
+    public virtual void Setup()
     {
-        this.ViewModel = new MainViewModel
+        var vm = new MainViewModel
         {
             CanvasHeight = 100,
             CanvasWidth = 100,
         };
+        this.MonitoredViewModel = vm.Monitor();
+    }
+
+    [TearDown]
+    public virtual void TearDown()
+    {
+        this.MonitoredViewModel.Dispose();
     }
 }
