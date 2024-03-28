@@ -17,7 +17,8 @@ public abstract class MainViewModelTests
         var vm = new MainViewModel
         {
             CanvasHeight = 100,
-            CanvasWidth = 100
+            CanvasWidth = 100,
+            CanvasBoundary = { X = 100, Y = 100 },
         };
         this.MonitoredViewModel = vm.Monitor();
     }

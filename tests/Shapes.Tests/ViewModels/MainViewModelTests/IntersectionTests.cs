@@ -11,8 +11,10 @@ public class IntersectionTests : MainViewModelTests
     public override void Setup()
     {
         base.Setup();
-        var shape1 = new ShapeViewModel(0, 0) { X = 10, Y = 10 };
-        var shape2 = new ShapeViewModel(0, 1) { X = 10, Y = 10 };
+        var shape1 = new ShapeViewModel(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary)
+            { X = 10, Y = 10 };
+        var shape2 = new ShapeViewModel(0, 1, this.MonitoredViewModel.Subject.CanvasBoundary)
+            { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape1);
         this.MonitoredViewModel.Subject.AddShape(shape2);
         this.MonitoredViewModel.Subject.AddEventHandlerToCommand.Execute(shape1);
