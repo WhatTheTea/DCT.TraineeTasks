@@ -21,4 +21,22 @@ public class CreateShapeTests : Base
             .Raise(nameof(ObservableCollection<ShapeViewModel>.CollectionChanged));
         vm.Shapes.Should().NotBeEmpty();
     }
+
+    [Test]
+    public void ShapeIdIsCalculated()
+    {
+        // Arrange 
+        var vm = this.MonitoredViewModel.Subject;
+
+        // Act
+        vm.CreateShapeCommand.Execute(0);
+        vm.CreateShapeCommand.Execute(0);
+        vm.CreateShapeCommand.Execute(SupportedShapes.Triangle);
+
+        // Assert
+        vm.Shapes[1].Id.Should().Be(1);
+
+        // Triangle is different kind, id calculated separately
+        vm.Shapes[2].Id.Should().Be(0);
+    }
 }
