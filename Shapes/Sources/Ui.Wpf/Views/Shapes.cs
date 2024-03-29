@@ -1,13 +1,13 @@
-﻿// <copyright file="ShapesGeometries.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="Shapes.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Views;
 
-public static class ShapesGeometries
+public static class Shapes
 {
     public static Geometry Circle => new EllipseGeometry(new Rect(0, 0, 30, 30));
 

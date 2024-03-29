@@ -24,4 +24,8 @@
         <ProjectReference Include="..\Sources\Common\Common.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Resources\"/>
+    </ItemGroup>
+
 </Project>

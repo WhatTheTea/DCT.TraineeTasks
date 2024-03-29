@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using DCT.TraineeTasks.Shapes.Common;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 
@@ -31,9 +30,9 @@ public class ShapeKindValueConverter : IValueConverter
     {
         return shape switch
         {
-            SupportedShapes.Circle => ShapesGeometries.Circle,
-            SupportedShapes.Square => ShapesGeometries.Rectangle,
-            SupportedShapes.Triangle => ShapesGeometries.Triangle,
+            SupportedShapes.Circle => Views.Shapes.Circle,
+            SupportedShapes.Square => Views.Shapes.Rectangle,
+            SupportedShapes.Triangle => Views.Shapes.Triangle,
             _ => throw new ArgumentOutOfRangeException(nameof(shape))
         };
     }
