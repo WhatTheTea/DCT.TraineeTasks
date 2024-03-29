@@ -80,21 +80,16 @@ public class IntersectionTests : Base
     {
         // Arrange 
         var vm = this.MonitoredViewModel.Subject;
-        var invokingShape = vm.Shapes[0];
-        vm.AddEventHandlerToCommand.Execute(invokingShape);
-        var invokeCount = 0;
+        vm.AddEventHandlerToCommand.Execute(vm.Shapes[0]);
+        const int expectedInvocations = 3;
 
         // Act
-        vm.IntersectionOccured += (_, args) =>
-        {
-            if (args.Shape2 == invokingShape)
-            {
-                invokeCount++;
-            }
-        };
         vm.MoveShapes();
 
         // Assert
-        invokeCount.Should().Be(2);
+        this.MonitoredViewModel
+            .OccurredEvents
+            .Should()
+            .HaveCount(expectedInvocations);
     }
 }
