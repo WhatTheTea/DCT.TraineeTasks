@@ -35,7 +35,11 @@ public sealed partial class MainViewModel : ObservableRecipient
 
         this.IntersectionOccured += (_, args) =>
         {
-            Console.WriteLine($"{args.Shape1.Name} with {args.Shape2.Name} @ {args.Intersection}");
+            this.Logger.LogInformation(
+                "{FirstShapeName} with {SecondShapeName} @ {Intersection}",
+                args.Shape1.Name,
+                args.Shape2.Name,
+                args.Intersection);
         };
     }
 
@@ -64,7 +68,7 @@ public sealed partial class MainViewModel : ObservableRecipient
         Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
         ?? throw new ArgumentNullException(nameof(this.LocalizerService));
 
-    private ILogger<MainViewModel> Logger => Ioc.Default.GetService<Logger<MainViewModel>>()
+    private ILogger<MainViewModel> Logger => Ioc.Default.GetService<ILogger<MainViewModel>>()
                                              ?? throw new ArgumentNullException(nameof(this.Logger));
 
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
@@ -98,6 +102,7 @@ public sealed partial class MainViewModel : ObservableRecipient
             catch (ShapeOutOfBoundsException e)
             {
                 shape.JumpToBoundary();
+                this.Logger.LogError(e, "{Message}", e.Message);
             }
         }
 

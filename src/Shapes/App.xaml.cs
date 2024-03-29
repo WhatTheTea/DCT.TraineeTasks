@@ -9,7 +9,7 @@ using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.ViewModels;
 using DCT.TraineeTasks.Shapes.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace DCT.TraineeTasks.Shapes;
 
@@ -22,6 +22,7 @@ public partial class App
     {
         this.Services = ConfigureServices();
         Ioc.Default.ConfigureServices(this.Services);
+        ConfigureSerilog();
 
         this.InitializeComponent();
     }
@@ -35,7 +36,7 @@ public partial class App
         var services = new ServiceCollection();
 
         services
-            .AddLogging(builder => builder.AddConsole())
+            .AddLogging(builder => builder.AddSerilog(dispose: true))
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<LocalizerService>()
             .AddKeyedSingleton<IFileService, JsonFileService>(".json")
@@ -46,5 +47,14 @@ public partial class App
             ;
 
         return services.BuildServiceProvider();
+    }
+
+    private static void ConfigureSerilog()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .WriteTo.File("shapes.log")
+            .CreateLogger();
     }
 }
