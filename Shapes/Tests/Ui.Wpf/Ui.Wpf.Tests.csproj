@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Sources\Shapes\Shapes.csproj"/>
+        <ProjectReference Include="..\..\Sources\UI.WPF\UI.WPF.csproj"/>
     </ItemGroup>
 
 </Project>

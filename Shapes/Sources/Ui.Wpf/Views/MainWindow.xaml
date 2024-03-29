@@ -45,7 +45,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel>
-                <Label>DCT.TraineeTasks.Shapes</Label>
+                <Label>DCT.TraineeTasks.Ui.Wpf</Label>
                 <StackPanel Orientation="Horizontal">
                     <Button
                         Margin="4"
