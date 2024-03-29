@@ -1,4 +1,4 @@
-﻿// <copyright file="MainViewModelTests.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="MainViewModel.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -9,9 +9,9 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Services.Storage;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 using Microsoft.Extensions.Logging;
 
@@ -167,7 +167,8 @@ public sealed partial class MainViewModel : ObservableRecipient
     [RelayCommand]
     private void SaveTo(IFileService service)
     {
-        service.Save(this.Shapes);
+        var shapeDtos = this.Shapes.Select(x => x.ToDTO());
+        service.Save(shapeDtos);
         this.Shapes.Clear();
     }
 
@@ -179,7 +180,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 
         foreach (var shape in shapes)
         {
-            this.AddShape(shape);
+            this.AddShape(shape.ToViewModel());
         }
     }
 

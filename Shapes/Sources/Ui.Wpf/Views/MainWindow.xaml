@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels"
         xmlns:viewModels="clr-namespace:DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels"
         xmlns:converters="clr-namespace:DCT.TraineeTasks.Shapes.Ui.Wpf.Converters"
-        xmlns:resources="clr-namespace:DCT.TraineeTasks.Shapes.Ui.Wpf.Resources"
+        xmlns:common="clr-namespace:DCT.TraineeTasks.Shapes.Common;assembly=Common"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -28,11 +27,11 @@
             <MenuItem Header="Language">
                 <MenuItem Header="Ukrainian"
                           Command="{Binding ChangeCultureCommand}"
-                          CommandParameter="{x:Static resources:SupportedCultures.UkUa}"
+                          CommandParameter="{x:Static common:SupportedCultures.UkUa}"
                           x:Name="UkrainianLanguageMenuItem" />
                 <MenuItem Header="English"
                           Command="{Binding ChangeCultureCommand}"
-                          CommandParameter="{x:Static resources:SupportedCultures.EnUs}"
+                          CommandParameter="{x:Static common:SupportedCultures.EnUs}"
                           x:Name="EnglishLanguageMenuItem" />
             </MenuItem>
         </Menu>
@@ -110,19 +109,19 @@
                         Padding="5"
                         Content="{Binding LocalizerService.Triangle, FallbackValue=triangle}"
                         Command="{Binding CreateShapeCommand}"
-                        CommandParameter="{x:Static resources:SupportedShapes.Triangle}"
+                        CommandParameter="{x:Static common:SupportedShapes.Triangle}"
                         x:Name="TriangleButton" />
                 <Button Margin="5"
                         Padding="5"
                         Content="{Binding LocalizerService.Square, FallbackValue=square}"
                         Command="{Binding CreateShapeCommand}"
-                        CommandParameter="{x:Static resources:SupportedShapes.Square}"
+                        CommandParameter="{x:Static common:SupportedShapes.Square}"
                         x:Name="SquareButton" />
                 <Button Margin="5"
                         Padding="5"
                         Content="{Binding LocalizerService.Circle, FallbackValue=circle}"
                         Command="{Binding CreateShapeCommand}"
-                        CommandParameter="{x:Static resources:SupportedShapes.Circle}"
+                        CommandParameter="{x:Static common:SupportedShapes.Circle}"
                         x:Name="CircleButton" />
             </StackPanel>
         </Grid>
