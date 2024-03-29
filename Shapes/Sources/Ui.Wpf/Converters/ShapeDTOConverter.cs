@@ -2,8 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Primitives;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
+using DCT.TraineeTasks.Shapes.Common;
+using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
@@ -23,12 +23,12 @@ public static class ShapeDTOConverter
 
     public static ShapeViewModel ToViewModel(this ShapeDTO dto)
     {
-        return new ShapeViewModel(dto.kind, dto.id)
+        return new ShapeViewModel(dto.Kind, dto.Id)
         {
-            IsPaused = dto.isPaused,
-            X = dto.x,
-            Y = dto.y,
-            Velocity = new Point(dto.velocity)
+            IsPaused = dto.IsPaused,
+            X = dto.X,
+            Y = dto.Y,
+            Velocity = new Point(dto.Velocity)
         };
     }
 }

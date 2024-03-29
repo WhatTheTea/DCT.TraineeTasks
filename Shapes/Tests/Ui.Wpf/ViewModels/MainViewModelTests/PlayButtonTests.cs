@@ -3,7 +3,7 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
+using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;

@@ -4,7 +4,7 @@
 
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
+using DCT.TraineeTasks.Shapes.Services;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 

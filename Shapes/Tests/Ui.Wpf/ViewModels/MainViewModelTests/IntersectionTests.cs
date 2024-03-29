@@ -2,6 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
+using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;

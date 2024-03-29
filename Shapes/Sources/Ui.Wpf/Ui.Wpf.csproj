@@ -40,12 +40,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Primitives\Primitives.csproj"/>
+        <ProjectReference Include="..\..\Services\Services.csproj"/>
+        <ProjectReference Include="..\Common\Common.csproj"/>
         <ProjectReference Include="..\Randomizer\Randomizer.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).Tests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Services\"/>
     </ItemGroup>
 
 </Project>

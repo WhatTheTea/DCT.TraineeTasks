@@ -1,4 +1,4 @@
-﻿using DCT.TraineeTasks.Shapes.Primitives;
+﻿using DCT.TraineeTasks.Shapes.Common;
 
 namespace DCT.TraineeTasks.Shapes.Randomizer;
 

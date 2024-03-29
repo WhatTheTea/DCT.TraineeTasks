@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;

@@ -3,7 +3,7 @@
 // </copyright>
 
 using System.Collections.ObjectModel;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;

@@ -2,12 +2,10 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.IO;
 using System.Xml.Serialization;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
+using DCT.TraineeTasks.Shapes.Common;
 
-namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class XmlFileService : IFileService
 {
@@ -17,18 +15,18 @@ public class XmlFileService : IFileService
 
     public string FileLocation { get; set; } = "movingShapes.xml";
 
-    public void Save(IEnumerable<ShapeViewModel> shapes)
+    public void Save(IEnumerable<ShapeDTO> shapes)
     {
-        var dtos = shapes.Select(x => x.ToDTO());
+        var shapesArray = shapes.ToArray();
         using var writer = new StreamWriter(this.FileLocation);
-        this.serializer.Serialize(writer, dtos.ToArray());
+        serializer.Serialize(writer, shapesArray.ToArray());
     }
 
-    public IEnumerable<ShapeViewModel> Load()
+    public IEnumerable<ShapeDTO> Load()
     {
         using var reader = new StreamReader(this.FileLocation);
-        var dtos = this.serializer.Deserialize(reader) as ShapeDTO[]
-                   ?? throw new FileFormatException(new Uri(this.FileLocation));
-        return dtos.Select(x => x.ToViewModel());
+        var shapeArray = serializer.Deserialize(reader) as ShapeDTO[]
+                         ?? throw new FormatException("Invalid XML");
+        return shapeArray;
     }
 }

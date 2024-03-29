@@ -3,8 +3,8 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
+using DCT.TraineeTasks.Shapes.Common;
+using DCT.TraineeTasks.Shapes.Services;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 

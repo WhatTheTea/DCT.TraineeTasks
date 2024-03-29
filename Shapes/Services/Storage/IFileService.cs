@@ -2,15 +2,15 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
+using DCT.TraineeTasks.Shapes.Common;
 
-namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public interface IFileService
 {
     string FileLocation { get; set; }
 
-    void Save(IEnumerable<ShapeViewModel> shapes);
+    void Save(IEnumerable<ShapeDTO> shapes);
 
-    IEnumerable<ShapeViewModel> Load();
+    IEnumerable<ShapeDTO> Load();
 }

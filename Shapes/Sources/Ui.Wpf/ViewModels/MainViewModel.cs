@@ -7,11 +7,11 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Common;
+using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 using Microsoft.Extensions.Logging;
 

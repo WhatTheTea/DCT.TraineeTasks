@@ -4,7 +4,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Randomizer;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
