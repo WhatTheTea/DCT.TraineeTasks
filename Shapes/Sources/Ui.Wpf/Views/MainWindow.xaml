@@ -49,7 +49,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button
                         Margin="4"
-                        Content="{Binding ButtonText, Mode=OneWay, FallbackValue=playButton}"
+                        Content="{Binding PlayButtonText, Mode=OneWay, FallbackValue=playButton}"
                         Command="{Binding PlayOrPauseCommand}"
                         x:Name="PlayButton"
                         CommandParameter="{Binding ElementName=ShapesListBox, Path=SelectedItem}" />
@@ -107,19 +107,19 @@
                         x:Name="ShapesStackPanel">
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Triangle, FallbackValue=triangle}"
+                        Content="{Binding TriangleButtonText, FallbackValue=triangle}"
                         Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static common:SupportedShapes.Triangle}"
                         x:Name="TriangleButton" />
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Square, FallbackValue=square}"
+                        Content="{Binding SquareButtonText, FallbackValue=square}"
                         Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static common:SupportedShapes.Square}"
                         x:Name="SquareButton" />
                 <Button Margin="5"
                         Padding="5"
-                        Content="{Binding LocalizerService.Circle, FallbackValue=circle}"
+                        Content="{Binding CircleButtonText, FallbackValue=circle}"
                         Command="{Binding CreateShapeCommand}"
                         CommandParameter="{x:Static common:SupportedShapes.Circle}"
                         x:Name="CircleButton" />

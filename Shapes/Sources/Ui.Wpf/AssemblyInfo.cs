@@ -12,4 +12,4 @@ using Microsoft.Extensions.Localization;
 
 [assembly: CLSCompliant(true)]
 [assembly: ResourceLocation("Resources")]
-[assembly: RootNamespace("DCT.TraineeTasks.Ui.Wpf")]
+[assembly: RootNamespace("DCT.TraineeTasks.Shapes.Ui.Wpf")]

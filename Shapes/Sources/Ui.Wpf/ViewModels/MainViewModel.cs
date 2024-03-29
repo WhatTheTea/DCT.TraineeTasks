@@ -12,7 +12,7 @@ using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using Microsoft.Extensions.Logging;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
@@ -25,14 +25,21 @@ public sealed partial class MainViewModel : ObservableRecipient
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
     private double canvasWidth;
 
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(ButtonText))]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(PlayButtonText))]
     private ShapeViewModel? selectedShape;
 
     public MainViewModel()
     {
-        this.LocalizerService.PropertyChanged += (_, _) =>
-            this.OnPropertyChanged(nameof(this.ButtonText));
-
+        this.Localization.PropertyChanged += (sender, args) =>
+        {
+            if (args.PropertyName == nameof(this.Localization.UiCulture))
+            {
+                this.OnPropertyChanged(nameof(this.PlayButtonText));
+                this.OnPropertyChanged(nameof(this.TriangleButtonText));
+                this.OnPropertyChanged(nameof(this.CircleButtonText));
+                this.OnPropertyChanged(nameof(this.SquareButtonText));
+            }
+        };
         this.IntersectionOccured += (_, args) =>
         {
             this.Logger.LogInformation(
@@ -43,33 +50,38 @@ public sealed partial class MainViewModel : ObservableRecipient
         };
     }
 
-    private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; } = new();
-
-    public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
-
-    public string ButtonText
+    public string PlayButtonText
     {
         get
         {
             if (this.SelectedShape != null)
             {
                 return this.SelectedShape.IsPaused
-                    ? this.LocalizerService.PlayButtonPlay
-                    : this.LocalizerService.PlayButtonPause;
+                    ? this.Localization.GetString("playButtonPlay")
+                    : this.Localization.GetString("playButtonPause");
             }
 
-            return this.LocalizerService.PlayButtonSelect;
+            return this.Localization.GetString("playButtonSelect");
         }
     }
 
+    public string CircleButtonText => this.Localization.GetString("circle");
+
+    public string SquareButtonText => this.Localization.GetString("square");
+
+    public string TriangleButtonText => this.Localization.GetString("triangle");
+
+    public Point CanvasBoundary => new(this.CanvasWidth, this.CanvasHeight);
+
     public ObservableCollection<ShapeViewModel> Shapes { get; } = new();
 
-    public LocalizerServiceObservableWrapper LocalizerService =>
-        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
-        ?? throw new ArgumentNullException(nameof(this.LocalizerService));
+    private Dictionary<ShapeViewModel, int> ShapeInvokeCountDictionary { get; } = new();
 
-    private ILogger<MainViewModel> Logger => Ioc.Default.GetService<ILogger<MainViewModel>>()
-                                             ?? throw new ArgumentNullException(nameof(this.Logger));
+    private ILocalizationManager Localization { get; } = Ioc.Default.GetService<ILocalizationManager>()
+                                                         ?? throw new ArgumentNullException(nameof(Localization));
+
+    private ILogger<MainViewModel> Logger { get; } = Ioc.Default.GetService<ILogger<MainViewModel>>()
+                                                     ?? throw new ArgumentNullException(nameof(Logger));
 
     public event EventHandler<IntersectionEventArgs> IntersectionOccured;
 
@@ -155,13 +167,13 @@ public sealed partial class MainViewModel : ObservableRecipient
         }
 
         // Dependent
-        this.OnPropertyChanged(nameof(this.ButtonText));
+        this.OnPropertyChanged(nameof(this.PlayButtonText));
     }
 
     [RelayCommand]
     private void ChangeCulture(CultureInfo cultureInfo)
     {
-        this.LocalizerService.CurrentCulture = cultureInfo;
+        this.Localization.UiCulture = cultureInfo;
     }
 
     [RelayCommand]

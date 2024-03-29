@@ -8,7 +8,7 @@ using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Randomizer;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
@@ -25,15 +25,19 @@ public partial class ShapeViewModel : ObservableObject
         this.Kind = kind;
         this.Boundary = boundary ?? new Point();
 
-        this.LocalizerService.PropertyChanged += (_, _) =>
-            this.OnPropertyChanged(nameof(this.Name));
+        this.Localization.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(this.Localization.UiCulture))
+            {
+                this.OnPropertyChanged(nameof(this.Name));
+            }
+        };
 
         (this.X, this.Y) = PointRandomizer.Next(this.Boundary);
     }
 
-    internal LocalizerServiceObservableWrapper LocalizerService { get; } =
-        Ioc.Default.GetService<LocalizerServiceObservableWrapper>()
-        ?? throw new ArgumentNullException(nameof(LocalizerService));
+    internal ILocalizationManager Localization { get; } = Ioc.Default.GetService<ILocalizationManager>()
+                                                          ?? throw new ArgumentNullException(nameof(Localization));
 
     public Point Boundary { get; set; }
 

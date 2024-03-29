@@ -4,10 +4,9 @@
 
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Services;
 using DCT.TraineeTasks.Shapes.Services.Storage;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
-using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -37,13 +36,12 @@ public partial class App
 
         services
             .AddLogging(builder => builder.AddSerilog(dispose: true))
-            .AddLocalization(options => options.ResourcesPath = @"Resources")
-            .AddSingleton<LocalizerService>()
+            .AddLocalization(options => options.ResourcesPath = "Resources")
+            .AddSingleton<ILocalizationManager, LocalizationManager>()
             .AddKeyedSingleton<IFileService, JsonFileService>(".json")
             .AddKeyedSingleton<IFileService, BinaryFileService>(".bin")
             .AddKeyedSingleton<IFileService, XmlFileService>(".xml")
             .AddSingleton<MainViewModel>()
-            .AddSingleton<LocalizerServiceObservableWrapper>()
             ;
 
         return services.BuildServiceProvider();

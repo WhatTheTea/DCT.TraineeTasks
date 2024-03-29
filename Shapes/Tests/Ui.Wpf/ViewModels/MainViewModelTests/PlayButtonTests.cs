@@ -3,7 +3,7 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Services;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
@@ -12,7 +12,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 [TestOf(typeof(MainViewModel))]
 public class PlayButtonTests : Base
 {
-    private LocalizerService LocalizerService { get; } = Ioc.Default.GetService<LocalizerService>()
+    private ILocalizationManager Localization { get; } = Ioc.Default.GetService<ILocalizationManager>()
                                                          ?? throw new ArgumentNullException();
 
     public override void Setup()
@@ -34,12 +34,12 @@ public class PlayButtonTests : Base
         vm.SelectedShape!.IsPaused = isPaused;
 
         // Assert
-        this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.ButtonText);
-        vm.ButtonText.Should()
+        this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.PlayButtonText);
+        vm.PlayButtonText.Should()
             .Be(
                 isPaused
-                    ? this.LocalizerService.PlayButtonPlay
-                    : this.LocalizerService.PlayButtonPause);
+                    ? this.Localization.GetString("playButtonPlay")
+                    : this.Localization.GetString("playButtonPause"));
     }
 
     [Test]
@@ -52,7 +52,7 @@ public class PlayButtonTests : Base
         vm.SelectedShape = null;
 
         // Assert
-        this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.ButtonText);
-        vm.ButtonText.Should().Be(this.LocalizerService.PlayButtonSelect);
+        this.MonitoredViewModel.Should().RaisePropertyChangeFor(x => x.PlayButtonText);
+        vm.PlayButtonText.Should().Be(this.Localization.GetString("playButtonSelect"));
     }
 }
