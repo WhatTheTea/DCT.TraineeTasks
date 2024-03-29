@@ -5,9 +5,9 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using DCT.TraineeTasks.Shapes.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
-namespace DCT.TraineeTasks.Shapes.Converters;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 
 public class ShapeKindValueConverter : IValueConverter
 {

@@ -2,9 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
-namespace DCT.TraineeTasks.Shapes.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
 
 public record ShapeDTO(
     int id,

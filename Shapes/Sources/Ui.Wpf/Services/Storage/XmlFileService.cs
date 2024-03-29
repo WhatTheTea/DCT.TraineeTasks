@@ -4,10 +4,10 @@
 
 using System.IO;
 using System.Xml.Serialization;
-using DCT.TraineeTasks.Shapes.Converters;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
-namespace DCT.TraineeTasks.Shapes.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
 
 public class XmlFileService : IFileService
 {

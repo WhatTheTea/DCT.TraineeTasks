@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Localization;
 
-namespace DCT.TraineeTasks.Shapes.Services;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
 
 public class LocalizerService
 {

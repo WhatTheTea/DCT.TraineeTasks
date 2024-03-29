@@ -3,12 +3,12 @@
 // </copyright>
 
 using System.IO;
-using DCT.TraineeTasks.Shapes.Converters;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 using MessagePack;
 using MessagePack.Resolvers;
 
-namespace DCT.TraineeTasks.Shapes.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
 
 public class BinaryFileService : IFileService
 {

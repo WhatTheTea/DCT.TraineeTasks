@@ -1,6 +1,6 @@
-﻿using DCT.TraineeTasks.Primitives;
+﻿using DCT.TraineeTasks.Shapes.Primitives;
 
-namespace DCT.TraineeTasks.Randomizer;
+namespace DCT.TraineeTasks.Shapes.Randomizer;
 
 public class PointRandomizer
 {

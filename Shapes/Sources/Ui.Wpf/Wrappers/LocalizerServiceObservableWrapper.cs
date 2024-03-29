@@ -4,9 +4,9 @@
 
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DCT.TraineeTasks.Shapes.Services;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
 
-namespace DCT.TraineeTasks.Shapes.Wrappers;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 
 public class LocalizerServiceObservableWrapper(LocalizerService service) : ObservableObject
 {

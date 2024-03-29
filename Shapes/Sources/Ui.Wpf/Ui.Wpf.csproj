@@ -7,8 +7,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <RootNamespace>DCT.TraineeTasks.Shapes.Ui.Wpf</RootNamespace>
-        <Company>DCT</Company>
-        <Product>TraineeTasks.Shapes</Product>
+        <Company>Digital Cloud Technologies</Company>
+        <Product>Shapes.Ui.Wpf</Product>
     </PropertyGroup>
 
     <ItemGroup>

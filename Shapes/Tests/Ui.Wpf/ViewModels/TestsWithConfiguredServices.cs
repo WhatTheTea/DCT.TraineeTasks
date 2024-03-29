@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Services;
-using DCT.TraineeTasks.Shapes.Wrappers;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels;

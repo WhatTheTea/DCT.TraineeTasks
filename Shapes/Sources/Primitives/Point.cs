@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Primitives;
+namespace DCT.TraineeTasks.Shapes.Primitives;
 
 public sealed record Point(double X = 0, double Y = 0)
 {

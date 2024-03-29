@@ -2,9 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
-namespace DCT.TraineeTasks.Shapes.Services.Storage;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
 
 public interface IFileService
 {

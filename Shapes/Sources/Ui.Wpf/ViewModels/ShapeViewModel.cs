@@ -4,14 +4,14 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Randomizer;
-using DCT.TraineeTasks.Shapes.Converters;
-using DCT.TraineeTasks.Shapes.Exceptions;
-using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.Wrappers;
+using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Randomizer;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {

@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 using FluentAssertions.Events;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.ShapeViewModelTests;

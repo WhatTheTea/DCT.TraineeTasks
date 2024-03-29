@@ -2,7 +2,7 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.Shapes.Resources;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
 public enum SupportedFileFormats
 {

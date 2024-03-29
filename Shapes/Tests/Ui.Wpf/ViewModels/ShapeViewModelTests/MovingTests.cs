@@ -2,8 +2,8 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Shapes.Exceptions;
+using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.ShapeViewModelTests;
 

@@ -7,15 +7,15 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Shapes.Events;
-using DCT.TraineeTasks.Shapes.Exceptions;
-using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.Services.Storage;
-using DCT.TraineeTasks.Shapes.Wrappers;
+using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Wrappers;
 using Microsoft.Extensions.Logging;
 
-namespace DCT.TraineeTasks.Shapes.ViewModels;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 public sealed partial class MainViewModel : ObservableRecipient
 {

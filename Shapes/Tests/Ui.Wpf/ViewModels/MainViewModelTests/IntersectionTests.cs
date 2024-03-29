@@ -2,9 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Shapes.Events;
-using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 

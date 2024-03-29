@@ -6,12 +6,12 @@ using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Services.Storage;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Services.Storage;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 
-namespace DCT.TraineeTasks.Shapes.Views;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Views;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml.

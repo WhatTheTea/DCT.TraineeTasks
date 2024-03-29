@@ -5,7 +5,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace DCT.TraineeTasks.Shapes.Resources;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
 public static class ShapesGeometries
 {

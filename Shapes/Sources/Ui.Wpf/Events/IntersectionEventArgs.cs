@@ -2,10 +2,10 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
-namespace DCT.TraineeTasks.Shapes.Events;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Events;
 
 public class IntersectionEventArgs(ShapeViewModel shape1, ShapeViewModel shape2, Point intersection)
     : EventArgs

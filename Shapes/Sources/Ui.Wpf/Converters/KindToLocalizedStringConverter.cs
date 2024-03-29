@@ -3,10 +3,10 @@
 // </copyright>
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Resources;
-using DCT.TraineeTasks.Shapes.Services;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.Services;
 
-namespace DCT.TraineeTasks.Shapes.Converters;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Converters;
 
 public static class KindToLocalizedStringConverter
 {

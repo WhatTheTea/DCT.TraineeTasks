@@ -2,10 +2,10 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using DCT.TraineeTasks.Primitives;
-using DCT.TraineeTasks.Shapes.ViewModels;
+using DCT.TraineeTasks.Shapes.Primitives;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
-namespace DCT.TraineeTasks.Shapes.Exceptions;
+namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
 
 public class ShapeOutOfBoundsException(ShapeViewModel shape)
     : InvalidOperationException($"{shape.Name} is out of bounds: {new Point()} : {shape.Boundary}!");
