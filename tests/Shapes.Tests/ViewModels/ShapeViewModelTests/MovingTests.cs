@@ -1,4 +1,8 @@
-﻿using DCT.TraineeTasks.Primitives;
+﻿// <copyright file="MovingTests.cs" company="Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
+
+using DCT.TraineeTasks.Primitives;
 using DCT.TraineeTasks.Shapes.Exceptions;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.ShapeViewModelTests;

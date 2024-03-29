@@ -1,4 +1,8 @@
-﻿using DCT.TraineeTasks.Shapes.Events;
+﻿// <copyright file="IntersectionTests.cs" company="Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
+
+using DCT.TraineeTasks.Shapes.Events;
 using DCT.TraineeTasks.Shapes.Resources;
 using DCT.TraineeTasks.Shapes.ViewModels;
 
