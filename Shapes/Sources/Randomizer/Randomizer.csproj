@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Company>DCT</Company>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>DCT.TraineeTasks.RandomizerStrongNameKey.snk</AssemblyOriginatorKeyFile>
+        <RootNamespace>DCT.TraineeTasks.Shapes.Randomizer</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Common\Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
+            <Link>stylecop.json</Link>
+        </AdditionalFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+</Project>
