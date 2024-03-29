@@ -6,7 +6,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
 [TestFixture]
 [TestOf(typeof(MainViewModel))]
-public class PlayButtonTests : MainViewModelTests
+public class PlayButtonTests : Base
 {
     private LocalizerService LocalizerService { get; } = Ioc.Default.GetService<LocalizerService>()
                                                          ?? throw new ArgumentNullException();
@@ -14,7 +14,7 @@ public class PlayButtonTests : MainViewModelTests
     public override void Setup()
     {
         base.Setup();
-        var shape = new ShapeViewModel(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary) 
+        var shape = new ShapeViewModel(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary)
             { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape);
         this.MonitoredViewModel.Subject.SelectedShape = shape;

@@ -1,4 +1,4 @@
-﻿// <copyright file="MainViewModelTests.cs" company="Digital Cloud Technologies">
+﻿// <copyright file="Base.cs" company="Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
 [TestFixture]
 [TestOf(typeof(MainViewModel))]
-public abstract class MainViewModelTests
+public abstract class Base
 {
     [SetUp]
     public virtual void Setup()

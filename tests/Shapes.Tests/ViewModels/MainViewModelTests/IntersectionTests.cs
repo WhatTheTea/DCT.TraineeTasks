@@ -6,7 +6,7 @@ namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
 [TestFixture]
 [TestOf(typeof(MainViewModel))]
-public class IntersectionTests : MainViewModelTests
+public class IntersectionTests : Base
 {
     public override void Setup()
     {
