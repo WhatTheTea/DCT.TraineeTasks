@@ -92,4 +92,22 @@ public class IntersectionTests : Base
             .Should()
             .HaveCount(expectedInvocations);
     }
+
+    [Test]
+    public void RemoveInvocation()
+    {
+        // Arrange 
+        var vm = this.MonitoredViewModel.Subject;
+        var shapeNoInvoke = vm.Shapes[0];
+
+        // Act
+        vm.RemoveHandlerFromCommand.Execute(shapeNoInvoke);
+        vm.MoveShapes();
+
+        // Assert
+        this.MonitoredViewModel
+            .OccurredEvents
+            .Should()
+            .HaveCount(1);
+    }
 }
