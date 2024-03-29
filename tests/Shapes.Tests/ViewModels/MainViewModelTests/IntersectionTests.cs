@@ -74,4 +74,27 @@ public class IntersectionTests : Base
         // Assert
         this.MonitoredViewModel.Should().NotRaise(nameof(MainViewModel.IntersectionOccured));
     }
+
+    [Test]
+    public void IntersectionSeveralInvocations()
+    {
+        // Arrange 
+        var vm = this.MonitoredViewModel.Subject;
+        var invokingShape = vm.Shapes[0];
+        vm.AddEventHandlerToCommand.Execute(invokingShape);
+        var invokeCount = 0;
+
+        // Act
+        vm.IntersectionOccured += (_, args) =>
+        {
+            if (args.Shape2 == invokingShape)
+            {
+                invokeCount++;
+            }
+        };
+        vm.MoveShapes();
+
+        // Assert
+        invokeCount.Should().Be(2);
+    }
 }
