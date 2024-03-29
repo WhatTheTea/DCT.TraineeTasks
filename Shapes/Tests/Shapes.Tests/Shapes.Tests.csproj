@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Shapes\Shapes.csproj"/>
+        <ProjectReference Include="..\..\Sources\Shapes\Shapes.csproj"/>
     </ItemGroup>
 
 </Project>
