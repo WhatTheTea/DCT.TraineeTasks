@@ -14,10 +14,10 @@ namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 public partial class ShapeViewModel : ObservableObject
 {
-    [ObservableProperty] private bool isPaused;
+    [ObservableProperty] private bool _isPaused;
 
-    private double x;
-    private double y;
+    private double _x;
+    private double _y;
 
     public ShapeViewModel(SupportedShapes kind, int id, Point? boundary = null)
     {
@@ -45,7 +45,7 @@ public partial class ShapeViewModel : ObservableObject
 
     public double X
     {
-        get => this.x;
+        get => this._x;
         set
         {
             if (value < 0 || value > this.Boundary.X)
@@ -53,13 +53,13 @@ public partial class ShapeViewModel : ObservableObject
                 throw new ShapeOutOfBoundsException(this);
             }
 
-            this.SetProperty(ref this.x, value);
+            this.SetProperty(ref this._x, value);
         }
     }
 
     public double Y
     {
-        get => this.y;
+        get => this._y;
         set
         {
             if (value < 0 || value > this.Boundary.Y)
@@ -67,7 +67,7 @@ public partial class ShapeViewModel : ObservableObject
                 throw new ShapeOutOfBoundsException(this);
             }
 
-            this.SetProperty(ref this.y, value);
+            this.SetProperty(ref this._y, value);
         }
     }
 
@@ -86,7 +86,7 @@ public partial class ShapeViewModel : ObservableObject
             return;
         }
 
-        var nextPoint = this.NextPoint;
+        Point nextPoint = this.NextPoint;
         if (nextPoint.X <= 0 || nextPoint.X >= this.Boundary.X)
         {
             this.Velocity.X = Bounce(this.Velocity.X);
@@ -105,20 +105,16 @@ public partial class ShapeViewModel : ObservableObject
         (this.X, this.Y) = this.NextPoint;
     }
 
-    private static double Friction(double value)
-    {
-        return double.Abs(value) > 10
+    private static double Friction(double value) =>
+        double.Abs(value) > 10
             ? (double.Abs(value) - .5) * double.Sign(value)
             : value;
-    }
 
-    private static double Bounce(double value)
-    {
-        return double.Clamp(
+    private static double Bounce(double value) =>
+        double.Clamp(
             (10 + double.Abs(value)) * double.Sign(value),
             -30,
             30);
-    }
 
     internal void JumpToBoundary()
     {

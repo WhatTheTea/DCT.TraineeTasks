@@ -18,8 +18,7 @@ public class PlayButtonTests : Base
     public override void Setup()
     {
         base.Setup();
-        var shape = new ShapeViewModel(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary)
-            { X = 10, Y = 10 };
+        ShapeViewModel shape = new(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary) { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape);
         this.MonitoredViewModel.Subject.SelectedShape = shape;
     }
@@ -28,7 +27,7 @@ public class PlayButtonTests : Base
     public void PlayButtonPlayPause([Values(true, false)] bool isPaused)
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.SelectedShape!.IsPaused = isPaused;
@@ -46,7 +45,7 @@ public class PlayButtonTests : Base
     public void PlayButtonShapeNull()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.SelectedShape = null;

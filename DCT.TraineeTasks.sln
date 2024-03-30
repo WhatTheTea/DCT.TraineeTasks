@@ -13,8 +13,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shapes.Tests", "Shapes\Tests\Ui.Wpf\Ui.Wpf.Tests.csproj", "{1886C692-5F43-4ED9-8386-C8CFBB2CC90B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shapes", "Shapes", "{134A30A6-BC05-4B6D-8FAF-1E2AED29BD62}"
+	ProjectSection(SolutionItems) = preProject
+		Shapes\.editorconfig = Shapes\.editorconfig
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Shapes\Services\Services.csproj", "{8389157A-A4CF-4068-9C92-CEC89C64F3E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Shapes\Sources\Services\Services.csproj", "{8389157A-A4CF-4068-9C92-CEC89C64F3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

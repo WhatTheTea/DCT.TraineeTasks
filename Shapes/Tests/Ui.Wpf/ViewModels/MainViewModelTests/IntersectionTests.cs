@@ -15,10 +15,8 @@ public class IntersectionTests : Base
     public override void Setup()
     {
         base.Setup();
-        var shape1 = new ShapeViewModel(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary)
-            { X = 10, Y = 10 };
-        var shape2 = new ShapeViewModel(0, 1, this.MonitoredViewModel.Subject.CanvasBoundary)
-            { X = 10, Y = 10 };
+        ShapeViewModel shape1 = new(0, 0, this.MonitoredViewModel.Subject.CanvasBoundary) { X = 10, Y = 10 };
+        ShapeViewModel shape2 = new(0, 1, this.MonitoredViewModel.Subject.CanvasBoundary) { X = 10, Y = 10 };
         this.MonitoredViewModel.Subject.AddShape(shape1);
         this.MonitoredViewModel.Subject.AddShape(shape2);
         this.MonitoredViewModel.Subject.AddEventHandlerToCommand.Execute(shape1);
@@ -29,7 +27,7 @@ public class IntersectionTests : Base
     public void IntersectionSameShapes()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.MoveShapes();
@@ -50,7 +48,7 @@ public class IntersectionTests : Base
     public void IntersectionDifferentKinds()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
         vm.Shapes.RemoveAt(1);
         vm.AddShape(new ShapeViewModel(SupportedShapes.Square, 1));
 
@@ -65,7 +63,7 @@ public class IntersectionTests : Base
     public void IntersectionDifferentPositions()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
         vm.Shapes[1].Move();
 
         // Act
@@ -78,8 +76,8 @@ public class IntersectionTests : Base
     [Test]
     public void IntersectionSeveralInvocations()
     {
-        // Arrange 
-        var vm = this.MonitoredViewModel.Subject;
+        // Arrange
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
         vm.AddEventHandlerToCommand.Execute(vm.Shapes[0]);
         const int expectedInvocations = 3;
 
@@ -96,9 +94,9 @@ public class IntersectionTests : Base
     [Test]
     public void RemoveInvocation()
     {
-        // Arrange 
-        var vm = this.MonitoredViewModel.Subject;
-        var shapeNoInvoke = vm.Shapes[0];
+        // Arrange
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
+        ShapeViewModel shapeNoInvoke = vm.Shapes[0];
 
         // Act
         vm.RemoveHandlerFromCommand.Execute(shapeNoInvoke);

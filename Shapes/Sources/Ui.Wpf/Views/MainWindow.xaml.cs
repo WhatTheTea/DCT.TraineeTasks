@@ -51,15 +51,12 @@ public partial class MainWindow
 
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var dialog = new SaveFileDialog
-        {
-            Filter = FormatFilter
-        };
+        SaveFileDialog dialog = new() { Filter = FormatFilter };
 
         if (dialog.ShowDialog() ?? false)
         {
-            var extension = Path.GetExtension(dialog.FileName);
-            var service = GetService(extension.ToLower());
+            string extension = Path.GetExtension(dialog.FileName);
+            IFileService service = GetService(extension.ToLower());
             service.FileLocation = dialog.FileName;
             this.ViewModel.SaveToCommand.Execute(service);
         }
@@ -67,23 +64,18 @@ public partial class MainWindow
 
     private void LoadButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFileDialog
-        {
-            Filter = FormatFilter
-        };
+        OpenFileDialog dialog = new() { Filter = FormatFilter };
 
         if (dialog.ShowDialog() ?? false)
         {
-            var extension = Path.GetExtension(dialog.FileName);
-            var service = GetService(extension.ToLower());
+            string extension = Path.GetExtension(dialog.FileName);
+            IFileService service = GetService(extension.ToLower());
             service.FileLocation = dialog.FileName;
             this.ViewModel.LoadFromCommand.Execute(service);
         }
     }
 
-    private static IFileService GetService(string format)
-    {
-        return Ioc.Default.GetKeyedService<IFileService>(format)
-               ?? throw new ArgumentOutOfRangeException(nameof(format));
-    }
+    private static IFileService GetService(string format) =>
+        Ioc.Default.GetKeyedService<IFileService>(format)
+        ?? throw new ArgumentOutOfRangeException(nameof(format));
 }

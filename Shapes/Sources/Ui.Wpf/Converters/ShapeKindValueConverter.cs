@@ -21,19 +21,15 @@ public class ShapeKindValueConverter : IValueConverter
         return null;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         throw new NotImplementedException();
-    }
 
-    private static Geometry GeometryByShape(SupportedShapes shape)
-    {
-        return shape switch
+    private static Geometry GeometryByShape(SupportedShapes shape) =>
+        shape switch
         {
             SupportedShapes.Circle => Views.Shapes.Circle,
             SupportedShapes.Square => Views.Shapes.Rectangle,
             SupportedShapes.Triangle => Views.Shapes.Triangle,
             _ => throw new ArgumentOutOfRangeException(nameof(shape))
         };
-    }
 }

@@ -14,14 +14,12 @@ public static class KindToLocalizedStringConverter
         Ioc.Default.GetService<ILocalizationManager>()
         ?? throw new ArgumentNullException(nameof(Localization));
 
-    public static string ToLocalizedString(this SupportedShapes kind)
-    {
-        return kind switch
+    public static string ToLocalizedString(this SupportedShapes kind) =>
+        kind switch
         {
             SupportedShapes.Circle => Localization.GetString("circle"),
             SupportedShapes.Square => Localization.GetString("square"),
             SupportedShapes.Triangle => Localization.GetString("triangle"),
             _ => throw new ArgumentException(null, nameof(kind))
         };
-    }
 }

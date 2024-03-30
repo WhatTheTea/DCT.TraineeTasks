@@ -20,7 +20,7 @@ public class BoundaryTests : Base
     public void UpdatesForChildren()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.CanvasHeight = 300;
@@ -37,7 +37,7 @@ public class BoundaryTests : Base
     public void UpdatesBoundaryProperty()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.CanvasHeight = 300;

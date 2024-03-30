@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <data name="circle" xml:space="preserve">
+  <data name="circle" xml:space="preserve">
         <value>Коло</value>
     </data>
-    <data name="square" xml:space="preserve">
+  <data name="square" xml:space="preserve">
         <value>Квадрат</value>
     </data>
-    <data name="triangle" xml:space="preserve">
+  <data name="triangle" xml:space="preserve">
         <value>Трикутник</value>
     </data>
-    <data name="playButtonPlay" xml:space="preserve">
+  <data name="playButtonPlay" xml:space="preserve">
         <value>Рухатись</value>
     </data>
-    <data name="playButtonPause" xml:space="preserve">
+  <data name="playButtonPause" xml:space="preserve">
         <value>Зупинити</value>
     </data>
-    <data name="playButtonSelect" xml:space="preserve">
+  <data name="playButtonSelect" xml:space="preserve">
         <value>Оберіть фігуру</value>
     </data>
 </root>

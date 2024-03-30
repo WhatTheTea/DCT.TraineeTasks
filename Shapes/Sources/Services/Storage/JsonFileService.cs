@@ -9,25 +9,22 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public class JsonFileService : IFileService
 {
-    private static readonly JsonSerializerOptions Options = new()
-    {
-        IncludeFields = true
-    };
+    private static readonly JsonSerializerOptions s_options = new() { IncludeFields = true };
 
     public string FileLocation { get; set; } = "movingShapes.json";
 
     public void Save(IEnumerable<ShapeDTO> shapes)
     {
-        var shapeArray = shapes.ToArray();
-        var data = JsonSerializer.Serialize(shapeArray, Options);
+        ShapeDTO[] shapeArray = shapes.ToArray();
+        string data = JsonSerializer.Serialize(shapeArray, s_options);
         File.WriteAllText(this.FileLocation, data);
     }
 
     public IEnumerable<ShapeDTO> Load()
     {
-        var text = File.ReadAllText(this.FileLocation);
-        var data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, Options)
-                   ?? throw new FormatException("Invalid JSON");
+        string text = File.ReadAllText(this.FileLocation);
+        IEnumerable<ShapeDTO> data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, s_options)
+                                     ?? throw new FormatException("Invalid JSON");
         return data;
     }
 }

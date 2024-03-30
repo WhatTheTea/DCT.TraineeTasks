@@ -11,23 +11,14 @@ namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 public partial class LocalizationManager(IStringLocalizer<SharedResource> localizer)
     : ObservableObject, ILocalizationManager
 {
-    [ObservableProperty] private CultureInfo culture = CultureInfo.CurrentCulture;
-    [ObservableProperty] private CultureInfo uiCulture = CultureInfo.CurrentUICulture;
+    [ObservableProperty] private CultureInfo _culture = CultureInfo.CurrentCulture;
+    [ObservableProperty] private CultureInfo _uiCulture = CultureInfo.CurrentUICulture;
 
     private IStringLocalizer<SharedResource> Localizer { get; } = localizer;
 
-    public LocalizedString GetString(string name, params object[] args)
-    {
-        return this.Localizer.GetString(name, args);
-    }
+    public LocalizedString GetString(string name, params object[] args) => this.Localizer.GetString(name, args);
 
-    partial void OnCultureChanging(CultureInfo value)
-    {
-        Thread.CurrentThread.CurrentCulture = value;
-    }
+    partial void OnCultureChanging(CultureInfo value) => Thread.CurrentThread.CurrentCulture = value;
 
-    partial void OnUiCultureChanging(CultureInfo value)
-    {
-        Thread.CurrentThread.CurrentUICulture = value;
-    }
+    partial void OnUiCultureChanging(CultureInfo value) => Thread.CurrentThread.CurrentUICulture = value;
 }
