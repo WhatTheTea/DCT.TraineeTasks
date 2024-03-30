@@ -14,16 +14,16 @@ public class BinaryFileService : IFileService
 
     public void Save(IEnumerable<ShapeDTO> shapes)
     {
-        var shapesArray = shapes.ToArray();
-        var bytes = MessagePackSerializer.Serialize(shapesArray, ContractlessStandardResolver.Options);
-        using var file = File.Create(this.FileLocation);
+        ShapeDTO[] shapesArray = shapes.ToArray();
+        byte[] bytes = MessagePackSerializer.Serialize(shapesArray, ContractlessStandardResolver.Options);
+        using FileStream file = File.Create(this.FileLocation);
         file.Write(bytes);
     }
 
     public IEnumerable<ShapeDTO> Load()
     {
-        using var file = new FileStream(this.FileLocation, FileMode.Open);
-        var shapes = MessagePackSerializer
+        using FileStream file = new(this.FileLocation, FileMode.Open);
+        ShapeDTO[] shapes = MessagePackSerializer
             .Deserialize<ShapeDTO[]>(file, ContractlessStandardResolver.Options);
         return shapes;
     }

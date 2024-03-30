@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <data name="circle" xml:space="preserve">
+  <data name="circle" xml:space="preserve">
         <value>Circle</value>
     </data>
-    <data name="square" xml:space="preserve">
+  <data name="square" xml:space="preserve">
         <value>Square</value>
     </data>
-    <data name="triangle" xml:space="preserve">
+  <data name="triangle" xml:space="preserve">
         <value>Triangle</value>
     </data>
-    <data name="playButtonPlay" xml:space="preserve">
+  <data name="playButtonPlay" xml:space="preserve">
         <value>Play</value>
     </data>
-    <data name="playButtonPause" xml:space="preserve">
+  <data name="playButtonPause" xml:space="preserve">
         <value>Pause</value>
     </data>
-    <data name="playButtonSelect" xml:space="preserve">
+  <data name="playButtonSelect" xml:space="preserve">
         <value>Select shape</value>
     </data>
 </root>

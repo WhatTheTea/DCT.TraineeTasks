@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
+using FluentAssertions.Events;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.MainViewModelTests;
 
@@ -14,8 +15,8 @@ public class CreateShapeTests : Base
     public void ShapeExistsAndRaisesCollectionChanged()
     {
         // Arrange 
-        var vm = this.MonitoredViewModel.Subject;
-        var collection = vm.Shapes.Monitor();
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
+        IMonitor<ObservableCollection<ShapeViewModel>>? collection = vm.Shapes.Monitor();
 
         // Act
         vm.CreateShapeCommand.Execute(SupportedShapes.Triangle);
@@ -30,7 +31,7 @@ public class CreateShapeTests : Base
     public void ShapeIdIsCalculated()
     {
         // Arrange 
-        var vm = this.MonitoredViewModel.Subject;
+        MainViewModel? vm = this.MonitoredViewModel.Subject;
 
         // Act
         vm.CreateShapeCommand.Execute(0);

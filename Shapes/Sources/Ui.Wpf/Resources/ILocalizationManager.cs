@@ -10,11 +10,7 @@ namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 
 public interface ILocalizationManager : INotifyPropertyChanged, INotifyPropertyChanging
 {
-    /// <inheritdoc cref="LocalizationManager.uiCulture" />
     CultureInfo UiCulture { get; set; }
-
-    /// <inheritdoc cref="LocalizationManager.culture" />
     CultureInfo Culture { get; set; }
-
     LocalizedString GetString(string name, params object[] args);
 }

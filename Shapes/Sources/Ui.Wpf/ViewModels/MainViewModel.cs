@@ -20,17 +20,17 @@ namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 public sealed partial class MainViewModel : ObservableRecipient
 {
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
-    private double canvasHeight;
+    private double _canvasHeight;
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
-    private double canvasWidth;
+    private double _canvasWidth;
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(PlayButtonText))]
-    private ShapeViewModel? selectedShape;
+    private ShapeViewModel? _selectedShape;
 
     public MainViewModel()
     {
-        this.Localization.PropertyChanged += (sender, args) =>
+        this.Localization.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(this.Localization.UiCulture))
             {
@@ -87,25 +87,19 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     private void UpdateChildrenCanvasBoundary()
     {
-        foreach (var shape in this.Shapes)
+        foreach (ShapeViewModel shape in this.Shapes)
         {
             shape.Boundary = this.CanvasBoundary;
         }
     }
 
-    partial void OnCanvasHeightChanged(double value)
-    {
-        this.UpdateChildrenCanvasBoundary();
-    }
+    partial void OnCanvasHeightChanged(double value) => this.UpdateChildrenCanvasBoundary();
 
-    partial void OnCanvasWidthChanged(double value)
-    {
-        this.UpdateChildrenCanvasBoundary();
-    }
+    partial void OnCanvasWidthChanged(double value) => this.UpdateChildrenCanvasBoundary();
 
     internal void MoveShapes()
     {
-        foreach (var shape in this.Shapes)
+        foreach (ShapeViewModel shape in this.Shapes)
         {
             try
             {
@@ -118,7 +112,7 @@ public sealed partial class MainViewModel : ObservableRecipient
             }
         }
 
-        foreach (var shape in this.Shapes)
+        foreach (ShapeViewModel shape in this.Shapes)
         {
             this.CheckIntersectionsWith(shape);
         }
@@ -126,7 +120,7 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     private void CheckIntersectionsWith(ShapeViewModel shape)
     {
-        var contactShapes = this.Shapes.Where(
+        ShapeViewModel[] contactShapes = this.Shapes.Where(
             x =>
                 x.Kind == shape.Kind
                 && Math.Abs(x.X - shape.X) < 5
@@ -134,9 +128,9 @@ public sealed partial class MainViewModel : ObservableRecipient
                 && x != shape).ToArray();
 
         // Simulate multiple event handler assignment
-        for (var i = 0; i < this.ShapeInvokeCountDictionary[shape]; i++)
+        for (int i = 0; i < this.ShapeInvokeCountDictionary[shape]; i++)
         {
-            foreach (var contact in contactShapes)
+            foreach (ShapeViewModel contact in contactShapes)
             {
                 this.IntersectionOccured?.Invoke(
                     this,
@@ -151,7 +145,7 @@ public sealed partial class MainViewModel : ObservableRecipient
     [RelayCommand]
     private void CreateShape(SupportedShapes kind)
     {
-        var shape = new ShapeViewModel(
+        ShapeViewModel shape = new(
             kind,
             this.GetCountOf(kind),
             this.CanvasBoundary);
@@ -171,15 +165,12 @@ public sealed partial class MainViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void ChangeCulture(CultureInfo cultureInfo)
-    {
-        this.Localization.UiCulture = cultureInfo;
-    }
+    private void ChangeCulture(CultureInfo cultureInfo) => this.Localization.UiCulture = cultureInfo;
 
     [RelayCommand]
     private void SaveTo(IFileService service)
     {
-        var shapeDtos = this.Shapes.Select(x => x.ToDTO());
+        IEnumerable<ShapeDTO> shapeDtos = this.Shapes.Select(x => x.ToDTO());
         service.Save(shapeDtos);
         this.Shapes.Clear();
     }
@@ -188,9 +179,9 @@ public sealed partial class MainViewModel : ObservableRecipient
     private void LoadFrom(IFileService service)
     {
         this.Shapes.Clear();
-        var shapes = service.Load().ToArray();
+        ShapeDTO[] shapes = service.Load().ToArray();
 
-        foreach (var shape in shapes)
+        foreach (ShapeDTO shape in shapes)
         {
             this.AddShape(shape.ToViewModel());
         }
@@ -230,8 +221,5 @@ public sealed partial class MainViewModel : ObservableRecipient
         this.ShapeInvokeCountDictionary[shape]--;
     }
 
-    private int GetCountOf(SupportedShapes kind)
-    {
-        return this.Shapes.Count(x => x.Kind == kind);
-    }
+    private int GetCountOf(SupportedShapes kind) => this.Shapes.Count(x => x.Kind == kind);
 }

@@ -26,13 +26,13 @@ public partial class App
         this.InitializeComponent();
     }
 
-    public new static App Current => (App)Application.Current;
+    public static new App Current => (App)Application.Current;
 
     public IServiceProvider Services { get; }
 
-    private static IServiceProvider ConfigureServices()
+    private static ServiceProvider ConfigureServices()
     {
-        var services = new ServiceCollection();
+        ServiceCollection services = [];
 
         services
             .AddLogging(builder => builder.AddSerilog(dispose: true))
@@ -47,12 +47,10 @@ public partial class App
         return services.BuildServiceProvider();
     }
 
-    private static void ConfigureSerilog()
-    {
+    private static void ConfigureSerilog() =>
         Log.Logger = new LoggerConfiguration()
             .Enrich.FromLogContext()
             .WriteTo.Console()
             .WriteTo.File("shapes.log")
             .CreateLogger();
-    }
 }

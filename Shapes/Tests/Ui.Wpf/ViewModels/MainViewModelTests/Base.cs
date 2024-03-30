@@ -14,20 +14,12 @@ public abstract class Base
     [SetUp]
     public virtual void Setup()
     {
-        var vm = new MainViewModel
-        {
-            CanvasHeight = 100,
-            CanvasWidth = 100,
-            CanvasBoundary = { X = 100, Y = 100 },
-        };
+        MainViewModel vm = new() { CanvasHeight = 100, CanvasWidth = 100, CanvasBoundary = { X = 100, Y = 100 } };
         this.MonitoredViewModel = vm.Monitor();
     }
 
     [TearDown]
-    public virtual void TearDown()
-    {
-        this.MonitoredViewModel.Dispose();
-    }
+    public virtual void TearDown() => this.MonitoredViewModel.Dispose();
 
     protected IMonitor<MainViewModel> MonitoredViewModel { get; set; }
 }

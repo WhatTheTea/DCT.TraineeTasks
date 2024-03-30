@@ -4,6 +4,7 @@
 
 using DCT.TraineeTasks.Shapes.Common;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Exceptions;
+using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 namespace DCT.TraineeTasks.Shapes.Tests.ViewModels.ShapeViewModelTests;
 
@@ -13,7 +14,7 @@ public class MovingTests : Base
     public void Move()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        ShapeViewModel? vm = this.MonitoredViewModel.Subject;
         (vm.X, vm.Y) = (0, 0);
         vm.Boundary = new Point(50, 50);
 
@@ -28,7 +29,7 @@ public class MovingTests : Base
     public void DontMoveWhenPaused()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        ShapeViewModel? vm = this.MonitoredViewModel.Subject;
         (vm.X, vm.Y) = (0, 0);
 
         // Act
@@ -43,11 +44,11 @@ public class MovingTests : Base
     public void ThrowsExceptionOutOfBounds()
     {
         // Arrange
-        var vm = this.MonitoredViewModel.Subject;
+        ShapeViewModel? vm = this.MonitoredViewModel.Subject;
         vm.Boundary = new Point();
 
         // Act
-        var act = () => (vm.X, vm.Y) = (10, 10);
+        Func<(double X, double Y)> act = () => (vm.X, vm.Y) = (10, 10);
 
         // Assert
         act.Should().Throw<ShapeOutOfBoundsException>();

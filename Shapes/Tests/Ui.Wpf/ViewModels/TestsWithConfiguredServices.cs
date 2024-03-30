@@ -10,12 +10,12 @@ public class TestsWithConfiguredServices
     [OneTimeSetUp]
     public void OneTimeGlobalSetup()
     {
-        var services = new ServiceCollection();
+        ServiceCollection services = new();
         services
             .AddLogging()
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<ILocalizationManager, LocalizationManager>(); // TODO: Stub
-        var provider = services.BuildServiceProvider();
+        ServiceProvider provider = services.BuildServiceProvider();
         Ioc.Default.ConfigureServices(provider);
     }
 }

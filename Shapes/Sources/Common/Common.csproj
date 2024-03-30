@@ -1,25 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>DCT.TraineeTasks.PrimitivesStrongNameKey.snk</AssemblyOriginatorKeyFile>
-        <RootNamespace>DCT.TraineeTasks.Shapes.Common</RootNamespace>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DCT.TraineeTasks.PrimitivesStrongNameKey.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>DCT.TraineeTasks.Shapes.Common</RootNamespace>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
-            <Link>stylecop.json</Link>
-        </AdditionalFiles>
-    </ItemGroup>
 
 </Project>

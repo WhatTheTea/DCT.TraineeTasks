@@ -10,6 +10,5 @@ using Microsoft.Extensions.Localization;
         ResourceDictionaryLocation.SourceAssembly) // where the generic resource dictionary is located.
 ]
 
-[assembly: CLSCompliant(true)]
 [assembly: ResourceLocation("Resources")]
 [assembly: RootNamespace("DCT.TraineeTasks.Shapes.Ui.Wpf")]
