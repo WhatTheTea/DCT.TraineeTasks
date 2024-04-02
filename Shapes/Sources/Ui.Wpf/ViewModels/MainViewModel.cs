@@ -99,23 +99,23 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     internal void MoveShapes()
     {
-        foreach (ShapeViewModel shape in this.Shapes)
-        {
-            try
+        ParallelOptions options =
+            new ParallelOptions { TaskScheduler = TaskScheduler.FromCurrentSynchronizationContext() };
+        Parallel.ForEach(this.Shapes, options,
+            shape =>
             {
-                shape.Move();
-            }
-            catch (ShapeOutOfBoundsException e)
-            {
-                shape.JumpToBoundary();
-                this.Logger.LogError(e, "{Message}", e.Message);
-            }
-        }
+                try
+                {
+                    shape.Move();
+                }
+                catch (ShapeOutOfBoundsException e)
+                {
+                    shape.JumpToBoundary();
+                    this.Logger.LogError(e, "{Message}", e.Message);
+                }
+            });
 
-        foreach (ShapeViewModel shape in this.Shapes)
-        {
-            this.CheckIntersectionsWith(shape);
-        }
+        Parallel.ForEach(this.Shapes, options, this.CheckIntersectionsWith);
     }
 
     private void CheckIntersectionsWith(ShapeViewModel shape)
