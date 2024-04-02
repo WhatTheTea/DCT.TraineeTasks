@@ -14,6 +14,7 @@ public abstract class Base
     [SetUp]
     public virtual void Setup()
     {
+        SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
         MainViewModel vm = new() { CanvasHeight = 100, CanvasWidth = 100, CanvasBoundary = { X = 100, Y = 100 } };
         this.MonitoredViewModel = vm.Monitor();
     }
@@ -21,5 +22,5 @@ public abstract class Base
     [TearDown]
     public virtual void TearDown() => this.MonitoredViewModel.Dispose();
 
-    protected IMonitor<MainViewModel> MonitoredViewModel { get; set; }
+    protected IMonitor<MainViewModel> MonitoredViewModel { get; set; } = null!;
 }
