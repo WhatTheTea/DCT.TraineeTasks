@@ -11,18 +11,18 @@ public class JsonFileService : IFileService
 {
     private static readonly JsonSerializerOptions s_options = new() { IncludeFields = true };
 
-    public string FileLocation { get; set; } = "movingShapes.json";
+    public string FilePath { get; set; } = "movingShapes.json";
 
     public void Save(IEnumerable<ShapeDTO> shapes)
     {
         ShapeDTO[] shapeArray = shapes.ToArray();
         string data = JsonSerializer.Serialize(shapeArray, s_options);
-        File.WriteAllText(this.FileLocation, data);
+        File.WriteAllText(this.FilePath, data);
     }
 
     public IEnumerable<ShapeDTO> Load()
     {
-        string text = File.ReadAllText(this.FileLocation);
+        string text = File.ReadAllText(this.FilePath);
         IEnumerable<ShapeDTO> data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, s_options)
                                      ?? throw new FormatException("Invalid JSON");
         return data;

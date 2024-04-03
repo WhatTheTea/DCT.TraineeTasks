@@ -14,18 +14,18 @@ public class XmlFileService : IFileService
         typeof(ShapeDTO[]),
         [typeof(ShapeDTO), typeof((double x, double y))]);
 
-    public string FileLocation { get; set; } = "movingShapes.xml";
+    public string FilePath { get; set; } = "movingShapes.xml";
 
     public void Save(IEnumerable<ShapeDTO> shapes)
     {
         ShapeDTO[] shapesArray = shapes.ToArray();
-        using StreamWriter writer = new(this.FileLocation);
+        using StreamWriter writer = new(this.FilePath);
         this.Serializer.Serialize(writer, shapesArray.ToArray());
     }
 
     public IEnumerable<ShapeDTO> Load()
     {
-        using StreamReader reader = new(this.FileLocation);
+        using StreamReader reader = new(this.FilePath);
         using XmlReader xmlReader = XmlReader.Create(reader);
         ShapeDTO[] shapeArray = this.Serializer.Deserialize(xmlReader) as ShapeDTO[]
                                 ?? throw new FormatException("Invalid XML");

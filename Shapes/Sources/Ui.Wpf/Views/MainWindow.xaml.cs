@@ -2,13 +2,9 @@
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
-using System.IO;
 using System.Windows;
 using System.Windows.Threading;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using DCT.TraineeTasks.Shapes.Services.Storage;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 
 namespace DCT.TraineeTasks.Shapes.Ui.Wpf.Views;
@@ -55,10 +51,8 @@ public partial class MainWindow
 
         if (dialog.ShowDialog() ?? false)
         {
-            string extension = Path.GetExtension(dialog.FileName);
-            IFileService service = GetService(extension.ToLower());
-            service.FileLocation = dialog.FileName;
-            this.ViewModel.SaveToCommand.Execute(service);
+            string fileName = dialog.FileName;
+            this.ViewModel.SaveToCommand.Execute(fileName);
         }
     }
 
@@ -68,14 +62,8 @@ public partial class MainWindow
 
         if (dialog.ShowDialog() ?? false)
         {
-            string extension = Path.GetExtension(dialog.FileName);
-            IFileService service = GetService(extension.ToLower());
-            service.FileLocation = dialog.FileName;
-            this.ViewModel.LoadFromCommand.Execute(service);
+            string fileName = dialog.FileName;
+            this.ViewModel.LoadFromCommand.Execute(fileName);
         }
     }
-
-    private static IFileService GetService(string format) =>
-        Ioc.Default.GetKeyedService<IFileService>(format)
-        ?? throw new ArgumentOutOfRangeException(nameof(format));
 }
