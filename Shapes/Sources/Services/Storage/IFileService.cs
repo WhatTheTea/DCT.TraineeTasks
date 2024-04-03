@@ -11,6 +11,8 @@ public interface IFileService
     string FilePath { get; set; }
 
     void Save(IEnumerable<ShapeDTO> shapes);
+    Task SaveAsync(IEnumerable<ShapeDTO> shapes);
 
     IEnumerable<ShapeDTO> Load();
+    Task<ShapeDTO[]> LoadAsync();
 }
