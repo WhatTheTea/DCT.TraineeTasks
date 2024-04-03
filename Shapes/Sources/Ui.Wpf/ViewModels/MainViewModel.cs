@@ -4,6 +4,7 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
@@ -79,6 +80,10 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     private ILocalizationManager Localization { get; } = Ioc.Default.GetService<ILocalizationManager>()
                                                          ?? throw new ArgumentNullException(nameof(Localization));
+
+    private IFileServiceFactory FileServiceFactory { get; } = Ioc.Default.GetService<IFileServiceFactory>()
+                                                              ?? throw new ArgumentNullException(
+                                                                  nameof(FileServiceFactory));
 
     private ILogger<MainViewModel> Logger { get; } = Ioc.Default.GetService<ILogger<MainViewModel>>()
                                                      ?? throw new ArgumentNullException(nameof(Logger));
@@ -168,22 +173,27 @@ public sealed partial class MainViewModel : ObservableRecipient
     private void ChangeCulture(CultureInfo cultureInfo) => this.Localization.UiCulture = cultureInfo;
 
     [RelayCommand]
-    private void SaveTo(IFileService service)
+    private void SaveTo(string path)
     {
         IEnumerable<ShapeDTO> shapeDtos = this.Shapes.Select(x => x.ToDTO());
+        SupportedFileFormats format = ExtensionToSupportedConverter.Convert(Path.GetExtension(path));
+        IFileService service = this.FileServiceFactory.Create(format, path);
         service.Save(shapeDtos);
         this.Shapes.Clear();
     }
 
     [RelayCommand]
-    private void LoadFrom(IFileService service)
+    private void LoadFrom(string path)
     {
         this.Shapes.Clear();
+        SupportedFileFormats format = ExtensionToSupportedConverter.Convert(Path.GetExtension(path));
+        ;
+        IFileService service = this.FileServiceFactory.Create(format, path);
         ShapeDTO[] shapes = service.Load().ToArray();
 
         foreach (ShapeDTO shape in shapes)
         {
-            this.AddShape(shape.ToViewModel());
+            this.AddShape(shape.ToViewModel(this.CanvasBoundary));
         }
     }
 

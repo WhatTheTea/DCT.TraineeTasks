@@ -18,6 +18,7 @@ public static class ShapeDTOConverter
             viewModel.Kind,
             (viewModel.Velocity.X, viewModel.Velocity.Y));
 
-    public static ShapeViewModel ToViewModel(this ShapeDTO dto) =>
-        new(dto.Kind, dto.Id) { IsPaused = dto.IsPaused, X = dto.X, Y = dto.Y, Velocity = new Point(dto.Velocity) };
+    public static ShapeViewModel ToViewModel(this ShapeDTO dto, Point boundary) =>
+        new(dto.Kind,
+            dto.Id, boundary) { IsPaused = dto.IsPaused, X = dto.X, Y = dto.Y, Velocity = new Point(dto.Velocity) };
 }
