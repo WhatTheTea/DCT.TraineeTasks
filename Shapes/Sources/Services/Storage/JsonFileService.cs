@@ -20,11 +20,26 @@ public class JsonFileService : IFileService
         File.WriteAllText(this.FilePath, data);
     }
 
+    public async Task SaveAsync(IEnumerable<ShapeDTO> shapes)
+    {
+        ShapeDTO[] shapeArray = shapes.ToArray();
+        await using FileStream file = File.Create(this.FilePath);
+        await JsonSerializer.SerializeAsync(file, shapeArray, s_options)
+            .ConfigureAwait(false);
+    }
+
     public IEnumerable<ShapeDTO> Load()
     {
         string text = File.ReadAllText(this.FilePath);
         IEnumerable<ShapeDTO> data = JsonSerializer.Deserialize<IEnumerable<ShapeDTO>>(text, s_options)
                                      ?? throw new FormatException("Invalid JSON");
         return data;
+    }
+
+    public async Task<ShapeDTO[]> LoadAsync()
+    {
+        await using FileStream file = new(this.FilePath, FileMode.Open);
+        return await JsonSerializer.DeserializeAsync<ShapeDTO[]>(file, s_options)
+            .ConfigureAwait(false) ?? throw new FormatException("Invalid JSON");
     }
 }

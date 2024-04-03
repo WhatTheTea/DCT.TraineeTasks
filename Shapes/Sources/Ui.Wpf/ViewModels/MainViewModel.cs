@@ -173,23 +173,23 @@ public sealed partial class MainViewModel : ObservableRecipient
     private void ChangeCulture(CultureInfo cultureInfo) => this.Localization.UiCulture = cultureInfo;
 
     [RelayCommand]
-    private void SaveTo(string path)
+    private async Task SaveTo(string path)
     {
         IEnumerable<ShapeDTO> shapeDtos = this.Shapes.Select(x => x.ToDTO());
         SupportedFileFormats format = ExtensionToSupportedConverter.Convert(Path.GetExtension(path));
         IFileService service = this.FileServiceFactory.Create(format, path);
-        service.Save(shapeDtos);
+        await service.SaveAsync(shapeDtos);
         this.Shapes.Clear();
     }
 
     [RelayCommand]
-    private void LoadFrom(string path)
+    private async Task LoadFrom(string path)
     {
         this.Shapes.Clear();
         SupportedFileFormats format = ExtensionToSupportedConverter.Convert(Path.GetExtension(path));
         ;
         IFileService service = this.FileServiceFactory.Create(format, path);
-        ShapeDTO[] shapes = service.Load().ToArray();
+        ShapeDTO[] shapes = await service.LoadAsync();
 
         foreach (ShapeDTO shape in shapes)
         {
