@@ -23,9 +23,26 @@ public class XmlFileService : IFileService
         this.Serializer.Serialize(writer, shapesArray.ToArray());
     }
 
+    public async Task SaveAsync(IEnumerable<ShapeDTO> shapes)
+    {
+        await using StringWriter writer = new();
+        ShapeDTO[] shapesArray = shapes.ToArray();
+        this.Serializer.Serialize(writer, shapesArray.ToArray());
+        await File.WriteAllTextAsync(this.FilePath, writer.ToString()).ConfigureAwait(false);
+    }
+
     public IEnumerable<ShapeDTO> Load()
     {
         using StreamReader reader = new(this.FilePath);
+        using XmlReader xmlReader = XmlReader.Create(reader);
+        ShapeDTO[] shapeArray = this.Serializer.Deserialize(xmlReader) as ShapeDTO[]
+                                ?? throw new FormatException("Invalid XML");
+        return shapeArray;
+    }
+
+    public async Task<ShapeDTO[]> LoadAsync()
+    {
+        using StringReader reader = new(await File.ReadAllTextAsync(this.FilePath).ConfigureAwait(false));
         using XmlReader xmlReader = XmlReader.Create(reader);
         ShapeDTO[] shapeArray = this.Serializer.Deserialize(xmlReader) as ShapeDTO[]
                                 ?? throw new FormatException("Invalid XML");
