@@ -8,7 +8,7 @@ namespace DCT.TraineeTasks.Shapes.Services.Storage;
 
 public interface IFileService
 {
-    string FileLocation { get; set; }
+    string FilePath { get; set; }
 
     void Save(IEnumerable<ShapeDTO> shapes);
 

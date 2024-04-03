@@ -38,9 +38,7 @@ public partial class App
             .AddLogging(builder => builder.AddSerilog(dispose: true))
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .AddSingleton<ILocalizationManager, LocalizationManager>()
-            .AddKeyedSingleton<IFileService, JsonFileService>(".json")
-            .AddKeyedSingleton<IFileService, BinaryFileService>(".bin")
-            .AddKeyedSingleton<IFileService, XmlFileService>(".xml")
+            .AddSingleton<IFileServiceFactory, FileServiceFactory>()
             .AddSingleton<MainViewModel>()
             ;
 
