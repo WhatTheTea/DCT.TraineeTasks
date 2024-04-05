@@ -1,19 +1,32 @@
 ﻿namespace DCT.TraineeTasks.MakeshiftLogger.Logger;
 
-public class ObjectLogger(string path) : IDisposable, IAsyncDisposable
+public sealed class ObjectLogger : IDisposable, IAsyncDisposable
 {
-    private StreamWriter LogStream { get; } = new(path);
+    public ObjectLogger(string path)
+    {
+        LogStream = new StreamWriter(path);
+        Console.WriteLine("Object logger is instantiated!");
+    }
+
+    private StreamWriter LogStream { get; }
 
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore();
         GC.SuppressFinalize(this);
+        Console.WriteLine("ObjectLogger is disposed asynchronously!");
     }
 
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+        Console.WriteLine("ObjectLogger is disposed!");
+    }
+
+    ~ObjectLogger()
+    {
+        Dispose(false);
     }
 
     public async Task LogInfoAsync<T>(T obj)
@@ -27,12 +40,12 @@ public class ObjectLogger(string path) : IDisposable, IAsyncDisposable
             .GetAwaiter().GetResult();
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (disposing) LogStream.Dispose();
     }
 
-    protected virtual async ValueTask DisposeAsyncCore()
+    private async ValueTask DisposeAsyncCore()
     {
         await LogStream.DisposeAsync();
     }

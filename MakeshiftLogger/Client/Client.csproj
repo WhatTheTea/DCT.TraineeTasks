@@ -9,4 +9,8 @@
         <RootNamespace>DCT.TraineeTasks.MakeshiftLogger.Client</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Logger\Logger.csproj"/>
+    </ItemGroup>
+
 </Project>
