@@ -2,7 +2,7 @@
 
 public class ObjectLogger(string path) : IDisposable, IAsyncDisposable
 {
-    private FileStream LogStream { get; } = new(path, FileMode.Append);
+    private StreamWriter LogStream { get; } = new(path);
 
     public async ValueTask DisposeAsync()
     {
@@ -14,6 +14,17 @@ public class ObjectLogger(string path) : IDisposable, IAsyncDisposable
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+    }
+
+    public async Task LogInfoAsync<T>(T obj)
+    {
+        await LogStream.WriteLineAsync($"{DateTime.Now} | INFO | {obj?.ToString()} ");
+    }
+
+    public void LogInfo<T>(T obj)
+    {
+        LogInfoAsync(obj)
+            .GetAwaiter().GetResult();
     }
 
     protected virtual void Dispose(bool disposing)
