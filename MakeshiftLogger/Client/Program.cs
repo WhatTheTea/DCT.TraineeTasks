@@ -20,5 +20,5 @@ async Task NumbersWithLoggingAsync()
     await using var logger = new ObjectLogger("int.log");
     var numbers = Enumerable.Range(1, 100)
         .Select(x => Random.Shared.Next(-100, 100));
-    await logger.LogInfoAsync(numbers);
+    await Task.WhenAll(numbers.Select(x => logger.LogInfoAsync(x)));
 }
