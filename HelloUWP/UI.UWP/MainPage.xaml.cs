@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace UI.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        internal MainViewModel ViewModel { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.ViewModel = new MainViewModel();
         }
     }
 }

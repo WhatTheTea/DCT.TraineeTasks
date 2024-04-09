@@ -1,4 +1,5 @@
 ﻿using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
+using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,12 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels
             get => this.Person.LastName;
             set => this.SetAndRaise(value, this.Person, x => x.LastName,
                 propertyNames:nameof(this.Name));
+        }
+
+        public Entry[] Entries
+        {
+            get => this.Person.Entries;
+            set => this.SetAndRaise(value, this.Person, x => x.Entries);
         }
     }
 }
