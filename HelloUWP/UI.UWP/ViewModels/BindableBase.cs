@@ -38,7 +38,7 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP
         /// <param name="setter">Action to set a property</param>
         /// <param name="propertyName">Property to set</param>
         protected void SetAndRaise<TTarget, TValue>(
-            TTarget target, TValue value, Expression<Func<TTarget, TValue>> selector,
+            TValue value, TTarget target, Expression<Func<TTarget, TValue>> selector,
             [CallerMemberName] string propertyName = null,
             params string[] propertyNames) 
         {
