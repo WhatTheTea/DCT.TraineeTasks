@@ -30,5 +30,11 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages
             this.InitializeComponent();
             this.ViewModel = new MainViewModel();
         }
+
+        private void PeopleListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.FirstOrDefault() is null) return;
+            this.Frame.Navigate(typeof(EditPage), e.AddedItems.First() as PersonViewModel);
+        }
     }
 }

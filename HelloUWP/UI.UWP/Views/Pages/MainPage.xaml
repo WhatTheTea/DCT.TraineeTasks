@@ -12,7 +12,9 @@
     <StackPanel>
         <Button Content="Add person" Command="{x:Bind ViewModel.AddPersonCommand}"/>
 
-        <ListView ItemsSource="{x:Bind ViewModel.People, Mode=OneWay}">
+        <ListView x:Name="PeopleListView"
+                  ItemsSource="{x:Bind ViewModel.People, Mode=OneWay}"
+                  SelectionChanged="PeopleListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

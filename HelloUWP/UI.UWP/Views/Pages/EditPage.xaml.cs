@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,11 +27,18 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages
     /// </summary>
     public sealed partial class EditPage : Page
     {
-        public ViewModels.PersonViewModel PersonViewModel { get; set; }
+        public PersonViewModel ViewModel { get; set; }
        
         public EditPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var viewModel = e.Parameter as PersonViewModel;
+            this.ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            base.OnNavigatedTo(e);
         }
     }
 }
