@@ -26,6 +26,6 @@ public sealed partial class MainPage : Page
     {
         if (e.AddedItems.FirstOrDefault() is null) return;
         object selected = e.AddedItems.First();
-        this.Frame.Navigate(typeof(EditPage), selected as PersonViewModel);
+        this.Frame.Navigate(typeof(EditPage), selected);
     }
 }

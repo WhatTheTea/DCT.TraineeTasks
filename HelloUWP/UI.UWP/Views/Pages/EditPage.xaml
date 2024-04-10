@@ -16,13 +16,13 @@
             </Button>
             <TextBlock Text="Edit person" FontSize="24"/>
         </StackPanel>
-        <TextBox Text="{x:Bind ViewModel.FirstName, Mode=OneWay}"
+        <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
                  PlaceholderText="First name"
            Grid.Column="0"/>
-        <TextBox Text="{x:Bind ViewModel.LastName, Mode=OneWay}"
+        <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
                  PlaceholderText="Last name"
            Grid.Column="1"/>
-        <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=OneWay}"
+        <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=TwoWay}"
                  PlaceholderText="Entry"
            Grid.Column="2"/>
     </StackPanel>
