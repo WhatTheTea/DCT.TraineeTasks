@@ -9,7 +9,7 @@ using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels
 {
-    internal class MainViewModel : BindableBase
+    public class MainViewModel : BindableBase
     {
         public ObservableCollection<PersonViewModel> People { get; } = new ObservableCollection<PersonViewModel>();
 

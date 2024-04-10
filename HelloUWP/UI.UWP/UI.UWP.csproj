@@ -117,6 +117,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="App.Configuration.xaml.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="Directory.Build.props" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhatTheToolkit\WhatTheToolkit.csproj">

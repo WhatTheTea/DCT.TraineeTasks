@@ -1,29 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Microsoft.Extensions.DependencyInjection;
+using DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace UI.UWP
+namespace DCT.TraineeTasks.HelloUWP.UI.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
     {
-        public IServiceProvider Container { get; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -32,16 +21,7 @@ namespace UI.UWP
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
-        }
-
-        private IServiceProvider ConfigureServiceProvider()
-        {
-            var serviceCollection = new ServiceCollection();
-
-            //serviceCollection.AddLog
-
-            return serviceCollection.BuildServiceProvider();
+            this.Suspending += this.OnSuspending;
         }
 
         /// <summary>
@@ -52,15 +32,16 @@ namespace UI.UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
+                // IoC
+                this._serviceProvider ??= ConfigureServiceProvider();
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.NavigationFailed += this.OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -78,7 +59,7 @@ namespace UI.UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages.MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();

@@ -21,8 +21,8 @@ namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
             this._canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-        public void Execute(object parameter) => _execute();
+        public bool CanExecute(object parameter) => this._canExecute == null || this._canExecute();
+        public void Execute(object parameter) => this._execute();
         public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -40,7 +40,7 @@ namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
             this._canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) => this._canExecute == null || _canExecute((T)parameter);
+        public bool CanExecute(object parameter) => this._canExecute == null || this._canExecute((T)parameter);
         public void Execute(object parameter) => this._execute((T)parameter);
         public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }

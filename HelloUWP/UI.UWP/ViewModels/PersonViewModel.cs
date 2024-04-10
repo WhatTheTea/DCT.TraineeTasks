@@ -1,10 +1,5 @@
 ﻿using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels
 {

@@ -1,18 +1,7 @@
 ﻿using DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,18 +12,20 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        internal MainViewModel ViewModel { get; set; }
+        public MainViewModel ViewModel { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.ViewModel = new MainViewModel();
+            this.ViewModel = App.Services.GetRequiredService<MainViewModel>();
+                //?? throw new ArgumentNullException(nameof(MainViewModel));
         }
 
         private void PeopleListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.FirstOrDefault() is null) return;
-            this.Frame.Navigate(typeof(EditPage), e.AddedItems.First() as PersonViewModel);
+            object selected = e.AddedItems.First();
+            this.Frame.Navigate(typeof(EditPage), selected as PersonViewModel);
         }
     }
 }
