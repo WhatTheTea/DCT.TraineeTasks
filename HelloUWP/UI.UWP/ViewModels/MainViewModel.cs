@@ -7,25 +7,24 @@ using System.Windows.Input;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
-namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels
+namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
+
+public class MainViewModel : BindableBase
 {
-    public class MainViewModel : BindableBase
+    public ObservableCollection<PersonViewModel> People { get; } = [];
+
+    public ICommand AddPersonCommand { get; set; }
+
+    public MainViewModel()
     {
-        public ObservableCollection<PersonViewModel> People { get; } = new ObservableCollection<PersonViewModel>();
-
-        public ICommand AddPersonCommand { get; set; }
-
-        public MainViewModel()
+        this.AddPersonCommand = new RelayCommand(() =>
         {
-            this.AddPersonCommand = new RelayCommand(() =>
+            this.People.Add(new PersonViewModel()
             {
-                this.People.Add(new PersonViewModel()
-                {
-                    FirstName = "Person",
-                    LastName = this.People.Count.ToString(),
-                    Entries = new Entry[] { new Entry() { Text = "Sample text", }, }
-                });
+                FirstName = "Person",
+                LastName = this.People.Count.ToString(),
+                Entries = [new Entry() { Text = "Sample text", },]
             });
-        }
+        });
     }
 }

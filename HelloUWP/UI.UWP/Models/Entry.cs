@@ -2,10 +2,9 @@
 // Copyright (c) Digital Cloud Technologies.All rights reserved.
 // </copyright>
 
-namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Models
+namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
+
+public class Entry
 {
-    public class Entry
-    {
-        public string Text { get; set; } = string.Empty;
-    }
+    public string Text { get; set; } = string.Empty;
 }
