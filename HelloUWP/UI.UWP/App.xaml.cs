@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -22,6 +23,8 @@ namespace UI.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        public IServiceProvider Container { get; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +33,15 @@ namespace UI.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        private IServiceProvider ConfigureServiceProvider()
+        {
+            var serviceCollection = new ServiceCollection();
+
+            //serviceCollection.AddLog
+
+            return serviceCollection.BuildServiceProvider();
         }
 
         /// <summary>
@@ -66,7 +78,7 @@ namespace UI.UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages.MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
