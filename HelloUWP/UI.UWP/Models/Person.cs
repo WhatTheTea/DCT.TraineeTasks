@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Models
 {
-    internal class Person
+    public class Person
     {
         public string Name => $"{this.FirstName} {this.LastName}";
         public string LastName { get; set; } = string.Empty;

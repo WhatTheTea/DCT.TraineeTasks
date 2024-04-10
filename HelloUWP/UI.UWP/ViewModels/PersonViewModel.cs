@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels
 {
-    internal class PersonViewModel : BindableBase
+    public class PersonViewModel : BindableBase
     {
         private Person Person { get; set; } = new Person();
         public string Name => this.Person.Name;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Models
 {
-    internal class Entry
+    public class Entry
     {
         public string Text { get; set; } = string.Empty;
     }
