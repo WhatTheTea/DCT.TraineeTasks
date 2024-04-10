@@ -9,11 +9,21 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <TextBlock Text="{x:Bind ViewModel.FirstName, Mode=OneWay}"
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BackButton"
+                    Click="BackButton_Click">
+                <SymbolIcon Symbol="Back"/>
+            </Button>
+            <TextBlock Text="Edit person" FontSize="24"/>
+        </StackPanel>
+        <TextBox Text="{x:Bind ViewModel.FirstName, Mode=OneWay}"
+                 PlaceholderText="First name"
            Grid.Column="0"/>
-        <TextBlock Text="{x:Bind ViewModel.LastName, Mode=OneWay}"
+        <TextBox Text="{x:Bind ViewModel.LastName, Mode=OneWay}"
+                 PlaceholderText="Last name"
            Grid.Column="1"/>
-        <TextBlock Text="{x:Bind ViewModel.Entries[0].Text, Mode=OneWay}"
+        <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=OneWay}"
+                 PlaceholderText="Entry"
            Grid.Column="2"/>
     </StackPanel>
 </Page>

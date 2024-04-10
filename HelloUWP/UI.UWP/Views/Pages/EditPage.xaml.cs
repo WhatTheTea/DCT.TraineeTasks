@@ -40,5 +40,10 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages
             this.ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
             base.OnNavigatedTo(e);
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
