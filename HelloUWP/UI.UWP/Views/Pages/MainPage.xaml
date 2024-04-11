@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     >
@@ -25,13 +25,19 @@
 
         <ListView x:Name="PeopleListView"
                   ItemsSource="{x:Bind ViewModel.People, Mode=OneWay}"
+                  HorizontalContentAlignment="Stretch"
                   SelectionChanged="PeopleListView_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding FirstName, Mode=OneWay}"
                                    Grid.Column="0"/>
@@ -40,6 +46,11 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <d:ListView.Items>
+                <viewmodels:PersonViewModel FirstName="Person" LastName="Sample"/>
+                <viewmodels:PersonViewModel FirstName="Person" LastName="Sample"/>
+                <viewmodels:PersonViewModel FirstName="Person" LastName="Sample"/>
+            </d:ListView.Items>
         </ListView>
 
 
