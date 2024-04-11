@@ -30,16 +30,13 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding FirstName, Mode=OneWay}"
                                    Grid.Column="0"/>
                         <TextBlock Text="{Binding LastName, Mode=OneWay}"
                                    Grid.Column="1"/>
-                        <TextBlock Text="{Binding Entries[0].Text, Mode=OneWay}"
-                                   Grid.Column="2"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

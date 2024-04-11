@@ -7,39 +7,58 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
 
-    <StackPanel>
-        <StackPanel.Resources>
-            <Style TargetType="TextBox">
-                <Setter Property="Margin" Value="5"/>
-            </Style>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="5"/>
-            </Style>
-            <Style TargetType="TextBlock">
-                <Setter Property="Margin" Value="5"/>
-            </Style>
-        </StackPanel.Resources>
-        
-        <StackPanel Orientation="Horizontal">
-            <Button x:Name="BackButton"
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="BackButton"
                     Click="BackButton_Click">
-                <SymbolIcon Symbol="Back"/>
-            </Button>
-            <TextBlock Text="Edit person"
+                        <SymbolIcon Symbol="Back"/>
+                    </Button>
+                    <TextBlock Text="Edit person"
                        FontSize="24"/>
-        </StackPanel>
-        <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
-                 PlaceholderText="First name"/>
-        <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
-                 PlaceholderText="Last name"/>
-        <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=TwoWay}"
-                 PlaceholderText="Entry"/>
-        <Button HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Delete"/>
-                <TextBlock>Delete</TextBlock>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
+                         PlaceholderText="First name"/>
+                    <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
+                         PlaceholderText="Last name"/>
+                </StackPanel>
+                <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Text, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
-        </Button>
-    </StackPanel>
+
+        </StackPanel>
+            <Button HorizontalAlignment="Stretch"
+                    Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Delete"/>
+                    <TextBlock>Delete</TextBlock>
+                </StackPanel>
+            </Button>
+    </Grid>
 </Page>

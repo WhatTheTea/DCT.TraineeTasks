@@ -21,5 +21,5 @@ public class EntryViewModel(Entry entry) : BindableBase
 
     public string Text {
         get => this._entry.Text;
-        set => this.SetAndRaise(value, this, x => x._entry.Text); }
+        set => this.SetAndRaise(value, this._entry, x => x.Text); }
 }

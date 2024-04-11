@@ -25,7 +25,7 @@ public class MainViewModel : BindableBase
                 FirstName = "Person",
                 LastName = this.People.Count.ToString(),
             });
-            this.People.LastOrDefault().Entries.Add(new EntryViewModel() { Text = "kek" });
+            this.People.LastOrDefault()?.Entries.Add(new EntryViewModel() { Text = "kek" });
         });
     }
 }
