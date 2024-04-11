@@ -1,5 +1,5 @@
-﻿// <copyright file="ILocalizationManager.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file = "ILocalizationManager.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using System.ComponentModel;

@@ -1,5 +1,5 @@
 ﻿// <copyright file = "ExtensionToSupportedConverter.cs" company = "Digital Cloud Technologies">
-// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using System.IO;

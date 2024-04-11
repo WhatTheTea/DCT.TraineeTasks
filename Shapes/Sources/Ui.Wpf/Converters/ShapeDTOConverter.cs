@@ -1,4 +1,4 @@
-﻿// <copyright file="ShapeDTOConverter.cs" company="Digital Cloud Technologies">
+﻿// <copyright file = "ShapeDTOConverter.cs" company = "Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -20,5 +20,6 @@ public static class ShapeDTOConverter
 
     public static ShapeViewModel ToViewModel(this ShapeDTO dto, Point boundary) =>
         new(dto.Kind,
-            dto.Id, boundary) { IsPaused = dto.IsPaused, X = dto.X, Y = dto.Y, Velocity = new Point(dto.Velocity) };
+            dto.Id, boundary)
+        { IsPaused = dto.IsPaused, X = dto.X, Y = dto.Y, Velocity = new Point(dto.Velocity) };
 }

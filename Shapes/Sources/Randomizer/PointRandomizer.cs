@@ -1,4 +1,8 @@
-﻿using DCT.TraineeTasks.Shapes.Common;
+﻿// <copyright file = "PointRandomizer.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
+
+using DCT.TraineeTasks.Shapes.Common;
 
 namespace DCT.TraineeTasks.Shapes.Randomizer;
 

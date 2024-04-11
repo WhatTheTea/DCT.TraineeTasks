@@ -1,5 +1,5 @@
 ﻿// <copyright file = "FileServiceFactory.cs" company = "Digital Cloud Technologies">
-// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
 using DCT.TraineeTasks.Shapes.Common;
