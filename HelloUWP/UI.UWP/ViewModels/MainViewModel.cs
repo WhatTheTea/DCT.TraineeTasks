@@ -29,9 +29,7 @@ public class MainViewModel : BindableBase
             FirstName = "First name",
             LastName = "Last name",
         };
-        person.DeleteCommand = new RelayCommand(() => {
-            this.People.Remove(person);
-            });
+        person.DeleteCommand = new RelayCommand(() => this.People.Remove(person));
         this.People.Add(person);
     }
 }

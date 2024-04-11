@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
+
     <Page.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
@@ -43,7 +43,17 @@
                     <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
                          PlaceholderText="Last name"/>
                 </StackPanel>
-                <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}">
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Add"
+                            Command="{x:Bind ViewModel.AddEntryCommand}"/>
+                    <Button Content="Remove"
+                            Command="{x:Bind ViewModel.DeleteEntryCommand}"
+                            CommandParameter="{x:Bind EntriesListView.SelectedItem, Mode=OneWay}"/>
+                </StackPanel>
+                
+                <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}"
+                          x:Name="EntriesListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Text, Mode=TwoWay}"/>
@@ -53,15 +63,15 @@
             </StackPanel>
 
         </StackPanel>
-            <Button x:Name="DeleteButton"
+        <Button x:Name="DeleteButton"
                     HorizontalAlignment="Stretch"
                     Grid.Row="1"
                     Command="{x:Bind ViewModel.DeleteCommand}"
                     Click="DeleteButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Delete"/>
-                    <TextBlock>Delete</TextBlock>
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Delete"/>
+                <TextBlock>Delete</TextBlock>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

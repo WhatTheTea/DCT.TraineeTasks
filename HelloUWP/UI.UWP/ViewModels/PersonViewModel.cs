@@ -12,6 +12,8 @@ public class PersonViewModel : BindableBase
     public string Name => this._person.Name;
 
     public ICommand DeleteCommand { get; set; }
+    public ICommand DeleteEntryCommand { get; set; }
+    public ICommand AddEntryCommand { get; set; }
 
     public string FirstName
     {
@@ -32,7 +34,12 @@ public class PersonViewModel : BindableBase
     public PersonViewModel()
     {
         this.Entries = [];
-        this._person = new Person();   
+        this._person = new Person();
+
+        this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
+            => this.Entries.Remove(x));
+        this.AddEntryCommand = new RelayCommand(()
+            => this.Entries.Add(new EntryViewModel() { Text = "Sample text"}));
     }
 
     public PersonViewModel(Person person)
