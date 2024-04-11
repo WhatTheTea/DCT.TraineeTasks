@@ -8,56 +8,55 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
+namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
+
+public class BindableBase : INotifyPropertyChanged
 {
-    public class BindableBase : INotifyPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (!original.Equals(value))
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return;
         }
 
-        protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null)
+        original = value;
+
+        this.OnPropertyChanged(propertyName);
+    }
+
+    /// <summary>
+    /// Using setter and raises OnPropertyChanged
+    /// </summary>
+    /// <param name="setter">Action to set a property</param>
+    /// <param name="propertyName">Property to set</param>
+    protected void SetAndRaise<TTarget, TValue>(
+        TValue value, TTarget target, Expression<Func<TTarget, TValue>> selector,
+        [CallerMemberName] string propertyName = null,
+        params string[] propertyNames)
+    {
+        var expression = (MemberExpression)selector.Body;
+        var property = (PropertyInfo)expression.Member;
+        property.SetValue(target, value);
+
+        this.OnPropertyChanged(propertyName);
+
+        this.NotifyOthers(propertyNames);
+    }
+
+    private void NotifyOthers(params string[] propertyNames)
+    {
+        if (propertyNames.Length < 1) return;
+
+        foreach (string name in propertyNames)
         {
-            if (!original.Equals(value))
-            {
-                return;
-            }
-
-            original = value;
-
-            this.OnPropertyChanged(propertyName);
-        }
-
-        /// <summary>
-        /// Using setter and raises OnPropertyChanged
-        /// </summary>
-        /// <param name="setter">Action to set a property</param>
-        /// <param name="propertyName">Property to set</param>
-        protected void SetAndRaise<TTarget, TValue>(
-            TValue value, TTarget target, Expression<Func<TTarget, TValue>> selector,
-            [CallerMemberName] string propertyName = null,
-            params string[] propertyNames)
-        {
-            var expression = (MemberExpression)selector.Body;
-            var property = (PropertyInfo)expression.Member;
-            property.SetValue(target, value);
-
-            this.OnPropertyChanged(propertyName);
-
-            this.NotifyOthers(propertyNames);
-        }
-
-        private void NotifyOthers(params string[] propertyNames)
-        {
-            if (propertyNames.Length < 1) return;
-
-            foreach (string name in propertyNames)
-            {
-                this.OnPropertyChanged(name);
-            }
+            this.OnPropertyChanged(name);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
 
 public class PersonViewModel : BindableBase
 {
-    private Person _person;
+    private readonly Person _person;
     public string Name => this._person.Name;
 
     public ICommand DeleteCommand { get; set; }
