@@ -10,6 +10,17 @@
     >
     
     <StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </StackPanel.Resources>
         <Button Content="Add person" Command="{x:Bind ViewModel.AddPersonCommand}"/>
 
         <ListView x:Name="PeopleListView"

@@ -9,28 +9,33 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Margin="5">
+        <StackPanel.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </StackPanel.Resources>
+        
+        <StackPanel Orientation="Horizontal">
             <Button x:Name="BackButton"
-                    Click="BackButton_Click"
-                    Margin="5">
+                    Click="BackButton_Click">
                 <SymbolIcon Symbol="Back"/>
             </Button>
             <TextBlock Text="Edit person"
-                       FontSize="24"
-                       Margin="5"/>
+                       FontSize="24"/>
         </StackPanel>
         <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
-                 PlaceholderText="First name"
-                 Margin="5"/>
+                 PlaceholderText="First name"/>
         <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
-                 PlaceholderText="Last name"
-                 Margin="5"/>
+                 PlaceholderText="Last name"/>
         <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=TwoWay}"
-                 PlaceholderText="Entry"
-                 Margin="5"/>
-        <Button HorizontalAlignment="Stretch"
-                Margin="5">
+                 PlaceholderText="Entry"/>
+        <Button HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
                 <SymbolIcon Symbol="Delete"/>
                 <TextBlock>Delete</TextBlock>
