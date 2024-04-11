@@ -9,21 +9,32 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Margin="5">
             <Button x:Name="BackButton"
-                    Click="BackButton_Click">
+                    Click="BackButton_Click"
+                    Margin="5">
                 <SymbolIcon Symbol="Back"/>
             </Button>
-            <TextBlock Text="Edit person" FontSize="24"/>
+            <TextBlock Text="Edit person"
+                       FontSize="24"
+                       Margin="5"/>
         </StackPanel>
         <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
                  PlaceholderText="First name"
-           Grid.Column="0"/>
+                 Margin="5"/>
         <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
                  PlaceholderText="Last name"
-           Grid.Column="1"/>
+                 Margin="5"/>
         <TextBox Text="{x:Bind ViewModel.Entries[0].Text, Mode=TwoWay}"
                  PlaceholderText="Entry"
-           Grid.Column="2"/>
+                 Margin="5"/>
+        <Button HorizontalAlignment="Stretch"
+                Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Delete"/>
+                <TextBlock>Delete</TextBlock>
+            </StackPanel>
+        </Button>
     </StackPanel>
 </Page>
