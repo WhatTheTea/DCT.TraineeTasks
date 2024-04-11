@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="ViewModels\EntryViewModel.cs" />
     <Compile Include="Views\Pages\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>

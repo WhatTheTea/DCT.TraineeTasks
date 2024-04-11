@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
@@ -23,8 +24,8 @@ public class MainViewModel : BindableBase
             {
                 FirstName = "Person",
                 LastName = this.People.Count.ToString(),
-                Entries = [new Entry() { Text = "Sample text", },]
             });
+            this.People.LastOrDefault().Entries.Add(new EntryViewModel() { Text = "kek" });
         });
     }
 }

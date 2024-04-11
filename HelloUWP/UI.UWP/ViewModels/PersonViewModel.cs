@@ -1,30 +1,40 @@
-﻿using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
 
 public class PersonViewModel : BindableBase
 {
-    private Person Person { get; set; } = new Person();
-    public string Name => this.Person.Name;
+    private Person _person;
+    public string Name => this._person.Name;
 
     public string FirstName
     {
-        get => this.Person.FirstName;
-        set => this.SetAndRaise(value, this.Person, x => x.FirstName,
+        get => this._person.FirstName;
+        set => this.SetAndRaise(value, this._person, x => x.FirstName,
             propertyNames:nameof(this.Name));
     }
 
     public string LastName
     {
-        get => this.Person.LastName;
-        set => this.SetAndRaise(value, this.Person, x => x.LastName,
+        get => this._person.LastName;
+        set => this.SetAndRaise(value, this._person, x => x.LastName,
             propertyNames:nameof(this.Name));
     }
 
-    public Entry[] Entries
+    public ObservableCollection<EntryViewModel> Entries { get; }
+
+    public PersonViewModel()
     {
-        get => this.Person.Entries;
-        set => this.SetAndRaise(value, this.Person, x => x.Entries);
+        this.Entries = [];
+        this._person = new Person();
+    }
+
+    public PersonViewModel(Person person)
+    {
+        this._person = person;
+        this.Entries = new ObservableCollection<EntryViewModel>(person.Entries.Select(x => new EntryViewModel(x)));
     }
 }
