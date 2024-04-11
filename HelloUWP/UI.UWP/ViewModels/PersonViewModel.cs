@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
@@ -9,6 +10,8 @@ public class PersonViewModel : BindableBase
 {
     private Person _person;
     public string Name => this._person.Name;
+
+    public ICommand DeleteCommand { get; set; }
 
     public string FirstName
     {
@@ -29,7 +32,7 @@ public class PersonViewModel : BindableBase
     public PersonViewModel()
     {
         this.Entries = [];
-        this._person = new Person();
+        this._person = new Person();   
     }
 
     public PersonViewModel(Person person)

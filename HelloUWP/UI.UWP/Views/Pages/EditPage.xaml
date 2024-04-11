@@ -53,8 +53,11 @@
             </StackPanel>
 
         </StackPanel>
-            <Button HorizontalAlignment="Stretch"
-                    Grid.Row="1">
+            <Button x:Name="DeleteButton"
+                    HorizontalAlignment="Stretch"
+                    Grid.Row="1"
+                    Command="{x:Bind ViewModel.DeleteCommand}"
+                    Click="DeleteButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Symbol="Delete"/>
                     <TextBlock>Delete</TextBlock>

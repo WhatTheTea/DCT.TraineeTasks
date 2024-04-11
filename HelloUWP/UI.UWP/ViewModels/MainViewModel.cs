@@ -2,6 +2,7 @@
 // Copyright (c) Digital Cloud Technologies.All rights reserved.
 // </copyright>
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -18,14 +19,19 @@ public class MainViewModel : BindableBase
 
     public MainViewModel()
     {
-        this.AddPersonCommand = new RelayCommand(() =>
+        this.AddPersonCommand = new RelayCommand(this.AddPerson);
+    }
+
+    private void AddPerson()
+    {
+        var person = new PersonViewModel()
         {
-            this.People.Add(new PersonViewModel()
-            {
-                FirstName = "Person",
-                LastName = this.People.Count.ToString(),
+            FirstName = "First name",
+            LastName = "Last name",
+        };
+        person.DeleteCommand = new RelayCommand(() => {
+            this.People.Remove(person);
             });
-            this.People.LastOrDefault()?.Entries.Add(new EntryViewModel() { Text = "kek" });
-        });
+        this.People.Add(person);
     }
 }

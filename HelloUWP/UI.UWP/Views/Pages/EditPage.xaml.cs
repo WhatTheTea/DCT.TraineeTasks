@@ -33,6 +33,11 @@ public sealed partial class EditPage : Page
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
-        this.Frame.Navigate(typeof(MainPage));
+        this.Frame?.Navigate(typeof(MainPage));
+    }
+
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        this.Frame?.Navigate(typeof(MainPage));
     }
 }
