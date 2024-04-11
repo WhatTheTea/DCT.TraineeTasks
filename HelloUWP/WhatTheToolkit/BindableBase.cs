@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// <copyright file = "BindableBase.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// </copyright>
+
+using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.VoiceCommands;
 
 namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
 {
@@ -15,12 +14,12 @@ namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) 
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null) 
+        protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null)
         {
             if (!original.Equals(value))
             {
@@ -40,7 +39,7 @@ namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit
         protected void SetAndRaise<TTarget, TValue>(
             TValue value, TTarget target, Expression<Func<TTarget, TValue>> selector,
             [CallerMemberName] string propertyName = null,
-            params string[] propertyNames) 
+            params string[] propertyNames)
         {
             var expression = (MemberExpression)selector.Body;
             var property = (PropertyInfo)expression.Member;

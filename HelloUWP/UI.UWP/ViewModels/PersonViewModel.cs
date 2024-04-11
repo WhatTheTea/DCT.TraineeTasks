@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿// <copyright file = "PersonViewModel.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// </copyright>
+
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
@@ -19,14 +23,14 @@ public class PersonViewModel : BindableBase
     {
         get => this._person.FirstName;
         set => this.SetAndRaise(value, this._person, x => x.FirstName,
-            propertyNames:nameof(this.Name));
+            propertyNames: nameof(this.Name));
     }
 
     public string LastName
     {
         get => this._person.LastName;
         set => this.SetAndRaise(value, this._person, x => x.LastName,
-            propertyNames:nameof(this.Name));
+            propertyNames: nameof(this.Name));
     }
 
     public ObservableCollection<EntryViewModel> Entries { get; }
@@ -39,7 +43,7 @@ public class PersonViewModel : BindableBase
         this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
             => this.Entries.Remove(x));
         this.AddEntryCommand = new RelayCommand(()
-            => this.Entries.Add(new EntryViewModel() { Text = "Sample text"}));
+            => this.Entries.Add(new EntryViewModel() { Text = "Sample text" }));
     }
 
     public PersonViewModel(Person person)

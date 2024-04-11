@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file = "Person.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// </copyright>
+
+using System;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 

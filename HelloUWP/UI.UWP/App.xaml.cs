@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file = "App.xaml.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies.All rights reserved.
+// </copyright>
+
+using System;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

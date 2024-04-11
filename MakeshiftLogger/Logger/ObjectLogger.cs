@@ -1,4 +1,8 @@
-﻿namespace DCT.TraineeTasks.MakeshiftLogger.Logger;
+﻿// <copyright file = "ObjectLogger.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
+
+namespace DCT.TraineeTasks.MakeshiftLogger.Logger;
 
 public sealed class ObjectLogger(string path) : IDisposable, IAsyncDisposable
 {

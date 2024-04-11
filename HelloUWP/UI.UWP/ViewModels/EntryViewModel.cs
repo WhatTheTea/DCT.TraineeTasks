@@ -2,11 +2,6 @@
 // Copyright (c) Digital Cloud Technologies.All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
@@ -19,7 +14,9 @@ public class EntryViewModel(Entry entry) : BindableBase
     {
     }
 
-    public string Text {
+    public string Text
+    {
         get => this._entry.Text;
-        set => this.SetAndRaise(value, this._entry, x => x.Text); }
+        set => this.SetAndRaise(value, this._entry, x => x.Text);
+    }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file = "BlankPage1.xaml.cs" company = "Digital Cloud Technologies">
+﻿// <copyright file = "EditPage.xaml.cs" company = "Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies.All rights reserved.
 // </copyright>
 
@@ -18,7 +18,7 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages;
 public sealed partial class EditPage : Page
 {
     public PersonViewModel ViewModel { get; set; }
-   
+
     public EditPage()
     {
         this.InitializeComponent();

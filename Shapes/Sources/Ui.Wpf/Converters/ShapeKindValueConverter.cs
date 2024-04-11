@@ -1,4 +1,4 @@
-﻿// <copyright file="ShapeKindValueConverter.cs" company="Digital Cloud Technologies">
+﻿// <copyright file = "ShapeKindValueConverter.cs" company = "Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 

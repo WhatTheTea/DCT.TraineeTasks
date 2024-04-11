@@ -2,11 +2,8 @@
 // Copyright (c) Digital Cloud Technologies.All rights reserved.
 // </copyright>
 
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
-using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;

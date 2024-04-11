@@ -1,4 +1,4 @@
-﻿// <copyright file="MainViewModel.cs" company="Digital Cloud Technologies">
+﻿// <copyright file = "MainViewModel.cs" company = "Digital Cloud Technologies">
 // Copyright (c) Digital Cloud Technologies. All rights reserved.
 // </copyright>
 
@@ -20,13 +20,16 @@ namespace DCT.TraineeTasks.Shapes.Ui.Wpf.ViewModels;
 
 public sealed partial class MainViewModel : ObservableRecipient
 {
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
     private double _canvasHeight;
 
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanvasBoundary))]
     private double _canvasWidth;
 
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(PlayButtonText))]
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PlayButtonText))]
     private ShapeViewModel? _selectedShape;
 
     public MainViewModel()

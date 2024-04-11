@@ -1,4 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// <copyright file = "Program.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
 
 using DCT.TraineeTasks.MakeshiftLogger.Logger;
 

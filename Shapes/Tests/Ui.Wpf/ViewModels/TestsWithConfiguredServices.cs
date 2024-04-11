@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿// <copyright file = "TestsWithConfiguredServices.cs" company = "Digital Cloud Technologies">
+// Copyright (c) Digital Cloud Technologies. All rights reserved.
+// </copyright>
+
+using CommunityToolkit.Mvvm.DependencyInjection;
 using DCT.TraineeTasks.Shapes.Ui.Wpf.Resources;
 using Microsoft.Extensions.DependencyInjection;
 

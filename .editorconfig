@@ -1,4 +1,4 @@
-﻿# editorconfig.org
+# editorconfig.org
 
 # top-most EditorConfig file
 root = true
@@ -84,7 +84,7 @@ dotnet_diagnostic.CA2208.severity = error
 # C# files
 [*.cs]
 # Header
-file_header_template = <copyright file = "{fileName}" company = "Digital Cloud Technologies">\nCopyright (c) Digital Cloud Technologies.All rights reserved.\n</copyright>
+file_header_template = <copyright file = "{fileName}" company = "Digital Cloud Technologies">\nCopyright (c) Digital Cloud Technologies. All rights reserved.\n</copyright>
 # New line preferences
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true

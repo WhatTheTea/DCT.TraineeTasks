@@ -16,9 +16,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui.Wpf.Tests", "Shapes\Tests\Ui.Wpf\Ui.Wpf.Tests.csproj", "{1886C692-5F43-4ED9-8386-C8CFBB2CC90B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shapes", "Shapes", "{134A30A6-BC05-4B6D-8FAF-1E2AED29BD62}"
-	ProjectSection(SolutionItems) = preProject
-		Shapes\.editorconfig = Shapes\.editorconfig
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Shapes\Sources\Services\Services.csproj", "{8389157A-A4CF-4068-9C92-CEC89C64F3E6}"
 EndProject
@@ -36,6 +33,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.UWP", "HelloUWP\UI.UWP\UI.UWP.csproj", "{3A235717-08C3-45B1-BB31-BBB986620B16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatTheToolkit", "HelloUWP\WhatTheToolkit\WhatTheToolkit.csproj", "{A67FA455-B158-4D54-BBD4-A168A02E4302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4463E4F2-B21C-4E34-A664-57A1C339CBBE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
