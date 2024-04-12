@@ -123,6 +123,8 @@
     </Compile>
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\JsonFileService.cs" />
     <Compile Include="ViewModels\EntryViewModel.cs" />
     <Compile Include="Views\Pages\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
@@ -172,6 +174,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Json">
+      <Version>8.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
