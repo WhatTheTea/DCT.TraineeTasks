@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Services;
 
@@ -17,14 +18,18 @@ public class JsonFileService<T> : IFileService<T>
     private static readonly JsonSerializerOptions s_options = new() { IncludeFields = true };
     public async Task SaveAsync(T data, string path)
     {
-        using FileStream file = File.Create(path);
+        StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        StorageFile storageFile = await storageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
+        using Stream? file = await storageFile.OpenStreamForWriteAsync();
         await JsonSerializer.SerializeAsync(file, data, s_options)
             .ConfigureAwait(false);
     }
     public async Task<T> LoadAsync(string path)
     {
-        using FileStream file = new(path, FileMode.Open);
-        return await JsonSerializer.DeserializeAsync<T>(file, s_options)
-            .ConfigureAwait(false) ?? throw new FormatException("Invalid JSON");
+        StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        StorageFile storageFile = await storageFolder.GetFileAsync(path);
+        using Stream? file = await storageFile.OpenStreamForReadAsync();
+        return await JsonSerializer.DeserializeAsync<T>(file, s_options).ConfigureAwait(false)
+               ?? throw new FormatException("Invalid JSON");
     }
 }
