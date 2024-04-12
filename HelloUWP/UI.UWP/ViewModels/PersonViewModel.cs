@@ -19,6 +19,8 @@ public class PersonViewModel : BindableBase
     public ICommand DeleteEntryCommand { get; set; }
     public ICommand AddEntryCommand { get; set; }
 
+    internal Person Model => new(this._person);
+
     public string FirstName
     {
         get => this._person.FirstName;
@@ -35,7 +37,7 @@ public class PersonViewModel : BindableBase
 
     public ObservableCollection<EntryViewModel> Entries { get; }
 
-    public PersonViewModel() : this(new Person())
+    public PersonViewModel() : this(new Person("Sample", "Text"))
     {
     }
 

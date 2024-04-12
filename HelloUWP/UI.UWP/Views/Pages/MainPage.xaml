@@ -21,7 +21,11 @@
                 <Setter Property="Margin" Value="5"/>
             </Style>
         </StackPanel.Resources>
-        <Button Content="Add person" Command="{x:Bind ViewModel.AddPersonCommand}"/>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Add person" Command="{x:Bind ViewModel.AddPersonCommand}"/>
+            <Button Content="Save" Command="{x:Bind ViewModel.SaveStateCommand}"/>
+            <Button Content="Load" Command="{x:Bind ViewModel.LoadStateCommand}"/>
+        </StackPanel>
         <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}"
                 BorderThickness="2"
                 Margin="10"
