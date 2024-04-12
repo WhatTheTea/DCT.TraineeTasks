@@ -13,11 +13,28 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.ViewModels;
 public class PersonViewModel : BindableBase
 {
     private readonly Person _person;
+
+    public PersonViewModel() : this(new Person("Sample", "Text"))
+    {
+    }
+
+    public PersonViewModel(Person person)
+    {
+        this._person = person;
+        this.Entries = new ObservableCollection<EntryViewModel>(person.Entries.Select(x => new EntryViewModel(x)));
+
+        this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
+            => this.Entries.Remove(x));
+        this.AddEntryCommand = new RelayCommand(()
+            => this.Entries.Add(new EntryViewModel { Text = "Sample text" }));
+        this.DeleteCommand = new RelayCommand(() => { });
+    }
+
     public string Name => this._person.Name;
 
     public ICommand DeleteCommand { get; set; }
-    public ICommand DeleteEntryCommand { get; set; }
-    public ICommand AddEntryCommand { get; set; }
+    public ICommand DeleteEntryCommand { get; }
+    public ICommand AddEntryCommand { get; }
 
     internal Person Model => new(this._person);
 
@@ -36,20 +53,4 @@ public class PersonViewModel : BindableBase
     }
 
     public ObservableCollection<EntryViewModel> Entries { get; }
-
-    public PersonViewModel() : this(new Person("Sample", "Text"))
-    {
-    }
-
-    public PersonViewModel(Person person)
-    {
-        this._person = person;
-        this.Entries = new ObservableCollection<EntryViewModel>(person.Entries.Select(x => new EntryViewModel(x)));
-
-        this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
-            => this.Entries.Remove(x));
-        this.AddEntryCommand = new RelayCommand(()
-            => this.Entries.Add(new EntryViewModel() { Text = "Sample text" }));
-        this.DeleteCommand = new RelayCommand(() => {});
-    }
 }

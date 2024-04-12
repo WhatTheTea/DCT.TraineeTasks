@@ -5,11 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Core;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Models;
 using DCT.TraineeTasks.HelloUWP.UI.UWP.Services;
 using DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
@@ -27,6 +25,15 @@ public class MainViewModel : BindableBase
 
     private ObservableCollection<PersonViewModel> _people = [];
 
+    public MainViewModel()
+    {
+        this._peopleFileService = this._fileServiceFactory.GetJsonFileService<IEnumerable<Person>>();
+        this.AddPersonCommand = new RelayCommand(() => this.AddPerson(new PersonViewModel()));
+        // TODO: AsyncCommands
+        this.SaveStateCommand = new RelayCommand(async () => await this.SaveState());
+        this.LoadStateCommand = new RelayCommand(async () => await this.LoadState());
+    }
+
     public ObservableCollection<PersonViewModel> People
     {
         get => this._people;
@@ -37,20 +44,11 @@ public class MainViewModel : BindableBase
     public ICommand SaveStateCommand { get; }
     public ICommand LoadStateCommand { get; }
 
-    public MainViewModel()
-    {
-        this._peopleFileService = this._fileServiceFactory.GetJsonFileService<IEnumerable<Person>>();
-        this.AddPersonCommand = new RelayCommand(() => this.AddPerson(new PersonViewModel()));
-        // TODO: AsyncCommands
-        this.SaveStateCommand = new RelayCommand(async () => await this.SaveState());
-        this.LoadStateCommand = new RelayCommand(async () => await this.LoadState());
-    }
-
     private async Task LoadState()
     {
-        var models = await this._peopleFileService
+        IEnumerable<Person>? models = await this._peopleFileService
             .LoadAsync(nameof(this.People)).ConfigureAwait(false);
-        var viewModels = models.Select(x => new PersonViewModel(x));
+        IEnumerable<PersonViewModel> viewModels = models.Select(x => new PersonViewModel(x));
         this.People.Clear();
         foreach (PersonViewModel person in viewModels)
         {
@@ -58,12 +56,10 @@ public class MainViewModel : BindableBase
         }
     }
 
-    private async Task SaveState()
-    {
+    private async Task SaveState() =>
         await this._peopleFileService.SaveAsync(
             this.People.Select(x => x.Model),
             nameof(this.People));
-    }
 
     private void AddPerson(PersonViewModel person)
     {

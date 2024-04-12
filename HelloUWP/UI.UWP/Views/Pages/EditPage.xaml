@@ -2,7 +2,6 @@
     x:Class="DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages.EditPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -10,53 +9,53 @@
 
     <Page.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="5" />
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="5" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="5" />
         </Style>
     </Page.Resources>
 
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="BackButton"
-                    Click="BackButton_Click">
-                        <SymbolIcon Symbol="Back"/>
+                            Click="BackButton_Click">
+                        <SymbolIcon Symbol="Back" />
                     </Button>
                     <TextBlock Text="Edit person"
-                       FontSize="24"/>
+                               FontSize="24" />
                 </StackPanel>
                 <StackPanel>
                     <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}"
-                         PlaceholderText="First name"/>
+                             PlaceholderText="First name" />
                     <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}"
-                         PlaceholderText="Last name"/>
+                             PlaceholderText="Last name" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Add"
-                            Command="{x:Bind ViewModel.AddEntryCommand}"/>
+                            Command="{x:Bind ViewModel.AddEntryCommand}" />
                     <Button Content="Remove"
                             Command="{x:Bind ViewModel.DeleteEntryCommand}"
-                            CommandParameter="{x:Bind EntriesListView.SelectedItem, Mode=OneWay}"/>
+                            CommandParameter="{x:Bind EntriesListView.SelectedItem, Mode=OneWay}" />
                 </StackPanel>
-                
+
                 <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}"
                           x:Name="EntriesListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Text, Mode=TwoWay}"/>
+                            <TextBox Text="{Binding Text, Mode=TwoWay}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -64,12 +63,12 @@
 
         </StackPanel>
         <Button x:Name="DeleteButton"
-                    HorizontalAlignment="Stretch"
-                    Grid.Row="1"
-                    Command="{x:Bind ViewModel.DeleteCommand}"
-                    Click="DeleteButton_Click">
+                HorizontalAlignment="Stretch"
+                Grid.Row="1"
+                Command="{x:Bind ViewModel.DeleteCommand}"
+                Click="DeleteButton_Click">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Delete"/>
+                <SymbolIcon Symbol="Delete" />
                 <TextBlock>Delete</TextBlock>
             </StackPanel>
         </Button>

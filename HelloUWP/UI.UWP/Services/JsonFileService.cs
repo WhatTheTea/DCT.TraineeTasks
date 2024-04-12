@@ -3,7 +3,6 @@
 // </copyright>
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -16,6 +15,7 @@ public class JsonFileService<T> : IFileService<T>
     where T : class
 {
     private static readonly JsonSerializerOptions s_options = new() { IncludeFields = true };
+
     public async Task SaveAsync(T data, string path)
     {
         StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
@@ -23,6 +23,7 @@ public class JsonFileService<T> : IFileService<T>
         using Stream? file = await storageFile.OpenStreamForWriteAsync();
         await JsonSerializer.SerializeAsync(file, data, s_options);
     }
+
     public async Task<T> LoadAsync(string path)
     {
         StorageFolder storageFolder = ApplicationData.Current.LocalFolder;

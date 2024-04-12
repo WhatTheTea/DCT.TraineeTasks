@@ -6,9 +6,5 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Services;
 
 public class FileServiceFactory : IFileServiceFactory
 {
-    public JsonFileService<T> GetJsonFileService<T>()
-        where T : class
-    {
-        return new JsonFileService<T>();
-    }
+    public JsonFileService<T> GetJsonFileService<T>() where T : class => new();
 }
