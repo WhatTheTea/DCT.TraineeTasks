@@ -123,7 +123,9 @@
     </Compile>
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Services\FileServiceFactory.cs" />
     <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\IFileServiceFactory.cs" />
     <Compile Include="Services\JsonFileService.cs" />
     <Compile Include="ViewModels\EntryViewModel.cs" />
     <Compile Include="Views\Pages\EditPage.xaml.cs">
