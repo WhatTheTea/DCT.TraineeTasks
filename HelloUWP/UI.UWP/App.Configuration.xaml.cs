@@ -11,7 +11,7 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP;
 
 partial class App : Application
 {
-    private IServiceProvider _serviceProvider;
+    private IServiceProvider? _serviceProvider;
     public static new App Current => (App)Application.Current;
     public static IServiceProvider Services
     {

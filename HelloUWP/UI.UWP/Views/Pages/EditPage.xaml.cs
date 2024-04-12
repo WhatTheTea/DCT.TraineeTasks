@@ -17,7 +17,7 @@ namespace DCT.TraineeTasks.HelloUWP.UI.UWP.Views.Pages;
 /// </summary>
 public sealed partial class EditPage : Page
 {
-    public PersonViewModel ViewModel { get; set; }
+    public PersonViewModel? ViewModel { get; set; }
 
     public EditPage()
     {

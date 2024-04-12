@@ -35,20 +35,19 @@ public class PersonViewModel : BindableBase
 
     public ObservableCollection<EntryViewModel> Entries { get; }
 
-    public PersonViewModel()
+    public PersonViewModel() : this(new Person())
     {
-        this.Entries = [];
-        this._person = new Person();
-
-        this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
-            => this.Entries.Remove(x));
-        this.AddEntryCommand = new RelayCommand(()
-            => this.Entries.Add(new EntryViewModel() { Text = "Sample text" }));
     }
 
     public PersonViewModel(Person person)
     {
         this._person = person;
         this.Entries = new ObservableCollection<EntryViewModel>(person.Entries.Select(x => new EntryViewModel(x)));
+
+        this.DeleteEntryCommand = new RelayCommand<EntryViewModel>(x
+            => this.Entries.Remove(x));
+        this.AddEntryCommand = new RelayCommand(()
+            => this.Entries.Add(new EntryViewModel() { Text = "Sample text" }));
+        this.DeleteCommand = new RelayCommand(() => {});
     }
 }

@@ -12,16 +12,16 @@ namespace DCT.TraineeTasks.HelloUWP.WhatTheToolkit;
 
 public class BindableBase : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null!)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null)
+    protected void SetAndRaise<T>(ref T original, T value, [CallerMemberName] string propertyName = null!)
     {
-        if (!original.Equals(value))
+        if (original is not null && original.Equals(value))
         {
             return;
         }
@@ -32,13 +32,18 @@ public class BindableBase : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Using setter and raises OnPropertyChanged
+    /// Method to set value of property and raise <see cref="PropertyChanged"/>.
     /// </summary>
-    /// <param name="setter">Action to set a property</param>
-    /// <param name="propertyName">Property to set</param>
+    /// <param name="value">New value of property.</param>
+    /// <param name="target">Parent of the given property.</param>
+    /// <param name="selector">Property to set.</param>
+    /// <param name="propertyName">Property name for <see cref="PropertyChanged"/>.</param>
+    /// <param name="propertyNames">Another properties to raise <see cref="PropertyChanged"/> on.</param>
+    /// <typeparam name="TTarget">Type of the parent of the given property.</typeparam>
+    /// <typeparam name="TValue">Type of the property.</typeparam>
     protected void SetAndRaise<TTarget, TValue>(
         TValue value, TTarget target, Expression<Func<TTarget, TValue>> selector,
-        [CallerMemberName] string propertyName = null,
+        [CallerMemberName] string propertyName = null!,
         params string[] propertyNames)
     {
         var expression = (MemberExpression)selector.Body;
