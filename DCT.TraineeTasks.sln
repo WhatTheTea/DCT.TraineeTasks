@@ -26,9 +26,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "MakeshiftLogger\Client\Client.csproj", "{80CB5DAB-D416-4001-898E-179CC92E63A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelloUWP", "HelloUWP", "{593A8161-A29E-447E-BC36-01A65DBA656A}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.UWP", "HelloUWP\UI.UWP\UI.UWP.csproj", "{3A235717-08C3-45B1-BB31-BBB986620B16}"
 EndProject
@@ -37,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4463E4F2-B21C-4E34-A664-57A1C339CBBE}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Global

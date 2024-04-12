@@ -176,7 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="Directory.Build.props" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhatTheToolkit\WhatTheToolkit.csproj">
