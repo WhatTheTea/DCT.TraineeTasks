@@ -32,6 +32,8 @@ public class MainViewModel : BindableBase
         // TODO: AsyncCommands
         this.SaveStateCommand = new RelayCommand(async () => await this.SaveState());
         this.LoadStateCommand = new RelayCommand(async () => await this.LoadState());
+
+        this.LoadStateCommand.Execute(null);
     }
 
     public ObservableCollection<PersonViewModel> People
@@ -47,7 +49,7 @@ public class MainViewModel : BindableBase
     private async Task LoadState()
     {
         IEnumerable<Person>? models = await this._peopleFileService
-            .LoadAsync(nameof(this.People)).ConfigureAwait(false);
+            .LoadAsync(nameof(this.People));
         IEnumerable<PersonViewModel> viewModels = models.Select(x => new PersonViewModel(x));
         this.People.Clear();
         foreach (PersonViewModel person in viewModels)

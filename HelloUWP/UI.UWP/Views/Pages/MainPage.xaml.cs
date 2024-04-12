@@ -22,6 +22,7 @@ public sealed partial class MainPage : Page
         this.InitializeComponent();
         this.ViewModel = App.Services.GetRequiredService<MainViewModel>()
                          ?? throw new ArgumentNullException(nameof(MainViewModel));
+        App.Current.Suspending += (_, _) => this.ViewModel.SaveStateCommand.Execute(null);
     }
 
     public MainViewModel ViewModel { get; set; }
